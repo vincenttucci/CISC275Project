@@ -42,6 +42,7 @@ function App() {
         <p>Vincent Tucci</p>
         <p>, Brooklyn Harden</p>
         <p>, Taylor Jenkins</p>
+        <p>, and Sam Mullaney </p>
       </header>
       <Form>
         <Form.Label>API Key:</Form.Label>
