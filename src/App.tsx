@@ -29,16 +29,20 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          {/* Edit <code>src/App.tsx</code> and save to reload. */}
         </p>
-        <a
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        ></a> */}
+          {/* Learn React */}
+          <button className='Basic-Questions'>Basic Questions</button>
+          <div>A more comprehensive quiz for students who want a more detailed response</div>
+          <button className='Detailed-Questions'>Detailed Questions</button>
+          <div>An easier quiz for students with less time</div>
+        {/* </a> */}
         <p>Vincent Tucci</p>
         <p>, Brooklyn Harden</p>
         <p>, Taylor Jenkins</p>
