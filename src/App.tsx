@@ -31,16 +31,27 @@ function App() {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        <button className='Basic-Questions'>Basic Questions</button>
+        {/* <button className='Basic-Questions'>Basic Questions</button>
         <div>A more comprehensive quiz for students who want a more detailed response</div>
         <button className='Detailed-Questions'>Detailed Questions</button>
-        <div>An easier quiz for students with less time</div>
+        <div>An easier quiz for students with less time</div> */}
         <Form>
           <Form.Label>API Key:</Form.Label>
           <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
           <br />
           <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
         </Form>
+        <div className='Home-buttons'>
+      <div className='Home-button'>
+      <button className='Home-Basic-Questions'>Basic Questions</button>
+      <p>An easier quiz for students with less time</p>
+      </div>
+      <div className='Home-button'>
+          <button className='Detailed-Questions'>Detailed Questions</button>
+          <p>A more comprehensive quiz for students who want a more detailed response</p>
+          </div>
+          </div>
+
       </div>
       <footer className="App-footer">
         <p>Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
