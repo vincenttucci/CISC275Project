@@ -42,7 +42,7 @@ function App() {
         </Form>
       </div>
       <footer className="App-footer">
-        <p>Names</p>
+        <p>Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
       </footer>
     </div>
   );
