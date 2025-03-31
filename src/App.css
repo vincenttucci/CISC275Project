@@ -17,6 +17,32 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.Home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 70px
+}
+.Home-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/*
+* Use wrapper in order to align header and footer
+* and to make sure that content fills screen no matter the resolution
+*/
+.App-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
 /*
 * Use wrapper in order to align header and footer

@@ -25,6 +25,7 @@ function App() {
     setKey(event.target.value);
   }
   return (
+<<<<<<< HEAD
     <div className="App-wrapper">
       <div className="App">
         <header className="App-header">
@@ -44,6 +45,48 @@ function App() {
       <footer className="App-footer">
         <p>Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
       </footer>
+=======
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          {/* Edit <code>src/App.tsx</code> and save to reload. */}
+        </p>
+        {/* <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a> */}
+          {/* Learn React */}
+          {/* <button className='Basic-Questions'>Basic Questions</button>
+          <div>A more comprehensive quiz for students who want a more detailed response</div>
+          <button className='Detailed-Questions'>Detailed Questions</button>
+          <div>An easier quiz for students with less time</div> */}
+        {/* </a> */}
+        <p>Vincent Tucci</p>
+        <p>, Brooklyn Harden</p>
+        <p>, Taylor Jenkins</p>
+        <p>, and Sam Mullaney</p>
+      </header>
+      <div className='Home-buttons'>
+      <div className='Home-button'>
+      <button className='Home-Basic-Questions'>Basic Questions</button>
+      <p>An easier quiz for students with less time</p>
+      </div>
+      <div className='Home-button'>
+          <button className='Detailed-Questions'>Detailed Questions</button>
+          <p>A more comprehensive quiz for students who want a more detailed response</p>
+          </div>
+          </div>
+
+      <Form>
+        <Form.Label>API Key:</Form.Label>
+        <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
+        <br></br>
+        <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+      </Form>
+>>>>>>> 644ce59c12bb11affb6d8f5a47b8a70d5c8a4d67
     </div>
   );
 }
