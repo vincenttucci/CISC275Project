@@ -1,9 +1,14 @@
+/* 
+ * flex: 1 is necessary for telling the code to fill the screen
+*/
+
 .App {
   text-align: center;
+  flex: 1;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 10vmin;
   pointer-events: none;
 }
 
@@ -13,9 +18,35 @@
   }
 }
 
+/*
+* Use wrapper in order to align header and footer
+* and to make sure that content fills screen no matter the resolution
+*/
+.App-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-footer {
+  background-color: #282c34;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
