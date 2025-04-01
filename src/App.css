@@ -1,6 +1,6 @@
 /* 
  * flex: 1 is necessary for telling the code to fill the screen
-*/
+ */
 
 .App {
   text-align: center;
@@ -30,9 +30,26 @@
 }
 
 /*
+ * Use wrapper in order to align header and footer 
+ * and to make sure that content fills screen no matter the resolution
+ */
+
+.App-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* 
 * Use wrapper in order to align header and footer
 * and to make sure that content fills screen no matter the resolution
 */
+
 .App-wrapper {
   min-height: 100vh;
   display: flex;
@@ -60,7 +77,7 @@ html, body {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #696d76;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
@@ -71,7 +88,7 @@ html, body {
 }
 
 .App-footer {
-  background-color: #282c34;
+  background-color: #696d76;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -92,4 +109,21 @@ html, body {
   to {
     transform: rotate(360deg);
   }
+}
+
+/*
+ *Night Mode Functionality:
+ */
+
+.night-mode{
+  background-color: #1f1f1f;
+  color: #bcb3b3;
+}
+
+.night-mode .App-footer{
+  background-color: #282c34;
+}
+
+.night-mode .App-header{
+  background-color: #282c34;
 }

@@ -13,6 +13,7 @@ if (prevKey !== null) {
 
 function App() {
   const [key, setKey] = useState<string>(keyData); //for api key input
+  const [nightMode, setNightMode] = useState<boolean>(false); // for checking if night mode is active
   
   //sets the local storage item to the api key the user inputed
   function handleSubmit() {
@@ -24,8 +25,14 @@ function App() {
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
+
+  // Sets Night Mode on and off
+  function nightModeButton(){
+    setNightMode(!nightMode);
+  }
+  
   return (
-    <div className="App-wrapper">
+    <div className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -42,6 +49,7 @@ function App() {
         </Form>
       </div>
       <footer className="App-footer">
+        <button onClick={nightModeButton}>Toggle Night Mode</button>
         <p>Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
       </footer>
     </div>
