@@ -61,6 +61,21 @@ html, body {
   margin: 0;
 }
 
+/*
+* Use wrapper in order to align header and footer
+* and to make sure that content fills screen no matter the resolution
+*/
+.App-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 .App-header {
   background-color: #696d76;
   min-height: 20vh;
