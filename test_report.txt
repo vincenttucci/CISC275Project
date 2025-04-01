@@ -3,7 +3,7 @@
 > react-scripts test --coverage
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (40 ms)
+  ✕ renders learn react link (43 ms)
 
   ● renders learn react link
 
@@ -13,7 +13,7 @@ FAIL src/App.test.tsx
     [36m<body>[39m
       [36m<div>[39m
         [36m<div[39m
-          [33mclass[39m=[32m"App-wrapper"[39m
+          [33mclass[39m=[32m"App-wrapper "[39m
         [36m>[39m
           [36m<div[39m
             [33mclass[39m=[32m"App"[39m
@@ -68,6 +68,9 @@ FAIL src/App.test.tsx
           [36m<footer[39m
             [33mclass[39m=[32m"App-footer"[39m
           [36m>[39m
+            [36m<button>[39m
+              [0mToggle Night Mode[0m
+            [36m</button>[39m
             [36m<p>[39m
               [0mVincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney[0m
             [36m</p>[39m
@@ -97,15 +100,15 @@ FAIL src/App.test.tsx
 --------------------|---------|----------|---------|---------|-------------------
 File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 --------------------|---------|----------|---------|---------|-------------------
-All files           |   28.57 |    16.66 |      20 |   28.57 |                   
- App.tsx            |      60 |       50 |   33.33 |      60 | 11,19-25          
+All files           |   30.43 |       25 |   16.66 |   30.43 |                   
+ App.tsx            |   58.33 |       50 |      25 |   58.33 | 11,20-31          
  index.tsx          |       0 |      100 |     100 |       0 | 7-19              
  reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10              
 --------------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        2.659 s
+Time:        2.748 s
 Ran all test suites.
 [0;33mOne of your dependencies, babel-preset-react-app, is importing the
 "@babel/plugin-proposal-private-property-in-object" package without
