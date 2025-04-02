@@ -71,7 +71,7 @@ function App() {
 
       <footer className="App-footer">
         <button onClick={nightModeButton}>Toggle Night Mode</button>
-        <p>Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
+        <p className='"footer-text'> Copyright &copy; 2025 Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
       </footer>
     </div>
   );
