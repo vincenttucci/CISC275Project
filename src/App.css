@@ -76,7 +76,7 @@ html, body {
 /* ============ FOOTER ============== */
 
 .App-footer {
-  background-color: #696d76;
+  background-color: #333;
   padding: 10px 20px;
   font-size: 14px;
   /* min-height: 10vh; */
@@ -85,6 +85,7 @@ html, body {
   align-items: center;
   justify-content: space-between; /*originall was center*/
   color: white;
+  
 }
 
 .App-footer form{
@@ -112,17 +113,30 @@ html, body {
 
 .night-mode{
   background-color: #1f1f1f;
-  color: #bcb3b3;
+
 }
 
-.night-mode .App-footer{
+.night-mode .App-footer, 
+.night-mode .App-header, 
+.night-mode .page-header{
   background-color: #282c34;
+  /* color:white; */
 }
 
-.night-mode .App-header{
-  background-color: #282c34;
+/* 
+.night-mode .page-header {
+  background-color: #333;
+} */
+
+.night-mode .btn {
+  background-color: #444;
+  color: white;
+  border: none;
 }
 
+.App-wrapper {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 /* ============ OPTIONAL: LOGO ANIMATION ============== */
 
