@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import { Navbar, Nav, Container, Form, Button} from 'react-bootstrap';
+import { Navbar, Nav, Container, Form, Button, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 type HomePageProps = {navigateTo: (page: string) => void;
 
@@ -38,7 +40,13 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
        {/* Navigation Bar */}
        <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+          <Navbar.Brand href="#">
+          <img
+            src="/o.png"
+            alt="Logo"
+            height="40"
+            className="d-inline-block align-top me-2"/>
+        Career Finder</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -49,39 +57,60 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
         </Container>
       </Navbar>
 
-        {/* Main Content */}
-        <div className='App'>
-        <header className="App-header">
+
+        {/* Page Header / Hero Section */}
+        <header className="page-header text-center p-4" style={{ backgroundColor: "#f0f8ff" }}>
+            <h2>Welcome to Career Finder!</h2>
+            <p>Your journey to discovering your future starts here.</p>
         </header>
 
 
-        <div className="question-buttons">
-          <button className='Basic-Questions'>Basic Questions</button>
-          <p>A more comprehensive quiz for students who want a more detailed response</p>
+        {/* Main Content */}
+      <main className='App-main py-4'>
 
-          <button className='Detailed-Questions'>Detailed Questions</button>
-          <p>An easier quiz for students with less time</p>
+                     {/* className='Home-buttons */}
+        <Container>
+          <Row className="justify-content-center">
+            <Col md={5} className="text-center mb-3">
+              <Button variant="outline-dark" className="mb-2">Basic Questions</Button>
+              <p>An easier quiz for students with less time</p>
+            </Col>
+            <Col md={5} className="text-center mb-3">
+              <Button variant="outline-dark" className="mb-2">Detailed Questions</Button>
+              <p>A more comprehensive quiz for students who want a more detailed response</p>
+            </Col>
+          </Row>
+        </Container>
+    </main>
+
+
+        {/*Footer*/}
+      <footer className="App-footer" style = {{display:'flex', justifyContent:'space-between', padding:'20px'}}>
+
+       {/*Left: Form*/}
+        <Form style={{width: "220px"}}>
+            <Form.Label style={{ fontSize: "small"}}>API Key:</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Insert API Key Here"
+              onChange={changeKey}
+            />
+            <br />
+            <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+          </Form>
+
+         {/*Right: Toggle & Credits*/}
+         <div style={{ textAlign: "right", fontSize: "13px"}}>
+             <Button size= "sm" onClick={nightModeButton}>Toggle Night Mode</Button>
+
+        <p className="footer-text mt-2 mb-0"> 
+            Copyright &copy; 2025 <br/>
+            Vincent Tucci<br/>
+            Brooklyn Harden<br/>
+            Taylor Jenkins<br/>
+            Sam Mullaney
+            </p>
         </div>
-      </div>
-
-      <footer className="App-footer">
-        <div className="footer-left">
-          <Button variant="secondary" onClick={nightModeButton}>Toggle Night Mode</Button>
-        </div>
-
-        <div className="footer-center">
-          <Form.Control
-            type="text"
-            placeholder="Insert API Key Here"
-            value={key}
-            onChange={changeKey}
-            className="footer-key"/>
-        <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
-      </div>
-
-      <div className="footer-right">
-        <p className="footer-names">© 2025 Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
-      </div>
       </footer>
     </div>
   );
