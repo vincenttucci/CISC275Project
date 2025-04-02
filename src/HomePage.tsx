@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Container, FormControl,Form, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 type HomePageProps = {navigateTo: (page: string) => void;
@@ -7,13 +7,6 @@ type HomePageProps = {navigateTo: (page: string) => void;
 };
 
 const HomePage: React.FC<HomePageProps> = ({navigateTo}) => {
-    const [search, setSearch] = useState("");
-
-    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        alert(`Searching for: ${search}`);
-      };
-
     return (
         <>
             {/* Navigation Bar */}
@@ -30,22 +23,7 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo}) => {
         </Container>
       </Navbar>
 
-      <div style={{ marginTop: "20px" }}>
-        <h4>Search for something:</h4>
-        <Form onSubmit={handleSearch}>
-          <Form.Group controlId="searchInput">
-            <FormControl
-              type="text"
-              placeholder="Enter search term"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </Form.Group>
-          <Button variant="secondary" type="submit" className="mt-2">
-            Search
-          </Button>
-        </Form>
-      </div>
+    
 
 
       {/* Page Content */}
