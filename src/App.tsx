@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 // import { Button, Form } from 'react-bootstrap';
 import HomePage from "./HomePage";
-
-import { BasicQuestion } from "./BasicQuestion";
+import BasicQuestion from "./BasicQuestion";
 import AboutPage from "./About";
 
 
@@ -21,7 +20,7 @@ function App() {
       return <HomePage navigateTo={setCurrentPage} />;
 
     } else if (currentPage === 'basicQuestion') {
-      return <BasicQuestion navigateTo={setCurrentPage} />;
+      return <BasicQuestion />;
 
     } else if (currentPage === 'about') {
       return <AboutPage />;
