@@ -43,7 +43,19 @@ function App() {
         <p>, Brooklyn Harden</p>
         <p>, Taylor Jenkins</p>
         <p>, and Sam Mullaney </p>
+       
+       <div className='Home-buttons'>
+          <div className='Home-button'>
+            <button className='Home-Basic-Questions'>Basic Questions</button>
+            <p>An easier quiz for students with less time</p>
+          </div>
+          <div className='Home-button'>
+            <button className='Detailed-Questions'>Detailed Questions</button>
+            <p>A more comprehensive quiz for students who want a more detailed response</p>
+          </div>
+        </div>
       </header>
+      
       <Form>
         <Form.Label>API Key:</Form.Label>
         <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
