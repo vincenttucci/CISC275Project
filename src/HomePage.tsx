@@ -29,7 +29,6 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo}) => {
       {/* Page Content */}
       <Container className="mt-4">
         <h2>Welcome to the Home Page</h2>
-        <p>This is where your content will go!</p>
       </Container>
     </>
   );
