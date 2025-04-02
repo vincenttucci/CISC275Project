@@ -74,7 +74,9 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
         <Container>
           <Row className="justify-content-center">
             <Col md={5} className="text-center mb-3">
-              <Button variant="outline-dark" className="mb-2">Basic Questions</Button>
+            <Button variant="outline-dark" className="mb-2" onClick={() => navigateTo("basicQuestion")}>
+              Basic Questions
+            </Button>
               <p>An easier quiz for students with less time</p>
             </Col>
             <Col md={5} className="text-center mb-3">

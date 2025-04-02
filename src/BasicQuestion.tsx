@@ -1,13 +1,12 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { Container } from 'react-bootstrap';
 
-type BasicQuestionProps = {navigateTo: (page: string) => void;
+const BasicQuestion: React.FC = () => {
+  return (
+    <Container className="py-4">
+      <h2>Basic Question Page</h2>
+    </Container>
+  );
+};
 
-};
-/*
-const BasicQuestion: React.FC<BasicQuestionProps> = ({navigateTo})=> {
-    return ("");
-};
-*/
-export function BasicQuestion({navigateTo}: BasicQuestionProps) {
-    return <div>Basic Question Page</div>;
-  }
+export default BasicQuestion;
