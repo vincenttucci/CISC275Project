@@ -1,21 +1,32 @@
+/* 
+ * flex: 1 is necessary for telling the code to fill the screen
+ */
+
+
+/* ============ GLOBAL RESETS ============== */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 .App {
   text-align: center;
+  flex: 1;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+
+/* ============ NAV & HEADER ============== */
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #696d76;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,9 +35,111 @@
   color: white;
 }
 
+.page-header{
+  background-color: #f0f8ff;
+  padding: 30px 20px;
+  text-align: center;
+  color: #333;
+}
+
+
+.page-header h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* ============ MAIN CONTENT ============== */
+
+.App-main {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.Home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 50px
+}
+.Home-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ============ FOOTER ============== */
+
+.App-footer {
+  background-color: #333;
+  padding: 10px 20px;
+  font-size: 14px;
+  /* min-height: 10vh; */
+  display: flex;
+  flex-direction: row; /*originall column*/
+  align-items: center;
+  justify-content: space-between; /*originall was center*/
+  color: white;
+  
+}
+
+.App-footer form{
+  text-align: left;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  
+}
+
+.footer-text {
+  text-align: left;
+  margin-left: 20px;
+}
+
+/* ============ LINK ============== */
+
 .App-link {
   color: #61dafb;
 }
+
+
+/* ============ NIGHT MODE ============== */
+
+.night-mode{
+  background-color: #1f1f1f;
+
+}
+
+.night-mode .App-footer, 
+.night-mode .App-header, 
+.night-mode .page-header{
+  background-color: #282c34;
+  /* color:white; */
+}
+
+/* 
+.night-mode .page-header {
+  background-color: #333;
+} */
+
+.night-mode .btn {
+  background-color: #444;
+  color: white;
+  border: none;
+}
+
+.App-wrapper {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============ OPTIONAL: LOGO ANIMATION ============== */
+
 
 @keyframes App-logo-spin {
   from {
@@ -36,43 +149,43 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+/*Dont need
+
+/* 
+.App-header {
+  background-color: #282c34;
+  /* min-height: 20vh; */
+
+/* }
 .Home-buttons {
   display: flex;
   justify-content: center;
-  gap: 50px;
-  margin-top: 20px;
+  gap: 70px
 }
-
 .Home-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-}
+} */ 
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
 
-.Home-Basic-Questions {
-  background-color: #4CAF50;
-  color: white;
-}
+/* .App-logo {
+  height: 40vmin;
 
-.Home-Basic-Questions:hover {
-  background-color: #45a049;
-}
+.App-logo {
+  height: 10vmin;
 
-.Detailed-Questions {
-  background-color: #008CBA;
-  color: white;
-}
+  pointer-events: none;
+} */
 
-.Detailed-Questions:hover {
-  background-color: #0073a8;
-}
+/* @media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+
+} */
