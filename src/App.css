@@ -2,10 +2,162 @@
  * flex: 1 is necessary for telling the code to fill the screen
  */
 
+
+/* ============ GLOBAL RESETS ============== */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 .App {
   text-align: center;
   flex: 1;
 }
+
+.App-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ============ NAV & HEADER ============== */
+
+.App-header {
+  background-color: #696d76;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.page-header{
+  background-color: #f0f8ff;
+  padding: 30px 20px;
+  text-align: center;
+  color: #333;
+}
+
+
+.page-header h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* ============ MAIN CONTENT ============== */
+
+.App-main {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.Home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 50px
+}
+.Home-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ============ FOOTER ============== */
+
+.App-footer {
+  background-color: #696d76;
+  padding: 10px 20px;
+  font-size: 14px;
+  /* min-height: 10vh; */
+  display: flex;
+  flex-direction: row; /*originall column*/
+  align-items: center;
+  justify-content: space-between; /*originall was center*/
+  color: white;
+}
+
+.App-footer form{
+  text-align: left;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  
+}
+
+.footer-text {
+  text-align: left;
+  margin-left: 20px;
+}
+
+/* ============ LINK ============== */
+
+.App-link {
+  color: #61dafb;
+}
+
+
+/* ============ NIGHT MODE ============== */
+
+.night-mode{
+  background-color: #1f1f1f;
+  color: #bcb3b3;
+}
+
+.night-mode .App-footer{
+  background-color: #282c34;
+}
+
+.night-mode .App-header{
+  background-color: #282c34;
+}
+
+
+/* ============ OPTIONAL: LOGO ANIMATION ============== */
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+/*Dont need
+
+/* 
+.App-header {
+  background-color: #282c34;
+  /* min-height: 20vh; */
+
+/* }
+.Home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 70px
+}
+.Home-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+} */ 
 
 
 /* .App-logo {
@@ -22,127 +174,4 @@
     animation: App-logo-spin infinite 20s linear;
   }
 
-} */
-
-.App-header {
-  background-color: #282c34;
-  /* min-height: 20vh; */
-
-}
-.Home-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 70px
-}
-.Home-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/*
- * Use wrapper in order to align header and footer 
- * and to make sure that content fills screen no matter the resolution
- */
-
-.App-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-/* 
-* Use wrapper in order to align header and footer
-* and to make sure that content fills screen no matter the resolution
-*/
-
-.App-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-/*
-* Use wrapper in order to align header and footer
-* and to make sure that content fills screen no matter the resolution
-*/
-.App-wrapper {
-  min-height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-.App-header {
-  background-color: #696d76;
-  min-height: 20vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-footer {
-  background-color: #696d76;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/*
- *Night Mode Functionality:
- */
-
-.night-mode{
-  background-color: #1f1f1f;
-  color: #bcb3b3;
-}
-
-.night-mode .App-footer{
-  background-color: #282c34;
-}
-
-.night-mode .App-header{
-  background-color: #282c34;
-}
-
-/* .footer-text {
-  text-align: left;
-  width:100%;
-  margin-left: 20px;
 } */
