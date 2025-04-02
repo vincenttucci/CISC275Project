@@ -53,6 +53,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("home");}}>Home</Nav.Link>
               <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("contact");}}>Contact</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("about");}}>About</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
