@@ -3,7 +3,7 @@
 > react-scripts test --coverage
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (73 ms)
+  ✕ renders learn react link (59 ms)
 
   ● renders learn react link
 
@@ -64,6 +64,15 @@ FAIL src/App.test.tsx
                       [33mtabindex[39m=[32m"0"[39m
                     [36m>[39m
                       [0mContact[0m
+                    [36m</a>[39m
+                    [36m<a[39m
+                      [33mclass[39m=[32m"nav-link"[39m
+                      [33mdata-rr-ui-event-key[39m=[32m"#"[39m
+                      [33mhref[39m=[32m"#"[39m
+                      [33mrole[39m=[32m"button"[39m
+                      [33mtabindex[39m=[32m"0"[39m
+                    [36m>[39m
+                      [0mAbout[0m
                     [36m</a>[39m
                   [36m</div>[39m
                 [36m</div>[39m
@@ -195,16 +204,17 @@ FAIL src/App.test.tsx
 --------------------|---------|----------|---------|---------|----------------------
 File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s    
 --------------------|---------|----------|---------|---------|----------------------
-All files           |   43.24 |       30 |      30 |   45.71 |                      
- App.tsx            |   83.33 |       50 |     100 |   83.33 | 20                   
- HomePage.tsx       |      55 |       50 |   16.66 |   61.11 | 16,25-26,32,36,54-55 
+All files           |   39.53 |       25 |      25 |    42.5 |                      
+ About.tsx          |      50 |      100 |       0 |      50 | 5                    
+ App.tsx            |    62.5 |       25 |     100 |    62.5 | 20-23                
+ HomePage.tsx       |      50 |       50 |   14.28 |   57.89 | 16,25-26,32,36,54-56 
  index.tsx          |       0 |      100 |     100 |       0 | 7-19                 
  reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                 
 --------------------|---------|----------|---------|---------|----------------------
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        2.993 s
+Time:        2.77 s
 Ran all test suites.
 [0;33mOne of your dependencies, babel-preset-react-app, is importing the
 "@babel/plugin-proposal-private-property-in-object" package without
