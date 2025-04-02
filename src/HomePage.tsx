@@ -20,6 +20,7 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
     const [key, setKey] = useState<string>(keyData);
     const [nightMode, setNightMode] = useState<boolean>(false);
 
+
     const handleSubmit = () => {
         localStorage.setItem(saveKeyData, JSON.stringify(key));
         window.location.reload();
