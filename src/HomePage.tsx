@@ -46,7 +46,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             alt="Logo"
             height="40"
             className="d-inline-block align-top me-2"/>
-        Career Finder</Navbar.Brand>
+        Career Helpi</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -60,7 +60,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         {/* Page Header / Hero Section */}
         <header className="page-header text-center p-4" style={{ backgroundColor: "#f0f8ff" }}>
-            <h2>Welcome to Career Finder!</h2>
+            <h2>Welcome to the Career Helpi!</h2>
             <p>Your journey to discovering your future starts here.</p>
         </header>
 
@@ -104,11 +104,8 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
              <Button size= "sm" onClick={nightModeButton}>Toggle Night Mode</Button>
 
         <p className="footer-text mt-2 mb-0"> 
-            Copyright &copy; 2025 <br/>
-            Vincent Tucci<br/>
-            Brooklyn Harden<br/>
-            Taylor Jenkins<br/>
-            Sam Mullaney
+            Vincent Tucci, Brooklyn Harden,<br/>
+            Taylor Jenkins, Sam Mullaney
             </p>
         </div>
       </footer>
