@@ -42,11 +42,11 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
        <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand href="#">
-          <img
+          {/* <img
             src="/o.png"
             alt="Logo"
             height="40"
-            className="d-inline-block align-top me-2"/>
+            className="d-inline-block align-top me-2"/> */}
         Career Finder</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
