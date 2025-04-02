@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 // import { Button, Form } from 'react-bootstrap';
 import HomePage from "./HomePage";
+
 import { BasicQuestion } from "./BasicQuestion";
+import AboutPage from "./About";
+
 
 function App() {
   const [currentPage, setCurrentPage] = useState<string>('home');
@@ -16,8 +19,13 @@ function App() {
   const renderPage = () => {
     if (currentPage === 'home') {
       return <HomePage navigateTo={setCurrentPage} />;
+
     } else if (currentPage === 'basicQuestion') {
       return <BasicQuestion navigateTo={setCurrentPage} />;
+
+    } else if (currentPage === 'about') {
+      return <AboutPage />;
+
     } else {
       return <div>404 Page Not Found</div>;
     }
