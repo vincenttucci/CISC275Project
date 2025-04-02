@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 type BasicQuestionProps = {navigateTo: (page: string) => void;
