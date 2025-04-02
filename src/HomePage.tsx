@@ -52,18 +52,6 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
         {/* Main Content */}
         <div className='App'>
         <header className="App-header">
-          <h1>Career Finder</h1>
-
-          <Form>
-            <Form.Label>API Key:</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Insert API Key Here"
-              onChange={changeKey}
-            />
-            <br />
-            <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
-          </Form>
         </header>
 
 
@@ -77,8 +65,23 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
       </div>
 
       <footer className="App-footer">
-        <button onClick={nightModeButton}>Toggle Night Mode</button>
-        <p className='"footer-text'> Copyright &copy; 2025 Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
+        <div className="footer-left">
+          <Button variant="secondary" onClick={nightModeButton}>Toggle Night Mode</Button>
+        </div>
+
+        <div className="footer-center">
+          <Form.Control
+            type="text"
+            placeholder="Insert API Key Here"
+            value={key}
+            onChange={changeKey}
+            className="footer-key"/>
+        <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+      </div>
+
+      <div className="footer-right">
+        <p className="footer-names">© 2025 Vincent Tucci, Brooklyn Harden, Taylor Jenkins, Sam Mullaney</p>
+      </div>
       </footer>
     </div>
   );
