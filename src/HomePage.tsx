@@ -58,6 +58,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("home");}}>Home</Nav.Link>
               <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("contact");}}>Contact</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("about");}}>About</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -78,15 +79,25 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
         <Container>
           <Row className="justify-content-center">
             <Col md={5} className="text-center mb-3">
+
             <div className='quiz-box'>
               <Button variant="outline-dark" className="mb-2">Basic Questions</Button>
+
+            <Button variant="outline-dark" className="mb-2" onClick={() => navigateTo("basicQuestion")}>
+              Basic Questions
+            </Button>
+
               <p>An easier quiz for students with less time</p>
               </div>
             </Col>
 
             <Col md={5} className="text-center mb-3">
+
             <div className='quiz-box'>
               <Button variant="outline-dark" className="mb-2">Detailed Questions</Button>
+
+              <Button variant="outline-dark" className="mb-2" onClick={()=> navigateTo("detailedquiz")}>Detailed Questions</Button>
+
               <p>A more comprehensive quiz for students who want a more detailed response</p>
               </div>
             </Col>
