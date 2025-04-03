@@ -171,6 +171,15 @@ html, body {
   text-align: left;
   margin-left: 20px;
 }
+
+.night-toggle {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.night-toggle .form-check-label {
+  color: white; /* or black depending on mode */
+}
 /* ============ OPTIONAL: LOGO ANIMATION ============== */
 
 
