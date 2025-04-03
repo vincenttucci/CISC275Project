@@ -80,7 +80,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
               <p>An easier quiz for students with less time</p>
             </Col>
             <Col md={5} className="text-center mb-3">
-              <Button variant="outline-dark" className="mb-2">Detailed Questions</Button>
+              <Button variant="outline-dark" className="mb-2" onClick={()=> navigateTo("detailedquiz")}>Detailed Questions</Button>
               <p>A more comprehensive quiz for students who want a more detailed response</p>
             </Col>
           </Row>
