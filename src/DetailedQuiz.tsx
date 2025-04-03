@@ -44,7 +44,17 @@ let DetailedQuiz: React.FC = () => {
             <div>
                 {/* updates bar */}
                 <ProgressBar now={(Object.keys(choice).length/detailedQuestions.length)*100} label={`${Object.keys(choice).length}/${detailedQuestions.length}`}/>
-                {/* why "py-4"? have to ask brooklyn */}
+                {/* why "py-4"? have to ask brooklyn */} 
+
+                {/* This is Brooklyn answering you, 'py-4' is Padding on the Y-axis (top&bottom) 
+                        p=padding
+                        y=vertical axis (top & bottom)
+                        4= spacing unit
+                py-4 adds breathing room vertically, making the layout more spaced out and polished,
+                like around the headers, and our other content stuff. You can use other 'py' types
+                like py-3 or py-2, but I just used py-4 to mess around you can always change it
+                 */}
+                 
                 <Container className='py-4'>
                     <Form>
                         {detailedQuestions.map((question)=>(
