@@ -4,10 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
 type HomePageProps = {navigateTo: (page: string) => void;
 
 };
 
+/*Keys used for storing and retrieving our API key*/
 const saveKeyData = "MYKEY";
 let keyData = "";
 
@@ -17,10 +19,12 @@ if (prevKey !== null) {
 }
 
 const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
+  //Keeps track of the API Key
     const [key, setKey] = useState<string>(keyData);
+  //Keeps track whether the night mode is off or on
     const [nightMode, setNightMode] = useState<boolean>(false);
 
-
+  /*Saves API key to local storage and reloads page*/
     const handleSubmit = () => {
         localStorage.setItem(saveKeyData, JSON.stringify(key));
         window.location.reload();
@@ -32,63 +36,87 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKey(event.target.value);
   };
 
+  /*Toggles night mode on/off*/
   const nightModeButton = () => {
     setNightMode(!nightMode);
   };
 
   return (
-    <div className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}>
+    /* 
+    This wrapper contains the entire app's layout and switches
+    background images depending on if the nightmode is on or off 
+    */
+    <div className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
+    style={{
+      backgroundImage: nightMode ? 'url("/darkBG1.jpeg")' : 'url("/whiteBG1.jpeg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      minHeight: '100vh',
+      position: 'relative',
+      zIndex: 1
+    }}>
+
+<div className="overlay"></div>
+
+
        {/* Navigation Bar */}
-       <Navbar bg="dark" variant="dark" expand="lg">
+       <Navbar className='backdrop-blur' expand="lg">
         <Container>
-          <Navbar.Brand href="#">
-          {/* <img
-            src="/o.png"
-            alt="Logo"
-            height="40"
-            className="d-inline-block align-top me-2"/> */}
-        Career Finder</Navbar.Brand>
+          <Navbar.Brand href="#">Career Finder</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("home");}}>Home</Nav.Link>
               <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("contact");}}>Contact</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => {e.preventDefault(); navigateTo("about");}}>About</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
 
-        {/* Page Header / Hero Section */}
-        <header className="page-header text-center p-4" style={{ backgroundColor: "#f0f8ff" }}>
+        {/* Header Message */}
+        <header className="page-header text-center p-4">
             <h2>Welcome to Career Finder!</h2>
             <p>Your journey to discovering your future starts here.</p>
         </header>
 
 
-        {/* Main Content */}
+        {/* Main Content - Buttons to start the quizzes*/}
       <main className='App-main py-4'>
-
-                     {/* className='Home-buttons */}
         <Container>
           <Row className="justify-content-center">
+
+            {/* Left Side - Basic Question */}
             <Col md={5} className="text-center mb-3">
-              <Button variant="outline-dark" className="mb-2">Basic Questions</Button>
+            <div className='quiz-box'>
+            <Button variant="outline-dark" className="mb-2" onClick={() => navigateTo("basicQuestion")}>
+              Basic Questions
+            </Button>
               <p>An easier quiz for students with less time</p>
+              </div>
             </Col>
+
+            {/* Right Side - Detailed Questions */}
             <Col md={5} className="text-center mb-3">
-              <Button variant="outline-dark" className="mb-2">Detailed Questions</Button>
+            <div className='quiz-box'>
+              <Button variant="outline-dark" className="mb-2" onClick={()=> navigateTo("detailedquiz")}>
+                Detailed Questions
+              </Button>
               <p>A more comprehensive quiz for students who want a more detailed response</p>
+              </div>
             </Col>
+
           </Row>
         </Container>
     </main>
 
 
-        {/*Footer*/}
+        {/* Footer Sectio */}
       <footer className="App-footer" style = {{display:'flex', justifyContent:'space-between', padding:'20px'}}>
 
-       {/*Left: Form*/}
+       {/* Left: Form - API Key Input */}
         <Form style={{width: "220px"}}>
             <Form.Label style={{ fontSize: "small"}}>API Key:</Form.Label>
             <Form.Control
@@ -100,10 +128,18 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
           </Form>
 
-         {/*Right: Toggle & Credits*/}
-         <div style={{ textAlign: "right", fontSize: "13px"}}>
-             <Button size= "sm" onClick={nightModeButton}>Toggle Night Mode</Button>
-
+         {/* Right - Toggle & Credits */}
+         <div className= "night-toggle" style={{ textAlign: "right", fontSize: "13px"}}>
+          <span style={{fontSize: '1.2rem'}}>
+            {nightMode ? '🌙' : '☀️' }
+          </span>
+             <Form.Check
+                type="switch"
+                id="nigth-mode-switch"
+                // label="Night Mode"
+                checked={nightMode}
+                onChange={nightModeButton}
+              />
         <p className="footer-text mt-2 mb-0"> 
             Copyright &copy; 2025 <br/>
             Vincent Tucci<br/>
