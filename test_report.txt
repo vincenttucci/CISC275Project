@@ -3,7 +3,7 @@
 > react-scripts test --coverage
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (62 ms)
+  ✕ renders learn react link (64 ms)
 
   ● renders learn react link
 
@@ -17,12 +17,13 @@ FAIL src/App.test.tsx
         [36m>[39m
           [36m<div[39m
             [33mclass[39m=[32m"App-wrapper "[39m
+            [33mstyle[39m=[32m"background-image: url(/whiteBG1.jpeg); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; position: relative; z-index: 1;"[39m
           [36m>[39m
             [36m<div[39m
               [33mclass[39m=[32m"overlay"[39m
             [36m/>[39m
             [36m<nav[39m
-              [33mclass[39m=[32m"navbar navbar-expand-lg navbar-dark bg-dark"[39m
+              [33mclass[39m=[32m"backdrop-blur navbar navbar-expand-lg navbar-light"[39m
             [36m>[39m
               [36m<div[39m
                 [33mclass[39m=[32m"container"[39m
@@ -83,7 +84,6 @@ FAIL src/App.test.tsx
             [36m</nav>[39m
             [36m<header[39m
               [33mclass[39m=[32m"page-header text-center p-4"[39m
-              [33mstyle[39m=[32m"background-color: rgb(240, 248, 255);"[39m
             [36m>[39m
               [36m<h2>[39m
                 [0mWelcome to Career Finder![0m
@@ -212,22 +212,22 @@ FAIL src/App.test.tsx
       at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
---------------------|---------|----------|---------|---------|----------------------
-File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s    
---------------------|---------|----------|---------|---------|----------------------
-All files           |   33.33 |    18.75 |      15 |   35.08 |                      
- About.tsx          |      50 |      100 |       0 |      50 | 5                    
- App.tsx            |   41.66 |     12.5 |     100 |   41.66 | 26-38                
- BasicQuestion.tsx  |      50 |      100 |       0 |      50 | 5                    
- DetailedQuiz.tsx   |   22.22 |      100 |       0 |   22.22 | 38-74                
- HomePage.tsx       |   45.83 |       50 |   11.11 |   52.38 | 17,26-27,33,37,59-99 
- index.tsx          |       0 |      100 |     100 |       0 | 7-19                 
- reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                 
---------------------|---------|----------|---------|---------|----------------------
+--------------------|---------|----------|---------|---------|-----------------------
+File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s     
+--------------------|---------|----------|---------|---------|-----------------------
+All files           |   33.33 |    22.22 |      15 |   35.08 |                       
+ About.tsx          |      50 |      100 |       0 |      50 | 5                     
+ App.tsx            |   41.66 |     12.5 |     100 |   41.66 | 26-38                 
+ BasicQuestion.tsx  |      50 |      100 |       0 |      50 | 5                     
+ DetailedQuiz.tsx   |   22.22 |      100 |       0 |   22.22 | 38-74                 
+ HomePage.tsx       |   45.83 |       50 |   11.11 |   52.38 | 17,26-27,33,37,69-109 
+ index.tsx          |       0 |      100 |     100 |       0 | 7-19                  
+ reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                  
+--------------------|---------|----------|---------|---------|-----------------------
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        2.87 s
+Time:        2.912 s
 Ran all test suites.
 [0;33mOne of your dependencies, babel-preset-react-app, is importing the
 "@babel/plugin-proposal-private-property-in-object" package without
