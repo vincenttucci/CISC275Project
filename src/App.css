@@ -19,47 +19,64 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
 }
-
 
 
 
 /* ============ NAV & HEADER ============== */
 
 .App-header {
-  background-color: #696d76;
+  /* background-color:tr; */
   min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #351e1e;
 }
 
 .page-header{
-  background-color: #f0f8ff;
+  background-color: transparent;
+  backdrop-filter: blur(10px);
   padding: 30px 20px;
   text-align: center;
   color: #333;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 90%;
 }
 
 
 .page-header h2 {
   font-size: 28px;
   margin-bottom: 10px;
+  color: #0f91b8;
 }
 
 .page-header p {
   font-size: 16px;
-  color: #555;
+  color: #0f91b8;
 }
 
+.navbar {
+  background-color: transparent;
+  backdrop-filter: blur(6px); /* subtle blur behind text */
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.backdrop-blur {
+  background-color: rgba(14, 7, 7, 0.3);
+  backdrop-filter: blur(10px);
+}
 /* ============ MAIN CONTENT ============== */
 
 .App-main {
   flex: 1;
-  background-color: #f8f9fa;
+  background-color: transparent;
   padding: 20px;
 }
 
@@ -78,15 +95,16 @@ html, body {
 /* ============ FOOTER ============== */
 
 .App-footer {
-  background-color: #333;
+  background-color: transparent;
   padding: 10px 20px;
+  backdrop-filter: blur(6px);
   font-size: 14px;
   /* min-height: 10vh; */
   display: flex;
   flex-direction: row; /*originall column*/
   align-items: center;
   justify-content: space-between; /*originall was center*/
-  color: white;
+  color: rgb(32, 29, 29);
   
 }
 
@@ -119,16 +137,23 @@ html, body {
 }
 
 .night-mode .App-footer, 
-.night-mode .App-header, 
-.night-mode .page-header{
+.night-mode .App-header{
   background-color: #282c34;
-  /* color:white; */
 }
 
-/* 
-.night-mode .page-header {
-  background-color: #333;
-} */
+
+.night-mode .navbar,
+.night-mode .App-footer {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.night-mode .navbar .nav-link,
+.night-mode .navbar-brand {
+  color: #ffffff;
+}
 
 .night-mode .btn {
   background-color: #444;
@@ -140,10 +165,12 @@ html, body {
   background-color: #2a2a2a;
   color: #e0e0e0;
 }
-.App-wrapper {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
+.night-mode .footer-text {
+  color: white;
+  text-align: left;
+  margin-left: 20px;
+}
 /* ============ OPTIONAL: LOGO ANIMATION ============== */
 
 
@@ -170,6 +197,8 @@ html, body {
   transform: translateY(-5px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
+
+
 /*Dont need
 
 /* 

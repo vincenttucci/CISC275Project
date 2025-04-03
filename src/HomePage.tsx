@@ -38,13 +38,23 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
   };
 
   return (
-    <div className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}>
+    <div className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
+    
+    style={{
+      backgroundImage: nightMode ? 'url("/darkBG1.jpeg")' : 'url("/whiteBG1.jpeg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      minHeight: '100vh',
+      position: 'relative',
+      zIndex: 1
+    }}>
 
 <div className="overlay"></div>
 
 
        {/* Navigation Bar */}
-       <Navbar bg="dark" variant="dark" expand="lg">
+       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">
           {/* <img
@@ -66,7 +76,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 
         {/* Page Header / Hero Section */}
-        <header className="page-header text-center p-4" style={{ backgroundColor: "#f0f8ff" }}>
+        <header className="page-header text-center p-4">
             <h2>Welcome to Career Finder!</h2>
             <p>Your journey to discovering your future starts here.</p>
         </header>
