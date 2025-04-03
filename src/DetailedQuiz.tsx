@@ -46,7 +46,16 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             setChoice({...choice,[id]:option})
         }
         return(
-            <div>
+            <div 
+            style={{
+                backgroundImage:'url("/pinkHeart.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                minHeight: '100%',
+                width: '100%'
+            }}>
+                
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
                     <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -61,7 +70,8 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 </Container>
             </Navbar>
                 {/* updates bar */}
-                <ProgressBar now={(Object.keys(choice).length/detailedQuestions.length)*100} label={`${Object.keys(choice).length}/${detailedQuestions.length}`}/>
+                {/* added stripes and animations for razzle dazzle */}
+                <ProgressBar animated now={(Object.keys(choice).length/detailedQuestions.length)*100} label={`${Object.keys(choice).length}/${detailedQuestions.length}`}/>
                 {/* why "py-4"? have to ask brooklyn */} 
 
                 {/* This is Brooklyn answering you, 'py-4' is Padding on the Y-axis (top&bottom) 
