@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
 type HomePageProps = {navigateTo: (page: string) => void;
 
 };
@@ -38,6 +39,10 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   return (
     <div className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}>
+
+<div className="overlay"></div>
+
+
        {/* Navigation Bar */}
        <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
@@ -74,14 +79,27 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
         <Container>
           <Row className="justify-content-center">
             <Col md={5} className="text-center mb-3">
+
+            <div className='quiz-box'>
+              <Button variant="outline-dark" className="mb-2">Basic Questions</Button>
+
             <Button variant="outline-dark" className="mb-2" onClick={() => navigateTo("basicQuestion")}>
               Basic Questions
             </Button>
+
               <p>An easier quiz for students with less time</p>
+              </div>
             </Col>
+
             <Col md={5} className="text-center mb-3">
+
+            <div className='quiz-box'>
+              <Button variant="outline-dark" className="mb-2">Detailed Questions</Button>
+
               <Button variant="outline-dark" className="mb-2" onClick={()=> navigateTo("detailedquiz")}>Detailed Questions</Button>
+
               <p>A more comprehensive quiz for students who want a more detailed response</p>
+              </div>
             </Col>
           </Row>
         </Container>
