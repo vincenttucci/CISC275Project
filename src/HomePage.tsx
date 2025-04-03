@@ -94,7 +94,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             <Col md={5} className="text-center mb-3">
 
             <div className='quiz-box'>
-              <Button variant="outline-dark" className="mb-2">Detailed Questions</Button>
+              {/* <Button variant="outline-dark" className="mb-2">Detailed Questions</Button> */}
 
               <Button variant="outline-dark" className="mb-2" onClick={()=> navigateTo("detailedquiz")}>Detailed Questions</Button>
 
