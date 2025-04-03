@@ -24,11 +24,11 @@ function App() {
       return <HomePage navigateTo={setCurrentPage} />;
 
     }else if (currentPage === 'detailedquiz') {
-      return <DetailedQuiz/>
+      return <DetailedQuiz navigateTo={setCurrentPage}/>
 
 
     } else if (currentPage === 'basicQuestion') {
-      return <BasicQuestion />;
+      return <BasicQuestion navigateTo={setCurrentPage}/>;
 
     } else if (currentPage === 'about') {
       return <AboutPage />;
