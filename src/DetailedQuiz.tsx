@@ -1,7 +1,8 @@
 
 import React, {useState} from 'react';
 import {Container,ProgressBar,Button, Form, FormCheck} from 'react-bootstrap';
-
+//from question homework
+//gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
     /** A unique identifier for the question */
     id: number;
@@ -35,18 +36,24 @@ let detailedQuestions: QuizQuestion[]= [ { id: 1, body: 'Do you enjoy problem-so
 { id: 20, body: 'Do you want a job that involves travel?', options: ['Yes, frequently', 'Occasionally', 'No, I prefer stability'] }]
 let DetailedQuiz: React.FC = () => {
         let [choice,setChoice]=useState<{ [key:number]:string}>({});
+        //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string)=>{
             setChoice({...choice,[id]:option})
         }
         return(
             <div>
+                {/* updates bar */}
                 <ProgressBar now={(Object.keys(choice).length/detailedQuestions.length)*100} label={`${Object.keys(choice).length}/${detailedQuestions.length}`}/>
+                {/* why "py-4"? have to ask brooklyn */}
                 <Container className='py-4'>
                     <Form>
                         {detailedQuestions.map((question)=>(
+                            // sets up questions and options and keeps them oranized on the same page
                             <Form.Group key={question.id} controlId={`question-${question.id}`} className='detailedquestion'>
                                 <Form.Label>{question.body}</Form.Label>
                                 {question.options.map((option,index)=>(
+                                    //handles the radio buttons
+                                    //reference-homework 10
                                     <Form.Check
                                     key={index}
                                     type="radio"
