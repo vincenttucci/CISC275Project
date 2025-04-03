@@ -53,12 +53,12 @@ html, body {
 .page-header h2 {
   font-size: 28px;
   margin-bottom: 10px;
-  color: #0f91b8;
+  color: #0a1b20;;
 }
 
 .page-header p {
   font-size: 16px;
-  color: #0f91b8;
+  color: #0a1b20;
 }
 
 .navbar {
@@ -156,13 +156,13 @@ html, body {
 }
 
 .night-mode .btn {
-  background-color: #444;
+  background-color: #4c4a4a;
   color: white;
   border: none;
 }
 
 .night-mode .quiz-box {
-  background-color: #2a2a2a;
+  background-color: #2e2c2c95;
   color: #e0e0e0;
 }
 
@@ -195,7 +195,7 @@ html, body {
 /* ============ BUTTONS FOR QUIZ-HOMEPAGE ============== */
 
 .quiz-box {
-  background-color: #f4f4f4;
+  background-color: rgb(216, 192, 196);
   padding: 30px 20px;
   border-radius: 25px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
