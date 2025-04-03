@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import {Container,ProgressBar,Button, Form, FormCheck} from 'react-bootstrap';
+import {Container,ProgressBar, Form} from 'react-bootstrap';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
