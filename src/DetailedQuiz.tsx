@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import {Container,ProgressBar, Form} from 'react-bootstrap';
+import {Container,ProgressBar, Form, Navbar, Nav} from 'react-bootstrap';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -34,7 +34,12 @@ let detailedQuestions: QuizQuestion[]= [ { id: 1, body: 'Do you enjoy problem-so
 { id: 18, body: 'Do you like researching and analyzing information?', options: ['Yes', 'Sometimes', 'No'] },
 { id: 19, body: 'Would you prefer working in an office, a lab, or in the field?', options: ['Office', 'Lab', 'Field'] },
 { id: 20, body: 'Do you want a job that involves travel?', options: ['Yes, frequently', 'Occasionally', 'No, I prefer stability'] }]
-let DetailedQuiz: React.FC = () => {
+
+interface DetailedQuizProps {
+    navigateTo: (page: string) => void;
+}
+
+let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string}>({});
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string)=>{
@@ -42,6 +47,19 @@ let DetailedQuiz: React.FC = () => {
         }
         return(
             <div>
+                <Navbar className='backdrop-blur' expand="lg">
+                <Container>
+                    <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
+                            <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
+                            <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
                 {/* updates bar */}
                 <ProgressBar now={(Object.keys(choice).length/detailedQuestions.length)*100} label={`${Object.keys(choice).length}/${detailedQuestions.length}`}/>
                 {/* why "py-4"? have to ask brooklyn */} 
