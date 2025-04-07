@@ -25,7 +25,8 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
   //Keeps track of the API Key
     const [key, setKey] = useState<string>(keyData);
   //Keeps track whether the night mode is off or on
-    const [nightMode, setNightMode] = useState<boolean>(false);
+    const [nightMode, setNightMode] = useState<boolean>(NightModeStored);
+
 
   /*Saves API key to local storage and reloads page*/
   const handleSubmit = () => {
