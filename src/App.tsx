@@ -31,8 +31,7 @@ function App() {
       return <BasicQuestion navigateTo={setCurrentPage}/>;
 
     } else if (currentPage === 'about') {
-      return <AboutPage />;
-
+      return <AboutPage navigateTo={setCurrentPage}/>;
 
     } else {
       return <div>404 Page Not Found</div>;

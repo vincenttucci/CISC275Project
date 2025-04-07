@@ -62,8 +62,6 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     }}>
 
 <div className="overlay"></div>
-
-
        {/* Navigation Bar */}
        <Navbar className='backdrop-blur' expand="lg">
         <Container>

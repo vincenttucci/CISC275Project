@@ -1,12 +1,32 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 
-const AboutPage: React.FC = () => {
+interface AboutPageProps {
+  navigateTo: (page: string) => void;
+}
+
+const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
   return (
-    <Container className="py-4">
-      <h2>About Career Finder</h2>
-      <p>This app helps students discover career paths through personalized quizzes.</p>
-    </Container>
+    <>
+      <Navbar className='backdrop-blur' expand="lg">
+        <Container>
+          <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      <Container className="py-4">
+        <h2>About Career Helpi</h2>
+        <p>This app helps students discover career paths through personalized quizzes.</p>
+      </Container>
+    </>
   );
 };
 
