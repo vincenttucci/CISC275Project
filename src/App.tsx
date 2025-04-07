@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 // import { Button, Form } from 'react-bootstrap';
 import HomePage from "./HomePage";
-
 import DetailedQuiz from './DetailedQuiz';
-
 import BasicQuestion from "./BasicQuestion";
 import AboutPage from "./About";
+import ResultsPage from "./Results";
 
 
 
@@ -32,6 +31,9 @@ function App() {
 
     } else if (currentPage === 'about') {
       return <AboutPage navigateTo={setCurrentPage}/>;
+
+    } else if (currentPage === 'result') {
+      return <ResultsPage navigateTo={setCurrentPage} />;    
 
     } else {
       return <div>404 Page Not Found</div>;
