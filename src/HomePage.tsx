@@ -18,6 +18,9 @@ if (prevKey !== null) {
   keyData = JSON.parse(prevKey);
 }
 
+// Stores light mode in local storage to keep it when website changes are made
+const NightModeStored = localStorage.getItem("nightMode") === "true";
+
 const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
   //Keeps track of the API Key
     const [key, setKey] = useState<string>(keyData);
@@ -25,12 +28,10 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
     const [nightMode, setNightMode] = useState<boolean>(false);
 
   /*Saves API key to local storage and reloads page*/
-    const handleSubmit = () => {
-        localStorage.setItem(saveKeyData, JSON.stringify(key));
-        window.location.reload();
-      };
-
-
+  const handleSubmit = () => {
+    localStorage.setItem(saveKeyData, JSON.stringify(key));
+    alert("API Key saved!");
+  };
 
 const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKey(event.target.value);
@@ -38,7 +39,9 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   /*Toggles night mode on/off*/
   const nightModeButton = () => {
-    setNightMode(!nightMode);
+    const newMode = !nightMode;
+    setNightMode(newMode);
+    localStorage.setItem("nightMode", String(newMode));
   };
 
   return (
@@ -63,7 +66,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
        {/* Navigation Bar */}
        <Navbar className='backdrop-blur' expand="lg">
         <Container>
-          <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+          <Navbar.Brand href="#">Career Helpi</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -78,7 +81,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         {/* Header Message */}
         <header className="page-header text-center p-4">
-            <h2>Welcome to Career Finder!</h2>
+            <h2>Welcome to Career Helpi!</h2>
             <p>Your journey to discovering your future starts here.</p>
         </header>
 
@@ -117,48 +120,39 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
       <footer className="App-footer" style = {{display:'flex', justifyContent:'space-between', padding:'20px'}}>
 
        {/* Left: Form - API Key Input */}
-        <Form style={{width: "220px"}}>
-            <Form.Label style={{ fontSize: "small"}}>API Key:</Form.Label>
+       <Form style={{ width: "100%", maxWidth: "400px" }}>
+          <Form.Label style={{ fontSize: "small" }}>API Key:</Form.Label>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <Form.Control
-              type="password"
+              type="text"
               placeholder="Insert API Key Here"
               onChange={changeKey}
             />
-            <br />
             <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
-          </Form>
+          </div>
+        </Form>
 
-         {/* Right - Toggle & Credits */}
-         <div className= "night-toggle" style={{ textAlign: "right", fontSize: "13px"}}>
-          <span style={{fontSize: '1.2rem'}}>
-            {nightMode ? '🌙' : '☀️' }
-          </span>
-             <Form.Check
-                type="switch"
-                id="nigth-mode-switch"
-                // label="Night Mode"
-                checked={nightMode}
-                onChange={nightModeButton}
-              />
-        <p className="footer-text mt-2 mb-0"> 
-            Copyright &copy; 2025 <br/>
-            Vincent Tucci<br/>
-            Brooklyn Harden<br/>
-            Taylor Jenkins<br/>
-            Sam Mullaney
-            </p>
+        {/* Right - Toggle & Credits */}
+        <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ fontSize: '1.2rem' }}>
+              {nightMode ? '🌙' : '☀️'}
+            </span>
+            <Form.Check
+              type="switch"
+              id="night-mode-switch"
+              checked={nightMode}
+              onChange={nightModeButton}
+            />
+          </div>
+          <p className="footer-text mt-2 mb-0">
+            Vincent Tucci, Brooklyn Harden,<br />
+            Taylor Jenkins, Sam Mullaney<br />
+          </p>
         </div>
       </footer>
     </div>
   );
-}
-
-   
+};
 
 export default HomePage;
-
-
-
-
- 
-  
