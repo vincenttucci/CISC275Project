@@ -2,11 +2,7 @@ import React, {useState} from 'react';
 import { Navbar, Nav, Container, Form, Button, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-
-
 type HomePageProps = {navigateTo: (page: string) => void;
-
 };
 
 /*Keys used for storing and retrieving our API key*/
@@ -26,7 +22,6 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
     const [key, setKey] = useState<string>(keyData);
   //Keeps track whether the night mode is off or on
     const [nightMode, setNightMode] = useState<boolean>(NightModeStored);
-
 
   /*Saves API key to local storage and reloads page*/
   const handleSubmit = () => {
