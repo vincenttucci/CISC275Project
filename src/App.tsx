@@ -8,8 +8,6 @@ import AboutPage from "./About";
 import ResultsPage from "./Results";
 import ContactPage from "./Contact";
 
-
-
 function App() {
   const [currentPage, setCurrentPage] = useState<string>('home');
 
