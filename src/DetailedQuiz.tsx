@@ -95,6 +95,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                                     <Form.Check
                                     key={index}
                                     type="radio"
+                                    id={`question-${question.id}-option-${index}`} //fixes error of only selecting first choice on text click
                                     label={option}
                                     name={`question-${question.id}`}
                                     value={option}
