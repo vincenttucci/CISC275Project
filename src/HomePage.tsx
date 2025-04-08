@@ -25,7 +25,8 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
   //Keeps track of the API Key
     const [key, setKey] = useState<string>(keyData);
   //Keeps track whether the night mode is off or on
-    const [nightMode, setNightMode] = useState<boolean>(false);
+    const [nightMode, setNightMode] = useState<boolean>(NightModeStored);
+
 
   /*Saves API key to local storage and reloads page*/
   const handleSubmit = () => {
@@ -61,8 +62,6 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     }}>
 
 <div className="overlay"></div>
-
-
        {/* Navigation Bar */}
        <Navbar className='backdrop-blur' expand="lg">
         <Container>
@@ -146,7 +145,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             />
           </div>
           <p className="footer-text mt-2 mb-0">
-            Vincent Tucci, Brooklyn Harden<br />
+            Vincent Tucci, Brooklyn Harden,<br />
             Taylor Jenkins, Sam Mullaney<br />
           </p>
         </div>
