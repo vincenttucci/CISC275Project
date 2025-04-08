@@ -31,7 +31,6 @@ const HomePage: React.FC<HomePageProps> = ({navigateTo})=> {
   /*Saves API key to local storage and reloads page*/
   const handleSubmit = () => {
     localStorage.setItem(saveKeyData, JSON.stringify(key));
-    alert("API Key saved!");
   };
 
 const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +94,17 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             {/* Left Side - Basic Question */}
             <Col md={5} className="text-center mb-3">
             <div className='quiz-box'>
-            <Button variant="outline-dark" className="mb-2" onClick={() => navigateTo("basicQuestion")}>
+            <Button
+              variant="outline-dark"
+              className="mb-2"
+              onClick={() => {
+                if (!key) {
+                  alert("Please enter your API key before starting the quiz.");
+                  return;
+                }
+                navigateTo("basicQuestion");
+                }}
+              >
               Basic Questions
             </Button>
               <p>An easier quiz for students with less time</p>
@@ -105,7 +114,17 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             {/* Right Side - Detailed Questions */}
             <Col md={5} className="text-center mb-3">
             <div className='quiz-box'>
-              <Button variant="outline-dark" className="mb-2" onClick={()=> navigateTo("detailedquiz")}>
+            <Button
+                variant="outline-dark"
+                className="mb-2"
+                onClick={() => {
+                  if (!key) {
+                    alert("Please enter your API key before starting the quiz.");
+                    return;
+                  }
+                  navigateTo("detailedquiz");
+                }}
+              >
                 Detailed Questions
               </Button>
               <p>A more comprehensive quiz for students who want a more detailed response</p>
