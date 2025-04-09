@@ -46,7 +46,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     */
     <div className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
     style={{
-      backgroundImage: nightMode ? 'url("/darkBG1.jpeg")' : 'url("/pinkBG.jpeg")',
+      backgroundImage: nightMode ? 'url("/darkBG1.jpeg")' : 'url("/whiteBG1.jpeg)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
