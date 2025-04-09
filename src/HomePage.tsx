@@ -140,6 +140,7 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
             <Form.Control
               type="text"
               placeholder="Insert API Key Here"
+              value={key}
               onChange={changeKey}
             />
             <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
