@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import {Container,ProgressBar, Form, Navbar, Nav} from 'react-bootstrap';
+import {Container,ProgressBar, Form, Navbar, Nav, Button} from 'react-bootstrap';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -107,6 +107,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                         ))}
                     </Form>
                     </Container>
+                    <Button className='submitButton'>Submit</Button>
             {/* // <h2>Detailed Quiz</h2>
             // <p>This is the detailed quiz</p> */}
             

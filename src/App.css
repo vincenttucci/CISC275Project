@@ -208,9 +208,15 @@ html, body {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* ============ DETAILED QUIZ ============== */
 .progress {
   background-color:#61dafb  !important;
   
+}
+.submitButton{
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 
