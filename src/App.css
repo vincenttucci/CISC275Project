@@ -213,6 +213,11 @@ html, body {
   background-color:#61dafb  !important;
   
 }
+.submitButton{
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
 
 
 /*Dont need
