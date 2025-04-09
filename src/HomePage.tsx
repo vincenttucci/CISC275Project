@@ -130,7 +130,6 @@ const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
         </Container>
     </main>
 
-
         {/* Footer Sectio */}
       <footer className="App-footer" style = {{display:'flex', justifyContent:'space-between', padding:'20px'}}>
 
