@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, ProgressBar, Form, Navbar, Nav } from 'react-bootstrap';
+import { Container, ProgressBar, Form, Navbar, Nav, Button} from 'react-bootstrap';
 
 export interface QuizQuestion {
     id: number;
@@ -27,7 +27,17 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     };
 
     return (
-        <div>
+        <div
+        className="basic-quiz-page"
+        style={{
+            backgroundImage: 'url("/bluebackground.jpg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            minHeight: '100%',
+            width: '100%'
+        }}
+        >
             {/* Navbar (copied from HomePage.tsx) */}
             <Navbar className='backdrop-blur' expand="lg">
                 <Container>
@@ -67,6 +77,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                     ))}
                 </Form>
             </Container>
+            <Button className='submitButton'>Submit</Button>
         </div>
     );
 };

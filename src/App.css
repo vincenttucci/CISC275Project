@@ -219,6 +219,21 @@ html, body {
   text-align: center;
 }
 
+/* ============ BasicQuestions Text Color ============== */
+
+
+.basic-quiz-page {
+  color: white;
+}
+
+.basic-quiz-page label,
+.basic-quiz-page .form-check-label,
+.basic-quiz-page .navbar-brand,
+.basic-quiz-page .nav-link,
+.basic-quiz-page .progress-bar,
+.basic-quiz-page .submitButton {
+  color: white !important;
+}
 
 /*Dont need
 
