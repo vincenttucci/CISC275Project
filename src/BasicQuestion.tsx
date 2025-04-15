@@ -7,6 +7,7 @@ export interface QuizQuestion {
     options: string[];
 }
 
+
 let basicQuestions: QuizQuestion[] = [
     { id: 1, body: 'Do you enjoy problem-solving?', options: ['Yes, a lot!', 'Sometimes', 'Not really'] },
     { id: 2, body: 'Do you like working with people?', options: ['Yes', 'Occasionally', 'I prefer working alone'] },
