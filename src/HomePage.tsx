@@ -72,7 +72,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 >
                   Basic Questions
                 </Button>
-                <p>An easier quiz for students with less time</p>
+                <p>An easier quiz for students with less time that contains only multiple choice questions.</p>
               </div>
             </Col>
 
@@ -91,7 +91,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 >
                   Detailed Questions
                 </Button>
-                <p>A more comprehensive quiz for students who want a more detailed response</p>
+                <p>A longer, more comprehensive quiz for students who want a more detailed response.</p>
               </div>
             </Col>
           </Row>
