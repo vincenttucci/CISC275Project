@@ -6,22 +6,27 @@
 import React, { useEffect, useState } from 'react';
 
 const NightModeWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [nightMode, setNightMode] = useState<boolean>(false);
+  const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
 
   useEffect(() => {
-    setNightMode(localStorage.getItem("nightMode") === "true");
+    const interval = setInterval(() => {
+      const currentSetting = localStorage.getItem("nightMode") === "true";
+      setNightMode(currentSetting);
+    }, 100); //fix not applying night mode on same page by checking every 100ms
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <div
-        className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
-        style={{
+      className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
+      style={{
         backgroundImage: nightMode ? 'url("/darkBG1.jpeg")' : 'url("/whiteBG1.jpeg")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         minHeight: '100vh'
-    }}>
-
+      }}
+    >
       <div className="overlay"></div>
       {children}
     </div>
