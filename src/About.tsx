@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
 interface AboutPageProps {
@@ -6,8 +6,28 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
+  const [nightMode, setNightMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    const storedNightMode = localStorage.getItem("nightMode") === "true";
+    setNightMode(storedNightMode); //checks if night mode has been enabled on the homepage
+  }, []);
+
   return (
-    <>
+    <div
+      className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
+      style={{
+        backgroundImage: nightMode ? 'url("/darkBG1.jpeg")' : 'url("/whiteBG1.jpeg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        position: 'relative',
+        zIndex: 1
+      }}
+    >
+      <div className="overlay"></div>
+
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -27,19 +47,17 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
         <p>For some individuals, figuring out what type of career to pursue is a challenge. 
           The Career Helpi is dedicated to helping individuals of all ages gain insight into what career best fits them.
           Our goal is to help you make more informed decisions about where to take your career based on your skills and interests.</p>
-          <p></p>
-          <h3>About Us</h3>
-          <p>The Career Helpi was founded in 2025 by a team of students at the University of Delaware who recognized the need
-            for more personalized career planning services.
-          </p>
-          <p></p>
-          <h3>How to Use our Website:</h3>
-          <p>Once you enter your Chat GPT API key, you can proceed to the quizzes. Completing all of the Questions
-            will allow you to proceed to the results page output, where Chat GPT will generate a report for you with
-            careers that best fit your responses.
-          </p>
+        <h3>About Us</h3>
+        <p>The Career Helpi was founded in 2025 by a team of students at the University of Delaware who recognized the need
+          for more personalized career planning services.
+        </p>
+        <h3>How to Use our Website:</h3>
+        <p>Once you enter your Chat GPT API key, you can proceed to the quizzes. Completing all of the Questions
+          will allow you to proceed to the results page output, where Chat GPT will generate a report for you with
+          careers that best fit your responses.
+        </p>
       </Container>
-    </>
+    </div>
   );
 };
 
