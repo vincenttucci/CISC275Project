@@ -135,3 +135,4 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
 };
 
 export default HomePage;
+// fix build errors
