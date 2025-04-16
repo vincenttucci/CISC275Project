@@ -1,11 +1,61 @@
-import React from 'react';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container, Navbar, Nav, Spinner, Card, Button } from 'react-bootstrap';
 
 interface ResultPageProps {
   navigateTo: (page: string) => void;
 }
 
 const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
+  const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: string}>({});
+  const [jobSuggestions, setJobSuggestions] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    //Step1: get the quiz answers stored in the local storage
+    const stored = localStorage.getItem("quizAnswers");
+
+    //Step2: if the answers are found
+    if (stored) {
+      const parsedAnswers = JSON.parse(stored);
+      //sace the parsed ansers, that were converted to a string, we need this to display it later
+      setQuizAnswers(parsedAnswers);
+
+      //this sends a prompt to CHATGPT based on the users answers 
+      const prompt = `A person answered the following about themselves: ${Object.values(parsedAnswers).join(", ")}. Based on this, suggest 3 careers that would be a great fit and give a short reason for each.`;
+
+      //make a POST request to the OpenAI API
+      fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`, //the API key is in the .env file
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo", //the model we're using, I am using a free chat, because I am not sure if people could use the 4.0 I own
+          messages: [{ role: "user", content: prompt }], //the user message were sending 
+          temperature: 0.7, //how creative the answer should be (0 = focused, 1 = creative)
+        }),
+      })
+
+      //covert the response from the API into JSON
+        .then(res => res.json())
+
+        //get the response text fromm chat and store it
+        .then(data => {
+          const text = data.choices?.[0]?.message?.content || "No response.";
+          setJobSuggestions(text); //save the job suggestions
+          setLoading(false); //loading 
+        })
+
+        //handle any errors if something goes wrong
+        .catch(err => {
+          console.error("Error fetching jobs from OpenAI:", err);
+          setJobSuggestions("There was a problem generating your results.");
+          setLoading(false);
+        });
+    }
+  }, []);
+
   return (
     <>
       <Navbar className='backdrop-blur' expand="lg">
@@ -25,11 +75,29 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
       <Container className="py-4">
         <h1>Congratulations!</h1><br/>
           <p>You finished the quiz, read below to see your Quiz Results.</p><br/>
-        <h2>Quiz Results: </h2>
+         {loading ? (
+          <div className="text-center mt-4">
+            <Spinner animation="border" />
+            <p className="mt-2">Generating your results...</p>
+          </div>
+        ) : (
+          <Card className="p-4 shadow-lg mt-4">
+            <h4>Recommended Jobs:</h4>
+            <p>{jobSuggestions}</p>
+          </Card>
+        )}
+
+        {/* Optional: View Answers Button */}
+        <Button
+          variant="outline-secondary"
+          className="mt-4"
+          onClick={() => alert(JSON.stringify(quizAnswers, null, 2))}
+        >
+          View My Answers
+        </Button>
       </Container>
     </>
   );
 };
 
 export default ResultPage;
-
