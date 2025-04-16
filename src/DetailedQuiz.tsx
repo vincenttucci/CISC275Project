@@ -49,7 +49,7 @@ interface DetailedQuizProps {
 
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
-        let [popup, setPopup]=useState(false);
+        // let [popup, setPopup]=useState(false);
         let [showModal, setShowModal] = React.useState(false);
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
@@ -63,20 +63,20 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
             return typeof answer === 'string' && answer !== '';
         }).length;
-        let submitHandler=()=> {
-            let answeredAll=detailedQuestions.every((question)=>{
-                let answer=choice[question.id];
-                if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-            if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-            return typeof answer === 'string' && answer !== '';
-            });
-            if (!answeredAll){
-                setPopup(true);
-            }else{
-                setPopup(false);
-                navigateTo('result')
-            }
-        }
+        // let submitHandler=()=> {
+        //     let answeredAll=detailedQuestions.every((question)=>{
+        //         let answer=choice[question.id];
+        //         if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
+        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
+        //     return typeof answer === 'string' && answer !== '';
+        //     });
+        //     if (!answeredAll){
+        //         setPopup(true);
+        //     }else{
+        //         setPopup(false);
+        //         navigateTo('result')
+        //     }
+        
         return(
             <div 
             style={{
