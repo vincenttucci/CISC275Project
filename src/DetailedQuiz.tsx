@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import {Container,ProgressBar, Form, Navbar, Nav, Button} from 'react-bootstrap';
+import {Container,ProgressBar, Form, Navbar, Nav, Button, Alert} from 'react-bootstrap';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -9,7 +9,11 @@ export interface QuizQuestion {
     /** The human-friendly title of the question */
     body: string;
     /** The possible answers for a Question (for Multiple Choice questions) */
-    options: string[];
+    options?: string[];
+    //for questions that require textarea
+    isOpenEnded?: boolean;
+    //for select all that apply questions
+    isSelectAll?:boolean;
 
    
 }
@@ -33,22 +37,49 @@ let detailedQuestions: QuizQuestion[]= [ { id: 1, body: 'Do you enjoy problem-so
 { id: 17, body: 'Are you interested in healthcare and medicine?', options: ['Yes', 'Somewhat', 'Not at all'] },
 { id: 18, body: 'Do you like researching and analyzing information?', options: ['Yes', 'Sometimes', 'No'] },
 { id: 19, body: 'Would you prefer working in an office, a lab, or in the field?', options: ['Office', 'Lab', 'Field'] },
-{ id: 20, body: 'Do you want a job that involves travel?', options: ['Yes, frequently', 'Occasionally', 'No, I prefer stability'] }]
+{ id: 20, body: 'Do you want a job that involves travel?', options: ['Yes, frequently', 'Occasionally', 'No, I prefer stability'] },
+{ id: 21, body: 'What was your dream career as a child?', isOpenEnded:true},
+{ id: 22, body: 'Describe a project or task you really enjoyed.', isOpenEnded: true },
+{ id: 23, body: 'Which of these activities do you enjoy? (Select all that apply)', options: ['Reading', 'Traveling', 'Gaming', 'Cooking'],isSelectAll:true}]
+
 
 interface DetailedQuizProps {
     navigateTo: (page: string) => void;
 }
 
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
-        let [choice,setChoice]=useState<{ [key:number]:string}>({});
+        let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
+        let [popup, setPopup]=useState(false);
         //tracks answer chosen on specific question by question id number
-        let trackChoices=(id:number,option:string)=>{
+        let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
+        }
+        //counting number of answered question for the select all and opened ended questions
+        //done for progress bar to update correctly
+        let answerCount=detailedQuestions.filter((question)=>{
+            let answer=choice[question.id];
+            if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
+            if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
+            return typeof answer === 'string' && answer !== '';
+        }).length;
+        let submitHandler=()=> {
+            let answeredAll=detailedQuestions.every((question)=>{
+                let answer=choice[question.id];
+                if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
+            if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
+            return typeof answer === 'string' && answer !== '';
+            });
+            if (!answeredAll){
+                setPopup(true);
+            }else{
+                setPopup(false);
+                navigateTo('result')
+            }
         }
         return(
             <div 
             style={{
-                backgroundImage:'url("/pinkHeart.jpg")',
+                backgroundImage:'url("/pinkBG.jpeg")',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
@@ -71,7 +102,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             </Navbar>
                 {/* updates bar */}
                 {/* added stripes and animations for razzle dazzle */}
-                <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100} label={`${Object.keys(choice).length}/${detailedQuestions.length}`}/>
+                <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
                 {/* why "py-4"? have to ask brooklyn */} 
 
                 {/* This is Brooklyn answering you, 'py-4' is Padding on the Y-axis (top&bottom) 
@@ -89,7 +120,35 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             // sets up questions and options and keeps them oranized on the same page
                             <Form.Group key={question.id} controlId={`question-${question.id}`} className='detailedquestion'>
                                 <Form.Label>{question.body}</Form.Label>
-                                {question.options.map((option,index)=>(
+                                {question.isOpenEnded ? (
+                                    <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    value={choice[question.id] ||''}
+                                    onChange={(e)=> trackChoices(question.id,e.target.value)}
+                                    placeholder='Answer Here'
+                                    />
+                                ): question.isSelectAll ?(
+                                    question.options?.map((option,index) => (
+                                        <Form.Check
+                                        key={index}
+                                        type='checkbox'
+                                        id={`question-${question.id}-option-${index}`}
+                                        label={option}
+                                        name={`question-${question.id}`}
+                                        value={option}
+                                        checked={(choice[question.id]||[]).includes(option)}
+                                        onChange={(e)=>{let currentChoice=choice[question.id]||[];
+                                            if (e.target.checked) {
+                                                trackChoices(question.id,[...(currentChoice as string[]),option]);
+                                            }else {
+                                                trackChoices(question.id,(currentChoice as string[]).filter((o:string)=> o!== option));
+                                            }
+                                        }}
+                                        />
+                                    ))
+                                ):(
+                                question.options?.map((option,index)=>(
                                     //handles the radio buttons
                                     //reference-homework 10
                                     <Form.Check
@@ -102,12 +161,19 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                                     checked={choice[question.id]===option}
                                     onChange={()=>trackChoices(question.id,option)}
                                     />
-                                ))}
+                                )))}
                             </Form.Group>
                         ))}
                     </Form>
+                    {popup && (
+                        <Container className="popup">
+                        <div className="alert alert-danger" role="alert">
+                            Please answer all the questions before submitting.
+                        </div>
                     </Container>
-                    <Button className='submitButton'>Submit</Button>
+                    )}
+                    </Container>
+                    <Button className='submitButton' onClick={submitHandler}>Submit</Button>
             {/* // <h2>Detailed Quiz</h2>
             // <p>This is the detailed quiz</p> */}
             
