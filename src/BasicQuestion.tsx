@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
-import { CompletionTriggerKind } from 'typescript';
+
 
 export interface QuizQuestion {
     id: number;
