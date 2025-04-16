@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, ProgressBar, Form, Navbar, Nav, Button} from 'react-bootstrap';
+import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
+import { CompletionTriggerKind } from 'typescript';
 
 export interface QuizQuestion {
     id: number;
@@ -22,6 +23,15 @@ interface BasicQuizProps {
 
 let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     let [choice, setChoice] = React.useState<{ [key: number]: string }>({});
+    /*
+    Hey Sam, I(brooklyn) added this useState to show a popup modal that appears
+    when the user clicks the Submit button, telling them they have Completion
+    the quiz and can now move on to the results page to see their results
+
+    You can take this out or change anything but yeah, its the code below
+    let[showModal....]
+     */
+    let [showModal, setShowModal] = React.useState(false);
 
     let trackChoices = (id: number, option: string) => {
         setChoice({ ...choice, [id]: option });
@@ -78,7 +88,22 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                     ))}
                 </Form>
             </Container>
-            <Button className='submitButton'>Submit</Button>
+            <Button className='submitButton' 
+                onClick={() => setShowModal(true)} 
+                disabled={Object.keys(choice).length !== basicQuestions.length}
+                >Submit</Button>
+                <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Quiz Completed!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                            Great Job completing the quiz. Click below to see your results!
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
+                        <Button variant='primary' onClick={() => navigateTo("result")}>View Results</Button>
+                    </Modal.Footer>
+                </Modal>
         </div>
     );
 };
