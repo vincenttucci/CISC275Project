@@ -122,3 +122,4 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
 };
 
 export default BasicQuiz;
+                                                                 
