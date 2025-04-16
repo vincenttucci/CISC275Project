@@ -28,7 +28,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`, //the API key is in the .env file
+          Authorization: `Bearer `, //the API key 
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo", //the model we're using, I am using a free chat, because I am not sure if people could use the 4.0 I own
