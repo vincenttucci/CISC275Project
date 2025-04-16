@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import {Container,ProgressBar, Form, Navbar, Nav, Button, Alert} from 'react-bootstrap';
+import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -50,6 +50,7 @@ interface DetailedQuizProps {
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
         let [popup, setPopup]=useState(false);
+        let [showModal, setShowModal] = React.useState(false);
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
@@ -100,9 +101,16 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+             {/*Quiz Card*/}
+                    <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
+                        <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
+                         <h5 className="mb-4">Quiz</h5>
+            
+                        {/* Quiz Content */}
+                        <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
                 {/* updates bar */}
                 {/* added stripes and animations for razzle dazzle */}
-                <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
+                {/* <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/> */}
                 {/* why "py-4"? have to ask brooklyn */} 
 
                 {/* This is Brooklyn answering you, 'py-4' is Padding on the Y-axis (top&bottom) 
@@ -114,7 +122,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 like py-3 or py-2, but I just used py-4 to mess around you can always change it
                  */}
                  
-                <Container className='py-4'>
+                {/* <Container className='py-4'> */}
                     <Form>
                         {detailedQuestions.map((question)=>(
                             // sets up questions and options and keeps them oranized on the same page
@@ -165,23 +173,32 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             </Form.Group>
                         ))}
                     </Form>
-                    {popup && (
-                        <Container className="popup">
-                        <Alert
-            variant="danger"
-            dismissible
-            onClose={() => setPopup(false)}
-        >
-                            Please answer all the questions before submitting.
-                        </Alert>
-                    </Container>
-                    )}
-                    </Container>
-                    <Button className='submitButton' onClick={submitHandler}>Submit</Button>
-            {/* // <h2>Detailed Quiz</h2>
+                    <div className="d-flex justify-content-end mt-4">
+                                    <Button className='submitButton' 
+                                        onClick={() => setShowModal(true)} 
+                                        disabled={Object.keys(choice).length !== detailedQuestions.length}
+                                        >Submit
+                                    </Button>
+                                </div>
+                            </div>
+                            </Container>
+                    {/* </Container> */}
+                    {/* <Button className='submitButton' onClick={submitHandler}>Submit</Button>
+            // <h2>Detailed Quiz</h2>
             // <p>This is the detailed quiz</p> */}
-            
-            </div>
+             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Quiz Completed!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                            Great Job completing the quiz. Click below to see your results!
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
+                        <Button variant='primary' onClick={() => navigateTo("result")}>View Results</Button>
+                    </Modal.Footer>
+                    </Modal>
+                    </div>
            
         )
        
