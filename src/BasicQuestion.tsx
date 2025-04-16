@@ -114,7 +114,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         </Modal.Body>
         <Modal.Footer>
             <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
-            <Button variant='primary' onClick={() => navigateTo("result")}>View Results</Button>
+            <Button variant='primary' onClick={() => {localStorage.setItem("quizAnswers", JSON.stringify(choice)); navigateTo("result")}}>View Results</Button>
         </Modal.Footer>
         </Modal>
         </div>
