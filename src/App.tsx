@@ -11,7 +11,6 @@ import ContactPage from "./Contact";
 function App() {
   const [currentPage, setCurrentPage] = useState<string>('home');
 
-
   // const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setKey(event.target.value);
   // };
