@@ -167,9 +167,13 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Form>
                     {popup && (
                         <Container className="popup">
-                        <div className="alert alert-danger" role="alert">
+                        <Alert
+            variant="danger"
+            dismissible
+            onClose={() => setPopup(false)}
+        >
                             Please answer all the questions before submitting.
-                        </div>
+                        </Alert>
                     </Container>
                     )}
                     </Container>
