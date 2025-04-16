@@ -1,5 +1,6 @@
 
 import React, {useState} from 'react';
+import ReactConfetti from 'react-confetti';
 import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
@@ -195,6 +196,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             // <h2>Detailed Quiz</h2>
             // <p>This is the detailed quiz</p> */}
              <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+             {showModal && <ReactConfetti />}
                     <Modal.Header closeButton>
                         <Modal.Title>Quiz Completed!</Modal.Title>
                     </Modal.Header>
