@@ -16,7 +16,6 @@ function App() {
   //   setKey(event.target.value);
   // };
 
-
   const renderPage = () => {
     if (currentPage === 'home') {
       return <HomePage navigateTo={setCurrentPage} />;
