@@ -135,3 +135,4 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
 };
 
 export default HomePage;
+// end of homepage code.

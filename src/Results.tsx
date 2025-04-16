@@ -23,6 +23,8 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
       </Navbar>
 
       <Container className="py-4">
+        <h1>Congratulations!</h1><br/>
+          <p>You finished the quiz, read below to see your Quiz Results.</p><br/>
         <h2>Quiz Results: </h2>
       </Container>
     </>
