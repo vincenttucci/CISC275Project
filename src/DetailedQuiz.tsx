@@ -14,8 +14,6 @@ export interface QuizQuestion {
     isOpenEnded?: boolean;
     //for select all that apply questions
     isSelectAll?:boolean;
-
-   
 }
 //used AI to generate random questions
 let detailedQuestions: QuizQuestion[]= [ { id: 1, body: 'Do you enjoy problem-solving?', options: ['Yes, a lot!', 'Sometimes', 'Not really'] },
