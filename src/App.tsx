@@ -6,17 +6,14 @@ import DetailedQuiz from './DetailedQuiz';
 import BasicQuestion from "./BasicQuestion";
 import AboutPage from "./About";
 import ResultsPage from "./Results";
-
-
+import ContactPage from "./Contact";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<string>('home');
 
-
   // const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setKey(event.target.value);
   // };
-
 
   const renderPage = () => {
     if (currentPage === 'home') {
@@ -25,9 +22,11 @@ function App() {
     }else if (currentPage === 'detailedquiz') {
       return <DetailedQuiz navigateTo={setCurrentPage}/>
 
-
     } else if (currentPage === 'basicQuestion') {
       return <BasicQuestion navigateTo={setCurrentPage}/>;
+
+    }else if (currentPage === 'contact') {
+      return <ContactPage navigateTo={setCurrentPage}/>
 
     } else if (currentPage === 'about') {
       return <AboutPage navigateTo={setCurrentPage}/>;

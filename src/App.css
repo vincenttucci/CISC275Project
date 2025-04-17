@@ -208,11 +208,54 @@ html, body {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* ============ DETAILED QUIZ ============== */
 .progress {
   background-color:#61dafb  !important;
   
 }
+.submitButton{
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
 
+/* ============ BasicQuestions Text Color ============== */
+
+
+.basic-quiz-page {
+  color: black;
+}
+
+.basic-quiz-page .navbar-brand,
+.basic-quiz-page .nav-link{
+  color: white !important;
+}
+
+
+/* ============ BasicQuestions QUIZ CARD  ============== */
+
+.quiz-card label,
+.quiz-card .form-check-label{
+  color:black !important;
+}
+
+
+.submitButton{
+  color:white !important;
+}
+
+.progress-bar {
+  color: black !important;
+}
+
+.quiz-card label {
+  font-weight: 500;
+  font-size: 1.00rem;
+}
+
+.quiz-card .form-check {
+  margin-bottom: 4px;
+}
 
 /*Dont need
 
@@ -249,4 +292,13 @@ html, body {
     animation: App-logo-spin infinite 20s linear;
   }
 
+} */
+
+/* .basic-quiz-page label,
+.basic-quiz-page .form-check-label,
+.basic-quiz-page .navbar-brand,
+.basic-quiz-page .nav-link,
+.basic-quiz-page .progress-bar,
+.basic-quiz-page .submitButton {
+  color: white !important;
 } */
