@@ -10,11 +10,18 @@ export interface QuizQuestion {
 
 
 let basicQuestions: QuizQuestion[] = [
-    { id: 1, body: 'Do you enjoy problem-solving?', options: ['Yes, a lot!', 'Sometimes', 'Not really'] },
-    { id: 2, body: 'Do you like working with people?', options: ['Yes', 'Occasionally', 'I prefer working alone'] },
-    { id: 3, body: 'Do you prefer working with numbers or words?', options: ['Numbers', 'Words', 'Both equally'] },
-    { id: 4, body: 'Would you rather work indoors or outdoors?', options: ['Indoors', 'Outdoors', 'No preference'] },
-    { id: 5, body: 'Do you enjoy creative tasks?', options: ['Yes', 'Sometimes', 'Not really'] }
+    { id: 1, body: 'Do you have or do you plan on pursuing a college degree?', options: ['Yes', 'No', 'Unsure'] },
+    { id: 2, body: 'Do you like working with people?', options: ['Yes', 'I prefer to work alone', 'Occasionally'] },
+    { id: 3, body: 'Do you want to travel for work?', options: ['Yes', 'No', 'Sometimes'] },
+    { id: 4, body: 'Are you more of a numbers or words person?', options: ['Numbers', 'Words', 'A little bit of both'] },
+    { id: 5, body: 'Which of these tasks sounds the most interesting to you?', options: ['Writing a paper', 'Creating and presenting a slideshow', 'Analyze data using statistical analysis', 'Meeting with clients', 'Reading a paper', 'Building something new'] },
+    { id: 6, body: 'Which of the following settings would you most like to work in?', options: ['A laboratory', 'An office building', 'Outside', 'From home', 'A classroom', 'From a workshop', 'On the road', 'Up on a stage', 'In a hospital'] },
+    { id: 7, body: 'Would you rather invent something new or improve something that already exists?', options: ['Make something new', 'Make something better'] },
+    { id: 8, body: 'What motivates you most in a job?', options: ['Helping people', 'Solving problems', 'Being creative', 'Learning something new'] },
+    { id: 9, body: 'Which subjects interest you the most?', options: ['Language Arts', 'History', 'Math', 'Finance', 'Natural Sciences', 'Computer Science', 'Political Science', 'Health and Medicinal studies'] },
+    { id: 10, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
+    { id: 11, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
+    { id: 12, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine: I like knowing what to expect', 'Variety: I like something new every day', 'A mix of both'] }
 ];
 
 interface BasicQuizProps {
@@ -89,7 +96,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
             {/* Quiz Content */}
-            <ProgressBar now={((currentIndex + 1) / basicQuestions.length) * 100} />
+            <ProgressBar now={((currentIndex) / basicQuestions.length) * 100} />
 
             {/* <Container className='py-4'> */}
                 <Form>
