@@ -32,9 +32,28 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     let[showModal....]
      */
     let [showModal, setShowModal] = React.useState(false);
+    let [currentIndex, setCurrentIndex] = React.useState(0);
+
+    let currentQuestion = basicQuestions[currentIndex];
 
     let trackChoices = (id: number, option: string) => {
         setChoice({ ...choice, [id]: option });
+    };
+
+    const nextButton = () => {
+        if(currentIndex < basicQuestions.length -1){
+            setCurrentIndex(currentIndex + 1);
+        }
+    };
+
+    const previousButton = () => {
+        if(currentIndex > 0 ){
+            setCurrentIndex(currentIndex - 1);
+        }
+    };
+
+    const submitButton = () => {
+        setShowModal(true);
     };
 
     return (
@@ -67,39 +86,52 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
             <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
-             <h5 className="mb-4">Quiz</h5>
+             <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
             {/* Quiz Content */}
-            <ProgressBar now={(Object.keys(choice).length / basicQuestions.length) * 100} label={`${Object.keys(choice).length}/${basicQuestions.length}`} />
+            <ProgressBar now={((currentIndex + 1) / basicQuestions.length) * 100} />
 
             {/* <Container className='py-4'> */}
                 <Form>
-                    {basicQuestions.map((question) => (
-                        <Form.Group key={question.id} controlId={`question-${question.id}`} className='basicquestion'>
-                            <Form.Label>{question.body}</Form.Label>
-                            {question.options.map((option, index) => (
+                        <Form.Group controlId={`question-${currentQuestion.id}`} className='basicquestion'>
+                            <Form.Label>{currentQuestion.body}</Form.Label>
+                            {currentQuestion.options.map((option, index) => (
                                 <Form.Check
                                     key={index}
                                     type="radio"
-                                    id={`question-${question.id}-option-${index}`} //fixes error of only selecting first choice on text click
+                                    id={`question-${currentQuestion.id}-option-${index}`} //fixes error of only selecting first choice on text click
                                     label={option}
-                                    name={`question-${question.id}`}
+                                    name={`question-${currentQuestion.id}`}
                                     value={option}
-                                    checked={choice[question.id] === option}
-                                    onChange={() => trackChoices(question.id, option)}
+                                    checked={choice[currentQuestion.id] === option}
+                                    onChange={() => trackChoices(currentQuestion.id, option)}
                                 />
                             ))}
                         </Form.Group>
-                    ))}
                 </Form>
 
             {/* </Container> */}
             <div className="d-flex justify-content-end mt-4">
-                <Button className='submitButton' 
-                    onClick={() => setShowModal(true)} 
-                    disabled={Object.keys(choice).length !== basicQuestions.length}
-                    >Submit
-                </Button>
+                <Button className='previousButton' 
+                    onClick={previousButton}
+                    disabled={currentIndex === 0}
+                    >Previous
+                </Button> 
+                {currentIndex < basicQuestions.length -1 ? (
+
+                    <Button className='nextButton' 
+                        onClick={nextButton}
+                        disabled={!choice[currentQuestion.id]}
+                        >Next
+                    </Button> ) : (
+
+                    <Button className='submitButton' 
+                        onClick={submitButton}
+                        disabled={!choice[currentQuestion.id]}
+                        >Submit
+                    </Button> 
+                )}
+
             </div>
         </div>
     </Container>
