@@ -8,8 +8,6 @@ export interface QuizQuestion {
     id: number;
     body: string;
     options?: string[];
-    //for questions that require textarea
-    isOpenEnded?: boolean;
     //for select all that apply questions
     isSelectAll?:boolean;
 }
@@ -40,23 +38,42 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     let[showModal....]
      */
     let [showModal, setShowModal] = React.useState(false);
+    let [currentIndex, setCurrentIndex] = React.useState(0);
+
+    let currentQuestion = basicQuestions[currentIndex];
 
     let trackChoices = (id: number, option: string|string[]) => {
         setChoice({ ...choice, [id]: option });
     };
+
+    const nextButton = () => {
+        if(currentIndex < basicQuestions.length -1){
+            setCurrentIndex(currentIndex + 1);
+        }
+    };
+
+    const previousButton = () => {
+        if(currentIndex > 0 ){
+            setCurrentIndex(currentIndex - 1);
+        }
+    };
+
+    const submitButton = () => {
+        setShowModal(true);
+    };
 //counting number of answered question for the select all and opened ended questions
         //done for progress bar to update correctly
-        let answerCount=basicQuestions.filter((question)=>{
-            let answer=choice[question.id];
-            if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-            if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-            return typeof answer === 'string' && answer !== '';
-        }).length;
+        // let answerCount=basicQuestions.filter((question)=>{
+        //     let answer=choice[question.id];
+        //     if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
+        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
+        //     return typeof answer === 'string' && answer !== '';
+        // }).length;
     return (
         <div
         className="basic-quiz-page"
         style={{
-            backgroundImage: 'url("/bluebackground.jpg")',
+            backgroundImage: 'url("/pink.gif")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -78,39 +95,39 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-{/* progress bar stays on screen while scrolling */}
-            <div style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 1000,
-            backgroundColor: 'white',
-            padding: '0.5rem 1rem'
-        }}>{/* updates bar */}
-                {/* added stripes and animations for razzle dazzle */}
-            <ProgressBar className='basicProgress' animated now={(answerCount/basicQuestions.length)*100} label={`${answerCount}/${basicQuestions.length}`}/>
+            {/* Left Arrow */}
+        <div 
+            className='arrow left-Arrow'
+            onClick={currentIndex > 0 ? previousButton : undefined}
+            style = {{ opacity: currentIndex === 0 ? 0.4 : 1}}
+            >
+                 ←
             </div>
+
+         {/* Right Arrow */}
+         <div 
+            className='arrow right-Arrow'
+            onClick={choice[currentQuestion.id] ? nextButton : undefined}
+            style = {{ opacity: currentIndex === basicQuestions.length - 1 || !choice[currentQuestion.id] ? 0.4 : 1}}
+            >
+                 →
+            </div>
+
+            
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
             <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Quiz</h5>
 
-            {/* Quiz Content
-            <ProgressBar now={(Object.keys(choice).length / basicQuestions.length) * 100} label={`${Object.keys(choice).length}/${basicQuestions.length}`} /> */}
+             {/* Quiz Content */}
+             <ProgressBar animated now={((currentIndex) / basicQuestions.length) * 100} />
 
             {/* <Container className='py-4'> */}
                 <Form>
                     {basicQuestions.map((question) => (
                         <Form.Group key={question.id} controlId={`question-${question.id}`} className='basicquestion'>
                             <Form.Label>{question.body}</Form.Label>
-                             {question.isOpenEnded ? (
-                                                                <Form.Control
-                                                                as="textarea"
-                                                                rows={3}
-                                                                value={choice[question.id] ||''}
-                                                                onChange={(e)=> trackChoices(question.id,e.target.value)}
-                                                                placeholder='Answer Here'
-                                                                />
-                                                            ): question.isSelectAll ?(
+                             {question.isSelectAll ?(
                                                                 question.options?.map((option,index) => (
                                                                     <Form.Check
                                                                     key={index}
@@ -148,14 +165,15 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                     ))}
                 </Form>
 
-            {/* </Container> */}
+                {currentIndex === basicQuestions.length - 1 && (
             <div className="d-flex justify-content-end mt-4">
-                <Button className='submitButton' 
-                    onClick={() => setShowModal(true)} 
-                    disabled={Object.keys(choice).length !== basicQuestions.length}
-                    >Submit
-                </Button>
+                    <Button className='submitButton' 
+                        onClick={submitButton}
+                        disabled={!choice[currentQuestion.id]}
+                        > Submit
+                    </Button> 
             </div>
+              )}
         </div>
     </Container>
 
