@@ -67,7 +67,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         <div
         className="basic-quiz-page"
         style={{
-            backgroundImage: 'url("/bluebackground.jpg")',
+            backgroundImage: 'url("/pink.gif")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -90,9 +90,28 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                 </Container>
             </Navbar>
 
+        {/* Left Arrow */}
+        <div 
+            className='arrow left-Arrow'
+            onClick={currentIndex > 0 ? previousButton : undefined}
+            style = {{ opacity: currentIndex === 0 ? 0.4 : 1}}
+            >
+                 ←
+            </div>
+
+         {/* Right Arrow */}
+         <div 
+            className='arrow right-Arrow'
+            onClick={choice[currentQuestion.id] ? nextButton : undefined}
+            style = {{ opacity: currentIndex === basicQuestions.length - 1 || !choice[currentQuestion.id] ? 0.4 : 1}}
+            >
+                 →
+            </div>
+        
+
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
-            <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
+            <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
             {/* Quiz Content */}
@@ -117,29 +136,16 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                         </Form.Group>
                 </Form>
 
-            {/* </Container> */}
+       
+            {currentIndex === basicQuestions.length - 1 && (
             <div className="d-flex justify-content-end mt-4">
-                <Button className='previousButton' 
-                    onClick={previousButton}
-                    disabled={currentIndex === 0}
-                    >Previous
-                </Button> 
-                {currentIndex < basicQuestions.length -1 ? (
-
-                    <Button className='nextButton' 
-                        onClick={nextButton}
-                        disabled={!choice[currentQuestion.id]}
-                        >Next
-                    </Button> ) : (
-
                     <Button className='submitButton' 
                         onClick={submitButton}
                         disabled={!choice[currentQuestion.id]}
-                        >Submit
+                        > Submit
                     </Button> 
-                )}
-
             </div>
+              )}
         </div>
     </Container>
 
