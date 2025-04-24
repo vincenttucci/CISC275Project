@@ -87,7 +87,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 minHeight: '100%',
                 width: '100%'
             }}>
-                
+                {/* navigation bar  */}
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
                     <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -101,13 +101,15 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            {/* progress bar stays on screen while scrolling */}
             <div style={{
             position: 'sticky',
             top: 0,
             zIndex: 1000,
             backgroundColor: 'white',
             padding: '0.5rem 1rem'
-        }}>
+        }}>{/* updates bar */}
+                {/* added stripes and animations for razzle dazzle */}
             <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
             </div>
              {/*Quiz Card*/}
@@ -195,6 +197,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     {/* <Button className='submitButton' onClick={submitHandler}>Submit</Button>
             // <h2>Detailed Quiz</h2>
             // <p>This is the detailed quiz</p> */}
+            {/* popup for when quiz is complete */}
              <Modal show={showModal} onHide={() => setShowModal(false)} centered>
              {showModal && <ReactConfetti />}
                     <Modal.Header closeButton>
