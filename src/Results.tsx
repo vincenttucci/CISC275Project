@@ -60,7 +60,11 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
     }
   }, []);
 
-  // download of quiz results as a PDF 
+ 
+  /* download of quiz results as a PDF:
+  * JSPDF documentation: https://www.npmjs.com/package/jspdf
+  * npm install jspdf
+  */
   const downloadPDF = () => {
     const doc = new jsPDF();
 
