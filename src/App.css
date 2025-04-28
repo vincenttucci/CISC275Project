@@ -234,10 +234,9 @@ html, body {
 /* ============ BasicQuestions QUIZ CARD  ============== */
 
 .quiz-card{
-  background-color: rgba(197, 240, 208, 0.77);
+  background-color: rgb(114, 76, 15);
   border-radius: 15px;
   font-weight: 500;
-
 
 }
 .quiz-card label,
@@ -274,7 +273,7 @@ h5{
   transform: translateY(-50%);
   font-size: 2.5rem;
   cursor: pointer;
-  color: rgb(187, 83, 187);
+  color: rgb(145, 96, 40);
   user-select: none;
   z-index: 1000;
   padding: 10px;
