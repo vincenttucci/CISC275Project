@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { Navbar, Nav, Container, Form, Button, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NightMode from './NightMode'; // New night mode code
 
@@ -18,9 +18,40 @@ if (prevKey !== null) {
 const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
   const [key, setKey] = useState<string>(keyData);
   const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
-  const handleSubmit = () => {
-    localStorage.setItem(saveKeyData, JSON.stringify(key));
+  // reference: https://platform.openai.com/docs/api-reference/authentication
+  const validateApiKey = async (apiKey: string): Promise<boolean> => {
+    try {
+      const response = await fetch("https://api.openai.com/v1/models", {
+        headers: {
+          "Authorization": `Bearer ${apiKey}`
+        }
+      });
+
+      return response.status === 200;
+    } catch (error) {
+      console.error("Error validating API key:", error);
+      return false;
+    }
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    const isValid = await validateApiKey(key);
+    setLoading(false);
+
+    if (isValid) {
+      localStorage.setItem(saveKeyData, JSON.stringify(key));
+      setSuccessMessage(true);
+
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 3000);
+    } else {
+      alert("Invalid API Key. Please enter a valid key.");
+    }
   };
 
   const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
-              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
+              <Nav.Link href="mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question">Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -62,13 +93,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // makes sure API key is valid before the user can start basic quiz, throws alert if not
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("basicQuestion");
                   }}
+                  
                 >
                   Basic Questions
                 </Button>
@@ -81,13 +119,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // verifies API key for detailed quiz like basic question
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("detailedquiz");
                   }}
+                  
                 >
                   Detailed Questions
                 </Button>
@@ -101,14 +146,39 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
       <footer className="App-footer" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
         <Form style={{ width: "100%", maxWidth: "400px" }}>
           <Form.Label style={{ fontSize: "small" }}>API Key:</Form.Label>
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', position: 'relative' }}>
             <Form.Control
               type="text"
               placeholder="Insert API Key Here"
               value={key}
               onChange={changeKey}
             />
-            <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+            <Button 
+              className="Submit-Button" 
+              onClick={handleSubmit} 
+              disabled={loading}
+              style={{ width: "150px", display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}
+              >
+                {loading && <Spinner animation="border" size="sm" />}
+                <span style={{ visibility: loading ? "visible" : "visible" }}>
+                {loading ? "Checking..." : "Submit"}
+              </span>
+            </Button>
+
+
+            {successMessage && (
+              <Alert variant="success" style={{
+                position: 'absolute',
+                top: '-50px',
+                left: '0',
+                right: '0',
+                textAlign: 'center',
+                fontSize: '14px',
+                padding: '5px'
+              }}>
+                API Key saved successfully!
+              </Alert>
+            )}
           </div>
         </Form>
 

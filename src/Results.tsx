@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Navbar, Nav, Spinner, Card, Button } from 'react-bootstrap';
+import jsPDF from 'jspdf';
 
 interface ResultPageProps {
   navigateTo: (page: string) => void;
@@ -62,6 +63,34 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
     }
   }, []);
 
+ 
+  /* download of quiz results as a PDF:
+  * JSPDF documentation: https://www.npmjs.com/package/jspdf
+  * npm install jspdf
+  */
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(20);
+    doc.text("Career Helpi Quiz Results", 20, 20);
+
+    doc.setFontSize(14);
+    doc.text("\nYour Answers:", 20, 40);
+
+    let y = 50;
+    Object.entries(quizAnswers).forEach(([question, answer], index) => {
+      doc.text(`${index + 1}. ${question}: ${answer}`, 20, y);
+      y += 10;
+    });
+
+    doc.text("\nCareer Suggestions:", 20, y + 10);
+
+    const suggestionsLines = doc.splitTextToSize(jobSuggestions, 170);
+    doc.text(suggestionsLines, 20, y + 20);
+
+    doc.save("career_finder_results.pdf");
+  };
+
   return (
     <>
         <div
@@ -118,6 +147,10 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
           onClick={() => alert(JSON.stringify(quizAnswers, null, 2))}
         >
           View My Answers
+        </Button>
+
+        <Button variant="primary" onClick={downloadPDF}>
+          Download Results as PDF
         </Button>
       </Container>
       </div>
