@@ -2,8 +2,68 @@
 > starter_helpi@0.1.0 test
 > react-scripts test --coverage
 
+  console.error
+    Error: Not implemented: HTMLCanvasElement.prototype.getContext (without installing the canvas npm package)
+        at module.exports (/home/runner/work/CISC275Project/CISC275Project/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+        at HTMLCanvasElementImpl.getContext (/home/runner/work/CISC275Project/CISC275Project/node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
+        at HTMLCanvasElement.getContext (/home/runner/work/CISC275Project/CISC275Project/node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
+        at hasBrowserCanvas (/home/runner/work/CISC275Project/CISC275Project/node_modules/jspdf/src/libs/png.js:479:36)
+        at /home/runner/work/CISC275Project/CISC275Project/node_modules/jspdf/src/libs/png.js:488:3
+        at Object.<anonymous> (/home/runner/work/CISC275Project/CISC275Project/node_modules/jspdf/src/libs/png.js:28:11)
+        at Runtime._execModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/CISC275Project/CISC275Project/src/Results.tsx:3:1)
+        at Runtime._execModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/CISC275Project/CISC275Project/src/App.tsx:8:1)
+        at Runtime._execModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/CISC275Project/CISC275Project/src/App.test.tsx:3:1)
+        at Runtime._execModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runtime/build/index.js:1009:12)
+        at jestAdapter (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:13)
+        at processTicksAndRejections (node:internal/process/task_queues:96:5)
+        at runTestInternal (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runner/build/runTest.js:389:16)
+        at runTest (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runner/build/runTest.js:475:34)
+        at TestRunner.runTests (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-runner/build/index.js:101:12)
+        at TestScheduler.scheduleTests (/home/runner/work/CISC275Project/CISC275Project/node_modules/@jest/core/build/TestScheduler.js:333:13)
+        at runJest (/home/runner/work/CISC275Project/CISC275Project/node_modules/@jest/core/build/runJest.js:404:19)
+        at _run10000 (/home/runner/work/CISC275Project/CISC275Project/node_modules/@jest/core/build/cli/index.js:320:7)
+        at runCLI (/home/runner/work/CISC275Project/CISC275Project/node_modules/@jest/core/build/cli/index.js:173:3)
+        at Object.run (/home/runner/work/CISC275Project/CISC275Project/node_modules/jest-cli/build/cli/index.js:155:37) undefined
+
+      1 | import React, { useEffect, useState } from 'react';
+      2 | import { Container, Navbar, Nav, Spinner, Card, Button } from 'react-bootstrap';
+    > 3 | import jsPDF from 'jspdf';
+        | ^
+      4 |
+      5 | interface ResultPageProps {
+      6 |   navigateTo: (page: string) => void;
+
+      at VirtualConsole.<anonymous> (node_modules/jsdom/lib/jsdom/virtual-console.js:29:45)
+      at module.exports (node_modules/jsdom/lib/jsdom/browser/not-implemented.js:12:26)
+      at HTMLCanvasElementImpl.getContext (node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
+      at HTMLCanvasElement.getContext (node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
+      at hasBrowserCanvas (node_modules/jspdf/src/libs/png.js:479:36)
+      at node_modules/jspdf/src/libs/png.js:488:3
+      at Object.<anonymous> (node_modules/jspdf/src/libs/png.js:28:11)
+      at Object.<anonymous> (src/Results.tsx:3:1)
+      at Object.<anonymous> (src/App.tsx:8:1)
+      at Object.<anonymous> (src/App.test.tsx:3:1)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
 FAIL src/App.test.tsx
-  ✕ renders learn react link (65 ms)
+  ✕ renders learn react link (70 ms)
 
   ● renders learn react link
 
@@ -242,7 +302,7 @@ go away.[0m
 --------------------|---------|----------|---------|---------|--------------------------------
 File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s              
 --------------------|---------|----------|---------|---------|--------------------------------
-All files           |   17.01 |     9.37 |    8.82 |   18.71 |                                
+All files           |   15.86 |     9.37 |    8.57 |   17.29 |                                
  About.tsx          |    12.5 |      100 |       0 |      20 | 10-20                          
  App.tsx            |   31.25 |     8.33 |     100 |   31.25 | 22-38                          
  BasicQuestion.tsx  |    5.71 |        0 |       0 |    6.45 | 71-233                         
@@ -250,12 +310,12 @@ All files           |   17.01 |     9.37 |    8.82 |   18.71 |
  DetailedQuiz.tsx   |    5.71 |        0 |       0 |    7.14 | 50-210                         
  HomePage.tsx       |   31.11 |    33.33 |      10 |   32.55 | 15,26-36,41-53,58,62-64,75-120 
  NightMode.tsx      |   77.77 |       50 |      75 |      75 | 13-14                          
- Results.tsx        |     3.7 |        0 |       0 |    4.16 | 9-97                           
+ Results.tsx        |    2.43 |        0 |       0 |    2.63 | 10-126                         
  index.tsx          |       0 |      100 |     100 |       0 | 7-19                           
  reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                           
 --------------------|---------|----------|---------|---------|--------------------------------
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        3.346 s
+Time:        3.958 s
 Ran all test suites.
