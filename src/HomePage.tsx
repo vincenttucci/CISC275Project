@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Container, Form, Button, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NightMode from './NightMode'; // New night mode code
