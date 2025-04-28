@@ -3,7 +3,7 @@
 > react-scripts test --coverage
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (62 ms)
+  ✕ renders learn react link (64 ms)
 
   ● renders learn react link
 
@@ -62,10 +62,8 @@ FAIL src/App.test.tsx
                     [36m</a>[39m
                     [36m<a[39m
                       [33mclass[39m=[32m"nav-link"[39m
-                      [33mdata-rr-ui-event-key[39m=[32m"#"[39m
-                      [33mhref[39m=[32m"#"[39m
-                      [33mrole[39m=[32m"button"[39m
-                      [33mtabindex[39m=[32m"0"[39m
+                      [33mdata-rr-ui-event-key[39m=[32m"mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question"[39m
+                      [33mhref[39m=[32m"mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question"[39m
                     [36m>[39m
                       [0mContact[0m
                     [36m</a>[39m
@@ -244,13 +242,13 @@ go away.[0m
 --------------------|---------|----------|---------|---------|--------------------------------
 File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s              
 --------------------|---------|----------|---------|---------|--------------------------------
-All files           |   16.83 |     9.37 |    8.69 |    18.6 |                                
+All files           |   17.01 |     9.37 |    8.82 |   18.71 |                                
  About.tsx          |    12.5 |      100 |       0 |      20 | 10-20                          
  App.tsx            |   31.25 |     8.33 |     100 |   31.25 | 22-38                          
  BasicQuestion.tsx  |    5.71 |        0 |       0 |    6.45 | 71-233                         
  Contact.tsx        |    12.5 |      100 |       0 |      20 | 9-19                           
  DetailedQuiz.tsx   |    5.71 |        0 |       0 |    7.14 | 51-211                         
- HomePage.tsx       |   29.78 |    33.33 |    9.09 |   31.81 | 15,26-36,41-53,58,62-64,75-120 
+ HomePage.tsx       |   31.11 |    33.33 |      10 |   32.55 | 15,26-36,41-53,58,62-64,75-120 
  NightMode.tsx      |   77.77 |       50 |      75 |      75 | 13-14                          
  Results.tsx        |     3.7 |        0 |       0 |    4.16 | 9-97                           
  index.tsx          |       0 |      100 |     100 |       0 | 7-19                           
@@ -259,5 +257,5 @@ All files           |   16.83 |     9.37 |    8.69 |    18.6 |
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        3.281 s
+Time:        3.319 s
 Ran all test suites.
