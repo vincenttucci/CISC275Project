@@ -85,7 +85,9 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
     doc.text("\nCareer Suggestions:", 20, y + 10);
 
-    const suggestionsLines = doc.splitTextToSize(jobSuggestions, 170);
+  
+    const suggestionsText = jobSuggestions.join(", ");
+    const suggestionsLines = doc.splitTextToSize(suggestionsText, 170);
     doc.text(suggestionsLines, 20, y + 20);
 
     doc.save("career_finder_results.pdf");
