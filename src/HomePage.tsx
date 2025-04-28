@@ -93,13 +93,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // makes sure API key is valid before the user can start basic quiz, throws alert if not
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("basicQuestion");
                   }}
+                  
                 >
                   Basic Questions
                 </Button>
@@ -112,13 +119,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // verifies API key for detailed quiz like basic question
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("detailedquiz");
                   }}
+                  
                 >
                   Detailed Questions
                 </Button>
