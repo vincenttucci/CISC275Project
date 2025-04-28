@@ -153,7 +153,7 @@ FAIL src/App.test.tsx
                   [0mAPI Key:[0m
                 [36m</label>[39m
                 [36m<div[39m
-                  [33mstyle[39m=[32m"display: flex; gap: 10px; align-items: center;"[39m
+                  [33mstyle[39m=[32m"display: flex; gap: 10px; align-items: center; position: relative;"[39m
                 [36m>[39m
                   [36m<input[39m
                     [33mclass[39m=[32m"form-control"[39m
@@ -163,9 +163,14 @@ FAIL src/App.test.tsx
                   [36m/>[39m
                   [36m<button[39m
                     [33mclass[39m=[32m"Submit-Button btn btn-primary"[39m
+                    [33mstyle[39m=[32m"width: 150px; display: flex; align-items: center; justify-content: center; gap: 5px;"[39m
                     [33mtype[39m=[32m"button"[39m
                   [36m>[39m
-                    [0mSubmit[0m
+                    [36m<span[39m
+                      [33mstyle[39m=[32m"visibility: visible;"[39m
+                    [36m>[39m
+                      [0mSubmit[0m
+                    [36m</span>[39m
                   [36m</button>[39m
                 [36m</div>[39m
               [36m</form>[39m
@@ -224,26 +229,6 @@ FAIL src/App.test.tsx
       at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
---------------------|---------|----------|---------|---------|----------------------
-File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s    
---------------------|---------|----------|---------|---------|----------------------
-All files           |   16.66 |     5.81 |    8.95 |   18.58 |                      
- About.tsx          |    12.5 |      100 |       0 |      20 | 10-20                
- App.tsx            |   31.25 |     8.33 |     100 |   31.25 | 22-38                
- BasicQuestion.tsx  |    5.71 |        0 |       0 |    6.45 | 71-233               
- Contact.tsx        |    12.5 |      100 |       0 |      20 | 9-19                 
- DetailedQuiz.tsx   |    5.71 |        0 |       0 |    7.14 | 51-211               
- HomePage.tsx       |   35.48 |       25 |   11.11 |   39.28 | 15,23,27,31-33,44-89 
- NightMode.tsx      |   77.77 |       50 |      75 |      75 | 13-14                
- Results.tsx        |     3.7 |        0 |       0 |    4.16 | 9-97                 
- index.tsx          |       0 |      100 |     100 |       0 | 7-19                 
- reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                 
---------------------|---------|----------|---------|---------|----------------------
-Test Suites: 1 failed, 1 total
-Tests:       1 failed, 1 total
-Snapshots:   0 total
-Time:        3.285 s
-Ran all test suites.
 [0;33mOne of your dependencies, babel-preset-react-app, is importing the
 "@babel/plugin-proposal-private-property-in-object" package without
 declaring it in its dependencies. This is currently working because
@@ -256,3 +241,23 @@ ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
 your devDependencies to work around this error. This will make this message
 go away.[0m
   
+--------------------|---------|----------|---------|---------|--------------------------------
+File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s              
+--------------------|---------|----------|---------|---------|--------------------------------
+All files           |   16.83 |     9.37 |    8.69 |    18.6 |                                
+ About.tsx          |    12.5 |      100 |       0 |      20 | 10-20                          
+ App.tsx            |   31.25 |     8.33 |     100 |   31.25 | 22-38                          
+ BasicQuestion.tsx  |    5.71 |        0 |       0 |    6.45 | 71-233                         
+ Contact.tsx        |    12.5 |      100 |       0 |      20 | 9-19                           
+ DetailedQuiz.tsx   |    5.71 |        0 |       0 |    7.14 | 51-211                         
+ HomePage.tsx       |   29.78 |    33.33 |    9.09 |   31.81 | 15,26-36,41-53,58,62-64,75-120 
+ NightMode.tsx      |   77.77 |       50 |      75 |      75 | 13-14                          
+ Results.tsx        |     3.7 |        0 |       0 |    4.16 | 9-97                           
+ index.tsx          |       0 |      100 |     100 |       0 | 7-19                           
+ reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                           
+--------------------|---------|----------|---------|---------|--------------------------------
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        3.281 s
+Ran all test suites.
