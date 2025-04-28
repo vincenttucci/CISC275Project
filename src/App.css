@@ -24,7 +24,6 @@ html, body {
 }
 
 
-
 /* ============ NAV & HEADER ============== */
 
 .App-header {
@@ -234,18 +233,26 @@ html, body {
 
 /* ============ BasicQuestions QUIZ CARD  ============== */
 
+.quiz-card{
+  background-color: rgba(197, 240, 208, 0.77);
+  border-radius: 15px;
+  font-weight: 500;
+
+
+}
 .quiz-card label,
 .quiz-card .form-check-label{
-  color:black !important;
+  /* color:black !important; */
+  font-family: 'Pixelify Sans';
+  
 }
 
+h5{
+  font-family: "Tiny5";
 
+}
 .submitButton{
   color:white !important;
-}
-
-.progress-bar {
-  color: black !important;
 }
 
 .quiz-card label {
@@ -256,6 +263,40 @@ html, body {
 .quiz-card .form-check {
   margin-bottom: 4px;
 }
+
+/* ============ BasicQuestions Arrows  ============== */
+
+/*WILL CHANGE COLORS AND SHAPE LATER */
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: rgb(187, 83, 187);
+  user-select: none;
+  z-index: 1000;
+  padding: 10px;
+  background-color:  rgba(197, 240, 208, 0.77);
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+
+.arrow:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.left-Arrow {
+  left: 20px;
+}
+
+.right-Arrow {
+  right: 20px;
+}
+
+
 
 /*Dont need
 
