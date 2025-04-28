@@ -73,7 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
-              <Nav.Link href="mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question">Contact</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
           </Navbar.Collapse>
