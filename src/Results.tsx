@@ -7,7 +7,7 @@ interface ResultPageProps {
 
 const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
   const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: string }>({});
-  const [jobSuggestions, setJobSuggestions] = useState<string>("");
+  const [jobSuggestions, setJobSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,14 +46,17 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
         //get the response text from chat and store it
         .then(data => {
           const text = data.choices?.[0]?.message?.content || "No response.";
-          setJobSuggestions(text); //save the job suggestions
+
+          //need a bit more researrch on '/\d+\.\s/' like why did that work and what initally is it?
+          const jobs = text.split(/\d+\.\s/).filter((entry: string) => entry.trim() !== "");
+          setJobSuggestions(jobs); //save the job suggestions
           setLoading(false); //loading finished
         })
 
         //handle any errors if something goes wrong
         .catch(err => {
           console.error("Error fetching jobs from OpenAI:", err);
-          setJobSuggestions("There was a problem generating your results.");
+          setJobSuggestions(["There was a problem generating your results."]);
           setLoading(false);
         });
     }
@@ -61,6 +64,20 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
   return (
     <>
+        <div
+        className="results-page"
+        style={{
+            backgroundImage: 'url("/minecraft.jpeg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            minHeight: '100vh',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column'
+
+        }}
+        >
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -86,7 +103,11 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
         ) : (
           <Card className="p-4 shadow-lg mt-4">
             <h4>Recommended Jobs:</h4>
-            <p>{jobSuggestions}</p>
+            <ul className='text-start'>
+                {jobSuggestions.map((job: string, index: React.Key | null | undefined) => (
+                  <li key={index} className='mb-3'>{job.trim()}</li>
+                ))}
+            </ul>
           </Card>
         )}
 
@@ -99,6 +120,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
           View My Answers
         </Button>
       </Container>
+      </div>
     </>
   );
 };
