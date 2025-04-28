@@ -19,29 +19,28 @@ export interface QuizQuestion {
    
 }
 //used AI to generate random questions
-let detailedQuestions: QuizQuestion[]= [ { id: 1, body: 'Do you enjoy problem-solving?', options: ['Yes, a lot!', 'Sometimes', 'Not really'] },
-{ id: 2, body: 'What was your dream career as a child?', isOpenEnded: true },
-{ id: 3, body: 'Do you like working with people?', options: ['Yes', 'Occasionally', 'I prefer working alone'] },
-{ id: 4, body: 'Which of these activities do you enjoy? (Select all that apply)', options: ['Reading', 'Traveling', 'Gaming', 'Cooking'], isSelectAll: true },
-{ id: 5, body: 'Describe a project or task you really enjoyed and why.', isOpenEnded: true },
-{ id: 6, body: 'Do you prefer working with numbers or words?', options: ['Numbers', 'Words', 'Both equally'] },
-{ id: 7, body: 'Would you rather work indoors or outdoors?', options: ['Indoors', 'Outdoors', 'No preference'] },
-{ id: 8, body: 'Do you like working with technology?', options: ['Yes', 'A little', 'Not really'] },
-{ id: 9, body: 'Are you comfortable with public speaking?', options: ['Yes', 'With practice', 'Not at all'] },
-{ id: 10, body: 'Do you enjoy helping others?', options: ['Yes, very much', 'Sometimes', 'Not really'] },
-{ id: 11, body: 'What motivates you to do your best work?', isOpenEnded: true },
-{ id: 12, body: 'Do you like solving puzzles or complex problems?', options: ['Yes', 'Sometimes', 'No'] },
-{ id: 13, body: 'Would you rather work on long-term projects or short, varied tasks?', options: ['Long-term projects', 'Short tasks', 'A mix of both'] },
-{ id: 14, body: 'Which of these skills do you feel strongest in? (Select all that apply)', options: ['Creativity', 'Leadership', 'Technical skills', 'Empathy'], isSelectAll: true },
-{ id: 15, body: 'Do you prefer a structured routine or a flexible schedule?', options: ['Structured routine', 'Flexible schedule', 'No preference'] },
-{ id: 16, body: 'Are you interested in science?', options: ['Yes', 'Somewhat', 'Not really'] },
-{ id: 17, body: 'Tell us about a time you overcame a challenge.', isOpenEnded: true },
-{ id: 18, body: 'Are you interested in healthcare and medicine?', options: ['Yes', 'Somewhat', 'Not at all'] },
-{ id: 19, body: 'What kind of work environment do you think suits you best?', isOpenEnded: true },
-{ id: 20, body: 'Would you prefer working in an office, a lab, or in the field?', options: ['Office', 'Lab', 'Field'] },
-{ id: 21, body: 'Do you want a job that involves travel?', options: ['Yes, frequently', 'Occasionally', 'No, I prefer stability'] },
-{ id: 22, body: 'Which types of roles sound most interesting? (Select all that apply)', options: ['Analyst', 'Designer', 'Engineer', 'Manager'], isSelectAll: true },
-{ id: 23, body: 'List any hobbies or activities that make you lose track of time.', isOpenEnded: true }]
+let detailedQuestions: QuizQuestion[]= [ 
+    { id: 1, body: 'Do you have or do you plan on pursuing a college degree?', options: ['Yes', 'No', 'Unsure'] },
+    { id: 2, body: 'Do you like working with people?', options: ['Yes', 'I prefer to work alone', 'Occasionally'] },
+    { id: 3, body: 'Are you more of a numbers or words person?', options: ['Numbers', 'Words', 'A little bit of both'] },
+    { id: 4, body: 'Which of these tasks sounds the most interesting to you? (Select all that apply)', options: ['Writing a paper', 'Creating and presenting a slideshow', 'Analyze data using statistical analysis', 'Meeting with clients', 'Reading a paper', 'Building something new'], isSelectAll: true },
+    { id: 5, body: 'Which of the following settings would you most like to work in? (Select all that apply)', options: ['A laboratory', 'An office building', 'Outside', 'From home', 'A classroom', 'From a workshop', 'On the road', 'Up on a stage', 'In a hospital'], isSelectAll: true },
+    { id: 6, body: 'Would you rather invent something new or improve something that already exists?', options: ['Make something new', 'Make something better'] },
+    { id: 7, body: 'What motivates you most in a job?', options: ['Helping people', 'Solving problems', 'Being creative', 'Learning something new'] },
+    { id: 8, body: 'Which subjects interest you the most? (Select all that apply)', options: ['Language Arts', 'History', 'Math', 'Finance', 'Natural Sciences', 'Computer Science', 'Political Science', 'Health and Medicinal studies'], isSelectAll: true },
+    { id: 9, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
+    { id: 10, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
+    { id: 11, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine', 'Variety', 'A balance of both'] },
+    { id: 12, body: 'Describe a time you solved a difficult problem. (Open-ended)', isOpenEnded: true },
+    { id: 13, body: 'Would you rather work independently or as part of a team?', options: ['Independently', 'Part of a team', 'Depends on the project'] },
+    { id: 14, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not comfortable at all'] },
+    { id: 15, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task'] },
+    { id: 16, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
+    { id: 17, body: 'Which activities do you enjoy most? (Select all that apply)', options: ['Creating art or music', 'Fixing or building things', 'Organizing events', 'Helping people solve problems'], isSelectAll: true },
+    { id: 18, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
+    { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
+    { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+];
 
 interface DetailedQuizProps {
     navigateTo: (page: string) => void;
