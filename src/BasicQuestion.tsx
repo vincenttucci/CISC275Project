@@ -156,6 +156,8 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
+
+            
             <div className='quiz-card p-4 rounded shadow' style={{maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
