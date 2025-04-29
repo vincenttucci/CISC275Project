@@ -31,15 +31,15 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 9, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
     { id: 10, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
     { id: 11, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine', 'Variety', 'A balance of both'] },
-    { id: 12, body: 'Describe a time you solved a difficult problem. (Open-ended)', isOpenEnded: true },
+    { id: 12, body: 'Describe a time you solved a difficult problem.', isOpenEnded: true },
     { id: 13, body: 'Would you rather work independently or as part of a team?', options: ['Independently', 'Part of a team', 'Depends on the project'] },
     { id: 14, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not comfortable at all'] },
     { id: 15, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task'] },
     { id: 16, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
     { id: 17, body: 'Which activities do you enjoy most? (Select all that apply)', options: ['Creating art or music', 'Fixing or building things', 'Organizing events', 'Helping people solve problems'], isSelectAll: true },
-    { id: 18, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
+    { id: 18, body: 'What is a skill you wish you could improve or develop?', isOpenEnded: true },
     { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
-    { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+    { id: 20, body: 'Describe your ideal workday in a few sentences.', isOpenEnded: true },
 ];
 
 interface DetailedQuizProps {
@@ -96,7 +96,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         return(
             <div 
             style={{
-                backgroundImage:'url("/background.gif")',
+                backgroundImage:'url("/pinkMine.gif")',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
@@ -139,7 +139,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
            
              {/*Quiz Card*/}
                     <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
-                        <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
+                        <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
                          <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
                          <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100}/>
                         {/* Quiz Content */}
