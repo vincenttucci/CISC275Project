@@ -112,16 +112,16 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         // }).length;
     return (
         <div
-        className="basic-quiz-page"
-        style={{
-            backgroundImage: 'url("/background.gif")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            minHeight: '100%',
-            width: '100%'
-        }}
-        >
+        className="basic-quiz-page">
+             {/* Floating GIFs */}
+             <img src="/colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
+             <img src="/weirdfish.gif" alt="whitefish" className="floating-gif gif-weirdfish" />
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish2" />
+
             {/* Navbar (copied from HomePage.tsx) */}
             <Navbar className='backdrop-blur' expand="lg">
                 <Container>
@@ -234,7 +234,10 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         </Modal.Body>
         <Modal.Footer>
             <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
-            <Button variant='primary' onClick={() => {localStorage.setItem("quizAnswers", JSON.stringify(choice)); navigateTo("result")}}>View Results</Button>
+            <Button variant='primary' onClick={() => {
+                localStorage.setItem("quizType", "basic"); // include this line to store which type of quiz the user took in order to prompt GPT with the correct questions.
+                localStorage.setItem("quizAnswers", JSON.stringify(choice)); 
+                navigateTo("result")}}>View Results</Button>
         </Modal.Footer>
         </Modal>
         </div>
