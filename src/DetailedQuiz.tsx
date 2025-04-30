@@ -16,7 +16,7 @@ export interface QuizQuestion {
     //for select all that apply questions
     isSelectAll?:boolean;
 }
-//used AI to generate random questions
+//used AI to generate some question answer choices
 let detailedQuestions: QuizQuestion[]= [ 
     { id: 1, body: 'Do you have or do you plan on pursuing a college degree?', options: ['Yes', 'No', 'Unsure'] },
     { id: 2, body: 'Do you like working with people?', options: ['Yes', 'I prefer to work alone', 'Occasionally'] },
@@ -29,14 +29,14 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 9, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
     { id: 10, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
     { id: 11, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine', 'Variety', 'A balance of both'] },
-    { id: 12, body: 'Describe a time you solved a difficult problem. (Open-ended)', isOpenEnded: true },
-    { id: 13, body: 'Would you rather work independently or as part of a team?', options: ['Independently', 'Part of a team', 'Depends on the project'] },
-    { id: 14, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not comfortable at all'] },
-    { id: 15, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task'] },
-    { id: 16, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
-    { id: 17, body: 'Which activities do you enjoy most? (Select all that apply)', options: ['Creating art or music', 'Fixing or building things', 'Organizing events', 'Helping people solve problems'], isSelectAll: true },
-    { id: 18, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
-    { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
+    { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)', isOpenEnded: true },
+    { id: 13, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not a chance'] },
+    { id: 14, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task']},
+    { id: 15, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
+    { id: 16, body: 'Where are you in your career now? Where do you see yourself as far in the future as you have imagined? (Open-ended)', isOpenEnded: true },
+    { id: 17, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
+    { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?', options: ['Work Life Balance', 'Career Growth', 'Unsure'] },
+    { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)', options: ['Managing other members', 'Completing tasks', 'Planning future tasks', 'Generating Ideas', 'Performing Quality Checks'], isSelectAll: true },
     { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
 ];
 
@@ -205,7 +205,10 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
-                        <Button variant='primary' onClick={() => {localStorage.setItem("quizAnswers", JSON.stringify(choice)); navigateTo("result")}}>View Results</Button>
+                        <Button variant='primary' onClick={() => {
+                            localStorage.setItem("quizType", "detailed"); // include this line to store which type of quiz the user took in order to prompt GPT with the correct questions.
+                            localStorage.setItem("quizAnswers", JSON.stringify(choice)); 
+                            navigateTo("result")}}>View Results</Button>
                     </Modal.Footer>
                     </Modal>
                     </div>
