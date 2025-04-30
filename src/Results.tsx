@@ -84,11 +84,33 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
       * Asks AI to suggest career options based on the questions and respective answers
       */
 
-      const prompt = `A person answered the following about themselves: ${Object.entries(parsedAnswers).map(([idStr, answer]) => {
-        const question = questionsToUse.find(q => q.id === parseInt(idStr));
-        const formattedAnswer = Array.isArray(answer) ? answer.join(", ") : answer;
+      const prompt = `You are a career advisor. A user has taken a career quiz to help identify roles they might thrive in. The quiz assesses them across multiple dimensions including education goals, personality traits, work style, interests, motivations, risk tolerance, and environment preferences.
+      
+      Evaluate the answers below and, based on all of these dimensions (not just interests), suggest 5 careers that would align well with this user's preferences. 
+      
+      For each career, explain briefly why it matches, referencing multiple aspects from the user's answers. 
+      
+      Also, and this isn't necessary for every career every time, list skills, experience, education, training, etc. that might help the user to know.
+
+      They should be listed in the order of more to less general/popular.
+                      
+      Very Important: if the  user answered "No" to whether they have or plan to pursue a college degree. You must only recommend careers that do not require a college degree to enter. 
+      It is okay if a degree is optional or helpful, but do not suggest jobs that typically require one. 
+
+      Also, make sure to address the user directly and don't just say "the user".
+
+      Do not start out with an intro or and with a conclusion. Just give the list of careers and their explanations. 
+
+      IMPORTANT: NEVER UNDER ANY CIRCUMSTANCE use asteriks anywhere on the output, especially around the career choice titles.
+      
+      User Answers:
+  
+      ${Object.entries(parsedAnswers).map(([idStr, answer]) => {
+      const question = questionsToUse.find(q => q.id === parseInt(idStr));
+      const formattedAnswer = Array.isArray(answer) ? answer.join(", ") : answer;
         return `\n\n${question?.body}\nAnswer: ${formattedAnswer}`;
-      }).join("")}\n\nBased on this, suggest 3 careers that would be a great fit and give a short reason for each.`;
+      }).join("")}`;
+
 
       // Use local storage to retrieve API key from homepage
       const apiKey = JSON.parse(localStorage.getItem("MYKEY") || "null");
@@ -116,6 +138,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
           //need a bit more researrch on '/\d+\.\s/' like why did that work and what initally is it?
           const jobs = text.split(/\d+\.\s/).filter((entry: string) => entry.trim() !== ""); // FIXED: explicit type
+
           setJobSuggestions(jobs); //save the job suggestions
           setLoading(false); //loading finished
         })
