@@ -233,7 +233,8 @@ html, body {
 
 .floating-gif {
   position: absolute;
-  width: 100px;
+  width: 8wv;
+  /* max-width: 100px; */
   height: auto;
   z-index: 10;
   opacity: 0.9;
@@ -251,6 +252,7 @@ html, body {
 .gif-weirdfish{
   bottom: 200px;
   right:500px;
+  width: 100px;
 }
 
 .gif-bubbles{
@@ -262,19 +264,19 @@ html, body {
 .gif-bubbles2{
   bottom: 60px;
   left:5px;
-  width: 700px;
+  width: 100px;
 }
 
 .gif-bubbles3{
   bottom: 60px;
   right:5px;
-  width: 700px;
+  width: 100px;
 }
 
 .gif-fish{
-  top: 200px;
-  left: 210px;
-  width: 300px;
+  top: 15px;
+  left: 10px;
+  width: 200px;
 }
 
 .gif-fish2{
@@ -282,6 +284,13 @@ html, body {
   left: 40px;
   width: 250px;
 }
+
+.gif-fish3{
+  top: 90px;
+  left: 300px;
+  width: 250px;
+}
+
 @keyframes float {
   0%   { transform: translateY(0px); }
   50%  { transform: translateY(-8px); }
