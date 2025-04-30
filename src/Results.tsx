@@ -260,15 +260,6 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
             </Card>
           )}
 
-          {/* Optional: View Answers Button */}
-          <Button
-            variant="outline-secondary"
-            className="mt-4 me-2"
-            onClick={() => alert(JSON.stringify(quizAnswers, null, 2))}
-          >
-            View My Answers
-          </Button>
-
           <Button variant="primary" onClick={downloadPDF}>
             Download Results as PDF
           </Button>
