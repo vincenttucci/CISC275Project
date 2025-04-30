@@ -113,7 +113,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         <div
         className="basic-quiz-page"
         style={{
-            backgroundImage: 'url("/pink.gif")',
+            backgroundImage: 'url("/background.gif")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -156,7 +156,9 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
-            <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
+
+            
+            <div className='quiz-card p-4 rounded shadow' style={{maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
              {/* Quiz Content */}
@@ -230,7 +232,10 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         </Modal.Body>
         <Modal.Footer>
             <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
-            <Button variant='primary' onClick={() => {localStorage.setItem("quizAnswers", JSON.stringify(choice)); navigateTo("result")}}>View Results</Button>
+            <Button variant='primary' onClick={() => {
+                localStorage.setItem("quizType", "basic"); // include this line to store which type of quiz the user took in order to prompt GPT with the correct questions.
+                localStorage.setItem("quizAnswers", JSON.stringify(choice)); 
+                navigateTo("result")}}>View Results</Button>
         </Modal.Footer>
         </Modal>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Container, Form, Button, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NightMode from './NightMode'; // New night mode code
@@ -73,7 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
-              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
+              <Nav.Link href="mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question">Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -93,13 +93,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // makes sure API key is valid before the user can start basic quiz, throws alert if not
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("basicQuestion");
                   }}
+                  
                 >
                   Basic Questions
                 </Button>
@@ -112,13 +119,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // verifies API key for detailed quiz like basic question
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("detailedquiz");
                   }}
+                  
                 >
                   Detailed Questions
                 </Button>

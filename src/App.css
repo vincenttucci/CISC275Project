@@ -233,24 +233,35 @@ html, body {
 
 /* ============ BasicQuestions QUIZ CARD  ============== */
 
+/* 
+
+old styles:
+
+background-color: rgb(114, 76, 15); 
+
+.quiz-card label,
+.quiz-card .form-check-label {
+  font-family: 'Pixelify Sans';
+}
+h5 {
+  font-family: "Tiny5";
+}
+
+*/
+
+just making it blank for presentation*/
 .quiz-card{
-  background-color: rgba(197, 240, 208, 0.77);
+  background-color: white;
   border-radius: 15px;
   font-weight: 500;
 
-
 }
 .quiz-card label,
-.quiz-card .form-check-label{
-  /* color:black !important; */
-  font-family: 'Pixelify Sans';
-  
+.quiz-card .form-check-label,
+h5 {
+  font-family: 'Arial', sans-serif;
 }
 
-h5{
-  font-family: "Tiny5";
-
-}
 .submitButton{
   color:white !important;
 }
@@ -274,7 +285,7 @@ h5{
   transform: translateY(-50%);
   font-size: 2.5rem;
   cursor: pointer;
-  color: rgb(187, 83, 187);
+  color: rgb(145, 96, 40);
   user-select: none;
   z-index: 1000;
   padding: 10px;
@@ -295,6 +306,8 @@ h5{
 .right-Arrow {
   right: 20px;
 }
+
+
 
 
 
