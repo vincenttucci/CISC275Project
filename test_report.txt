@@ -305,7 +305,7 @@ File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 All files           |    13.2 |      7.5 |       8 |   13.97 |                                
  About.tsx          |    12.5 |      100 |       0 |      20 | 10-20                          
  App.tsx            |   31.25 |     8.33 |     100 |   31.25 | 22-38                          
- BasicQuestion.tsx  |    5.55 |        0 |       0 |    6.06 | 72-240                         
+ BasicQuestion.tsx  |    5.55 |        0 |       0 |    6.06 | 72-241                         
  Contact.tsx        |    12.5 |      100 |       0 |      20 | 9-19                           
  DetailedQuiz.tsx   |     5.4 |        0 |       0 |    6.06 | 60-248                         
  HomePage.tsx       |   26.41 |    27.27 |      10 |   27.45 | 15,26-36,41-53,58,62-64,75-133 
@@ -317,5 +317,5 @@ All files           |    13.2 |      7.5 |       8 |   13.97 |
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        3.747 s
+Time:        3.774 s
 Ran all test suites.
