@@ -1,6 +1,7 @@
 
 import React, {useState} from 'react';
-import {Container,ProgressBar, Form, Navbar, Nav, Button, Alert} from 'react-bootstrap';
+import ReactConfetti from 'react-confetti';
+import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -16,30 +17,28 @@ export interface QuizQuestion {
     isSelectAll?:boolean;
 }
 //used AI to generate random questions
-let detailedQuestions: QuizQuestion[]= [ { id: 1, body: 'Do you enjoy problem-solving?', options: ['Yes, a lot!', 'Sometimes', 'Not really'] },
-{ id: 2, body: 'Do you like working with people?', options: ['Yes', 'Occasionally', 'I prefer working alone'] },
-{ id: 3, body: 'Do you prefer working with numbers or words?', options: ['Numbers', 'Words', 'Both equally'] },
-{ id: 4, body: 'Would you rather work indoors or outdoors?', options: ['Indoors', 'Outdoors', 'No preference'] },
-{ id: 5, body: 'Do you enjoy creative tasks?', options: ['Yes', 'Sometimes', 'Not really'] },
-{ id: 6, body: 'Do you like working with technology?', options: ['Yes', 'A little', 'Not really'] },
-{ id: 7, body: 'Are you comfortable with public speaking?', options: ['Yes', 'With practice', 'Not at all'] },
-{ id: 8, body: 'Do you prefer working alone or in a team?', options: ['Alone', 'In a team', 'Depends on the task'] },
-{ id: 9, body: 'Do you enjoy helping others?', options: ['Yes, very much', 'Sometimes', 'Not really'] },
-{ id: 10, body: 'Are you interested in science?', options: ['Yes', 'Somewhat', 'Not really'] },
-{ id: 11, body: 'Would you enjoy managing a group of people?', options: ['Yes', 'Maybe', 'No'] },
-{ id: 12, body: 'Do you like solving puzzles or complex problems?', options: ['Yes', 'Sometimes', 'No'] },
-{ id: 13, body: 'Would you rather work on long-term projects or short, varied tasks?', options: ['Long-term projects', 'Short tasks', 'A mix of both'] },
-{ id: 14, body: 'Do you prefer a structured routine or a flexible schedule?', options: ['Structured routine', 'Flexible schedule', 'No preference'] },
-{ id: 15, body: 'Are you comfortable with handling risks in decision-making?', options: ['Yes', 'Somewhat', 'Not at all'] },
-{ id: 16, body: 'Do you enjoy working with your hands?', options: ['Yes', 'Sometimes', 'Not really'] },
-{ id: 17, body: 'Are you interested in healthcare and medicine?', options: ['Yes', 'Somewhat', 'Not at all'] },
-{ id: 18, body: 'Do you like researching and analyzing information?', options: ['Yes', 'Sometimes', 'No'] },
-{ id: 19, body: 'Would you prefer working in an office, a lab, or in the field?', options: ['Office', 'Lab', 'Field'] },
-{ id: 20, body: 'Do you want a job that involves travel?', options: ['Yes, frequently', 'Occasionally', 'No, I prefer stability'] },
-{ id: 21, body: 'What was your dream career as a child?', isOpenEnded:true},
-{ id: 22, body: 'Describe a project or task you really enjoyed.', isOpenEnded: true },
-{ id: 23, body: 'Which of these activities do you enjoy? (Select all that apply)', options: ['Reading', 'Traveling', 'Gaming', 'Cooking'],isSelectAll:true}]
-
+let detailedQuestions: QuizQuestion[]= [ 
+    { id: 1, body: 'Do you have or do you plan on pursuing a college degree?', options: ['Yes', 'No', 'Unsure'] },
+    { id: 2, body: 'Do you like working with people?', options: ['Yes', 'I prefer to work alone', 'Occasionally'] },
+    { id: 3, body: 'Are you more of a numbers or words person?', options: ['Numbers', 'Words', 'A little bit of both'] },
+    { id: 4, body: 'Which of these tasks sounds the most interesting to you? (Select all that apply)', options: ['Writing a paper', 'Creating and presenting a slideshow', 'Analyze data using statistical analysis', 'Meeting with clients', 'Reading a paper', 'Building something new'], isSelectAll: true },
+    { id: 5, body: 'Which of the following settings would you most like to work in? (Select all that apply)', options: ['A laboratory', 'An office building', 'Outside', 'From home', 'A classroom', 'From a workshop', 'On the road', 'Up on a stage', 'In a hospital'], isSelectAll: true },
+    { id: 6, body: 'Would you rather invent something new or improve something that already exists?', options: ['Make something new', 'Make something better'] },
+    { id: 7, body: 'What motivates you most in a job?', options: ['Helping people', 'Solving problems', 'Being creative', 'Learning something new'] },
+    { id: 8, body: 'Which subjects interest you the most? (Select all that apply)', options: ['Language Arts', 'History', 'Math', 'Finance', 'Natural Sciences', 'Computer Science', 'Political Science', 'Health and Medicinal studies'], isSelectAll: true },
+    { id: 9, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
+    { id: 10, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
+    { id: 11, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine', 'Variety', 'A balance of both'] },
+    { id: 12, body: 'Describe a time you solved a difficult problem. (Open-ended)', isOpenEnded: true },
+    { id: 13, body: 'Would you rather work independently or as part of a team?', options: ['Independently', 'Part of a team', 'Depends on the project'] },
+    { id: 14, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not comfortable at all'] },
+    { id: 15, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task'] },
+    { id: 16, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
+    { id: 17, body: 'Which activities do you enjoy most? (Select all that apply)', options: ['Creating art or music', 'Fixing or building things', 'Organizing events', 'Helping people solve problems'], isSelectAll: true },
+    { id: 18, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
+    { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
+    { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+];
 
 interface DetailedQuizProps {
     navigateTo: (page: string) => void;
@@ -47,7 +46,8 @@ interface DetailedQuizProps {
 
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
-        let [popup, setPopup]=useState(false);
+        // let [popup, setPopup]=useState(false);
+        let [showModal, setShowModal] = React.useState(false);
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
@@ -60,20 +60,20 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
             return typeof answer === 'string' && answer !== '';
         }).length;
-        let submitHandler=()=> {
-            let answeredAll=detailedQuestions.every((question)=>{
-                let answer=choice[question.id];
-                if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-            if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-            return typeof answer === 'string' && answer !== '';
-            });
-            if (!answeredAll){
-                setPopup(true);
-            }else{
-                setPopup(false);
-                navigateTo('result')
-            }
-        }
+        // let submitHandler=()=> {
+        //     let answeredAll=detailedQuestions.every((question)=>{
+        //         let answer=choice[question.id];
+        //         if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
+        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
+        //     return typeof answer === 'string' && answer !== '';
+        //     });
+        //     if (!answeredAll){
+        //         setPopup(true);
+        //     }else{
+        //         setPopup(false);
+        //         navigateTo('result')
+        //     }
+        
         return(
             <div 
             style={{
@@ -84,7 +84,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 minHeight: '100%',
                 width: '100%'
             }}>
-                
+                {/* navigation bar  */}
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
                     <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -98,9 +98,27 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            {/* progress bar stays on screen while scrolling */}
+            <div style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 1000,
+            backgroundColor: 'white',
+            padding: '0.5rem 1rem'
+        }}>{/* updates bar */}
+                {/* added stripes and animations for razzle dazzle */}
+            <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
+            </div>
+             {/*Quiz Card*/}
+                    <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
+                        <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
+                         <h5 className="mb-4">Quiz</h5>
+            
+                        {/* Quiz Content */}
+                        
                 {/* updates bar */}
                 {/* added stripes and animations for razzle dazzle */}
-                <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
+                {/* <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/> */}
                 {/* why "py-4"? have to ask brooklyn */} 
 
                 {/* This is Brooklyn answering you, 'py-4' is Padding on the Y-axis (top&bottom) 
@@ -112,7 +130,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 like py-3 or py-2, but I just used py-4 to mess around you can always change it
                  */}
                  
-                <Container className='py-4'>
+                {/* <Container className='py-4'> */}
                     <Form>
                         {detailedQuestions.map((question)=>(
                             // sets up questions and options and keeps them oranized on the same page
@@ -163,23 +181,34 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             </Form.Group>
                         ))}
                     </Form>
-                    {popup && (
-                        <Container className="popup">
-                        <Alert
-            variant="danger"
-            dismissible
-            onClose={() => setPopup(false)}
-        >
-                            Please answer all the questions before submitting.
-                        </Alert>
-                    </Container>
-                    )}
-                    </Container>
-                    <Button className='submitButton' onClick={submitHandler}>Submit</Button>
-            {/* // <h2>Detailed Quiz</h2>
+                    <div className="d-flex justify-content-end mt-4">
+                                    <Button className='submitButton' 
+                                        onClick={() => setShowModal(true)} 
+                                        disabled={Object.keys(choice).length !== detailedQuestions.length}
+                                        >Submit
+                                    </Button>
+                                </div>
+                            </div>
+                            </Container>
+                    {/* </Container> */}
+                    {/* <Button className='submitButton' onClick={submitHandler}>Submit</Button>
+            // <h2>Detailed Quiz</h2>
             // <p>This is the detailed quiz</p> */}
-            
-            </div>
+            {/* popup for when quiz is complete */}
+             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+             {showModal && <ReactConfetti />}
+                    <Modal.Header closeButton>
+                        <Modal.Title>Quiz Completed!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                            Great Job completing the quiz. Click below to see your results!
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
+                        <Button variant='primary' onClick={() => {localStorage.setItem("quizAnswers", JSON.stringify(choice)); navigateTo("result")}}>View Results</Button>
+                    </Modal.Footer>
+                    </Modal>
+                    </div>
            
         )
        
