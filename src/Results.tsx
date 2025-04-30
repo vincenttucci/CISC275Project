@@ -132,37 +132,64 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
   /* download of quiz results as a PDF:
   * JSPDF documentation: https://www.npmjs.com/package/jspdf
   * npm install jspdf
+  * 
+  * Used Chat GPT to help learn how to use the library and create a PDF output with JSPDF library
   */
+
   const downloadPDF = () => {
     const doc = new jsPDF();
-
+  
     doc.setFontSize(20);
     doc.text("Career Helpi Quiz Results", 20, 20);
-
+  
+    let y = 30;
+  
+    // Start with Career Suggestions
     doc.setFontSize(14);
-    doc.text("Your Answers:", 20, 30);
-
-    let y = 40;
+    doc.text("Career Suggestions:", 20, y);
+    y += 10;
+  
+    const suggestionsText = jobSuggestions.join("\n\n");
+    const suggestionsLines = doc.splitTextToSize(suggestionsText, 170);
+  
+    suggestionsLines.forEach((line: string) => {
+      if (y > 270) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(line, 20, y);
+      y += 10;
+    });
+  
+    // Start results on a new page
+    doc.addPage();
+    y = 20;
+  
+    doc.text("Your Answers:", 20, y);
+    y += 10;
+  
     quizQuestions.forEach((question, index) => {
       const answer = quizAnswers[question.id.toString()];
       if (answer !== undefined) {
         const formattedAnswer = Array.isArray(answer) ? answer.join(", ") : answer;
         const lines = doc.splitTextToSize(`${index + 1}. ${question.body}\nAnswer: ${formattedAnswer}`, 170);
-        doc.text(lines, 20, y);
-        y += lines.length * 10;
+        lines.forEach((line: string) => {
+          if (y > 270) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.text(line, 20, y);
+          y += 10;
+        });
+        y += 5;
       }
     });
-
-    y += 10;
-    doc.text("Career Suggestions:", 20, y);
-    y += 10;
-
-    const suggestionsText = jobSuggestions.join("\n\n");
-    const suggestionsLines = doc.splitTextToSize(suggestionsText, 170);
-    doc.text(suggestionsLines, 20, y);
-
+  
     doc.save("career_finder_results.pdf");
   };
+  
+  
+  
 
   return (
     <>
