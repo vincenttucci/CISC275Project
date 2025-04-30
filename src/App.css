@@ -38,7 +38,7 @@ html, body {
 }
 
 .page-header{
-  background-color: transparent;
+  background-color: white;
   backdrop-filter: blur(10px);
   padding: 30px 20px;
   text-align: center;
@@ -52,12 +52,12 @@ html, body {
 .page-header h2 {
   font-size: 28px;
   margin-bottom: 10px;
-  color: #0a1b20;;
+  color: #a6c5cf;;
 }
 
 .page-header p {
   font-size: 16px;
-  color: #0a1b20;
+  color: #56390d;
 }
 
 .navbar {
@@ -131,9 +131,10 @@ html, body {
 
 /* ============ NIGHT MODE ============== */
 
+
 .night-mode{
   background-color: #1f1f1f;
-
+  font-family: "Pixelify Sans", sans-serif;
 }
 
 .night-mode .App-footer, 
@@ -144,8 +145,8 @@ html, body {
 
 .night-mode .navbar,
 .night-mode .App-footer {
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
+  background-color:#5f95e5a5;
+  /* backdrop-filter: blur(8px); */
   border-bottom: none;
   box-shadow: none;
 }
@@ -156,14 +157,14 @@ html, body {
 }
 
 .night-mode .btn {
-  background-color: #4c4a4a;
+  background-color: #64432e;
   color: white;
   border: none;
 }
 
 .night-mode .quiz-box {
-  background-color: #2e2c2c95;
-  color: #e0e0e0;
+  background-color: #f8f7f6;
+  color: #1964b9;
 }
 
 .night-mode .footer-text {
@@ -223,12 +224,70 @@ html, body {
 
 .basic-quiz-page {
   color: black;
+  background-color: rgba(100, 200, 243, 0.812);
 }
-
 .basic-quiz-page .navbar-brand,
 .basic-quiz-page .nav-link{
   color: white !important;
 }
+
+.floating-gif {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  z-index: 10;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: float 5s ease-in-out infinite;
+}
+
+
+
+.gif-bottom-right {
+  bottom: 500px;
+  right: 15px;
+}
+
+.gif-weirdfish{
+  bottom: 200px;
+  right:500px;
+}
+
+.gif-bubbles{
+  bottom: 60px;
+  width: 1400px;
+
+}
+
+.gif-bubbles2{
+  bottom: 60px;
+  left:5px;
+  width: 700px;
+}
+
+.gif-bubbles3{
+  bottom: 60px;
+  right:5px;
+  width: 700px;
+}
+
+.gif-fish{
+  top: 200px;
+  left: 210px;
+  width: 300px;
+}
+
+.gif-fish2{
+  top: 70px;
+  left: 40px;
+  width: 250px;
+}
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
 
 
 /* ============ BasicQuestions QUIZ CARD  ============== */
