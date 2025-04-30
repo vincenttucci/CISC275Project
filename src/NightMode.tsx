@@ -21,7 +21,7 @@ const NightModeWrapper: React.FC<{ children: React.ReactNode }> = ({ children })
     <div
       className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
       style={{
-        backgroundImage: nightMode ? 'url("/darkBG1.jpeg")' : 'url("/whiteBG1.jpeg")',
+        backgroundImage: nightMode ? 'url("/forest2.jpg")' : 'url("/whiteBG1.jpeg")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         minHeight: '100vh'
