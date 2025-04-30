@@ -84,15 +84,13 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
       * Asks AI to suggest career options based on the questions and respective answers
       */
 
-      const prompt = `You are a career advisor. A user has taken a career quiz to help identify roles they might thrive in. The quiz assesses them across multiple dimensions including education goals, personality traits, work style, interests, motivations, risk tolerance, and environment preferences.
+      const prompt = `You are a career advisor. A user has taken a career quiz to help identify roles they might thrive in and enjoy
       
-      Evaluate the answers below and, based on all of these dimensions (not just interests), suggest 5 careers that would align well with this user's preferences. 
+      Evaluate the answers below and, based on all reponses, suggest 5 careers that would align well with this user's preferences. 
       
       For each career, explain briefly why it matches, referencing multiple aspects from the user's answers. 
       
       Also, and this isn't necessary for every career every time, list skills, experience, education, training, etc. that might help the user to know.
-
-      They should be listed in the order of more to less general/popular.
                       
       Very Important: if the  user answered "No" to whether they have or plan to pursue a college degree. You must only recommend careers that do not require a college degree to enter. 
       It is okay if a degree is optional or helpful, but do not suggest jobs that typically require one. 
