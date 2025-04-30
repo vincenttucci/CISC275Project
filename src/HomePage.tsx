@@ -185,7 +185,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
         <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <span style={{ fontSize: '1.2rem' }}>
-              {nightMode ? '🌙' : '☀️'}
+              {nightMode ? '🏹' : '☀️'}
             </span>
             <Form.Check
               type="switch"
