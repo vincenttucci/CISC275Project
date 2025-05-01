@@ -126,7 +126,6 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             //     minHeight: '100%',
             //     width: '100%'
             // }}>
-            >
 
             style={{
                 backgroundImage:'url("/pinkMine.gif")',
