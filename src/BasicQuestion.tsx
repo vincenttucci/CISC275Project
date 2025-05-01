@@ -1,6 +1,7 @@
 import React, {useState}from 'react';
 import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
 import ReactConfetti from 'react-confetti';
+import NightMode from './NightMode';
 
 
 
