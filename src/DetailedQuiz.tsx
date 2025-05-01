@@ -29,15 +29,15 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 9, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
     { id: 10, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
     { id: 11, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine', 'Variety', 'A balance of both'] },
-    { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)', isOpenEnded: true },
-    { id: 13, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not a chance'] },
-    { id: 14, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task']},
-    { id: 15, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
-    { id: 16, body: 'Where are you in your career now? Where do you see yourself as far in the future as you have imagined? (Open-ended)', isOpenEnded: true },
-    { id: 17, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
-    { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?', options: ['Work Life Balance', 'Career Growth', 'Unsure'] },
-    { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)', options: ['Managing other members', 'Completing tasks', 'Planning future tasks', 'Generating Ideas', 'Performing Quality Checks'], isSelectAll: true },
-    { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+    { id: 12, body: 'Describe a time you solved a difficult problem.', isOpenEnded: true },
+    { id: 13, body: 'Would you rather work independently or as part of a team?', options: ['Independently', 'Part of a team', 'Depends on the project'] },
+    { id: 14, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not comfortable at all'] },
+    { id: 15, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task'] },
+    { id: 16, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
+    { id: 17, body: 'Which activities do you enjoy most? (Select all that apply)', options: ['Creating art or music', 'Fixing or building things', 'Organizing events', 'Helping people solve problems'], isSelectAll: true },
+    { id: 18, body: 'What is a skill you wish you could improve or develop?', isOpenEnded: true },
+    { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
+    { id: 20, body: 'Describe your ideal workday in a few sentences.', isOpenEnded: true },
 ];
 
 interface DetailedQuizProps {
@@ -48,18 +48,35 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
         // let [popup, setPopup]=useState(false);
         let [showModal, setShowModal] = React.useState(false);
+        let [currentIndex, setCurrentIndex] = React.useState(0);
+        let currentQuestion = detailedQuestions[currentIndex];
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
         }
+        const nextButton = () => {
+            if(currentIndex < detailedQuestions.length -1){
+                setCurrentIndex(currentIndex + 1);
+            }
+        };
+    
+        const previousButton = () => {
+            if(currentIndex > 0 ){
+                setCurrentIndex(currentIndex - 1);
+            }
+        };
+    
+        const submitButton = () => {
+            setShowModal(true);
+        };
         //counting number of answered question for the select all and opened ended questions
         //done for progress bar to update correctly
-        let answerCount=detailedQuestions.filter((question)=>{
-            let answer=choice[question.id];
-            if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-            if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-            return typeof answer === 'string' && answer !== '';
-        }).length;
+        // let answerCount=detailedQuestions.filter((question)=>{
+        //     let answer=choice[question.id];
+        //     if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
+        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
+        //     return typeof answer === 'string' && answer !== '';
+        // }).length;
         // let submitHandler=()=> {
         //     let answeredAll=detailedQuestions.every((question)=>{
         //         let answer=choice[question.id];
@@ -77,7 +94,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         return(
             <div 
             style={{
-                backgroundImage:'url("/pinkBG.jpeg")',
+                backgroundImage:'url("/pinkMine.gif")',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
@@ -98,22 +115,31 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {/* progress bar stays on screen while scrolling */}
-            <div style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 1000,
-            backgroundColor: 'white',
-            padding: '0.5rem 1rem'
-        }}>{/* updates bar */}
-                {/* added stripes and animations for razzle dazzle */}
-            <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
+            <div 
+            className='arrow left-Arrow'
+            onClick={currentIndex > 0 ? previousButton : undefined}
+            style = {{ opacity: currentIndex === 0 ? 0.4 : 1}}
+            >
+                 ←
             </div>
+
+         {/* Right Arrow */}
+         <div 
+            className='arrow right-Arrow'
+            onClick={choice[currentQuestion.id] ? nextButton : undefined}
+            style = {{ opacity: currentIndex === detailedQuestions.length - 1 || !choice[currentQuestion.id] ? 0.4 : 1}}
+            >
+                 →
+            </div>
+
+            
+            {/* progress bar stays on screen while scrolling */}
+           
              {/*Quiz Card*/}
                     <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
-                        <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
-                         <h5 className="mb-4">Quiz</h5>
-            
+                        <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
+                         <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
+                         <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100}/>
                         {/* Quiz Content */}
                         
                 {/* updates bar */}
@@ -132,62 +158,61 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                  
                 {/* <Container className='py-4'> */}
                     <Form>
-                        {detailedQuestions.map((question)=>(
-                            // sets up questions and options and keeps them oranized on the same page
-                            <Form.Group key={question.id} controlId={`question-${question.id}`} className='detailedquestion'>
-                                <Form.Label>{question.body}</Form.Label>
-                                {question.isOpenEnded ? (
+                            <Form.Group controlId={`question-${currentQuestion.id}`} className='detailedquestion'>
+                                <Form.Label>{currentQuestion.body}</Form.Label>
+                                {currentQuestion.isOpenEnded ? (
                                     <Form.Control
                                     as="textarea"
                                     rows={3}
-                                    value={choice[question.id] ||''}
-                                    onChange={(e)=> trackChoices(question.id,e.target.value)}
+                                    value={choice[currentQuestion.id] ||''}
+                                    onChange={(e)=> trackChoices(currentQuestion.id,e.target.value)}
                                     placeholder='Answer Here'
                                     />
-                                ): question.isSelectAll ?(
-                                    question.options?.map((option,index) => (
+                                ): currentQuestion.isSelectAll ?(
+                                    currentQuestion.options?.map((option,index) => (
                                         <Form.Check
                                         key={index}
                                         type='checkbox'
-                                        id={`question-${question.id}-option-${index}`}
+                                        id={`question-${currentQuestion.id}-option-${index}`}
                                         label={option}
-                                        name={`question-${question.id}`}
+                                        name={`question-${currentQuestion.id}`}
                                         value={option}
-                                        checked={(choice[question.id]||[]).includes(option)}
-                                        onChange={(e)=>{let currentChoice=choice[question.id]||[];
+                                        checked={(choice[currentQuestion.id]||[]).includes(option)}
+                                        onChange={(e)=>{let currentChoice=choice[currentQuestion.id]||[];
                                             if (e.target.checked) {
-                                                trackChoices(question.id,[...(currentChoice as string[]),option]);
+                                                trackChoices(currentQuestion.id,[...(currentChoice as string[]),option]);
                                             }else {
-                                                trackChoices(question.id,(currentChoice as string[]).filter((o:string)=> o!== option));
+                                                trackChoices(currentQuestion.id,(currentChoice as string[]).filter((o:string)=> o!== option));
                                             }
                                         }}
                                         />
                                     ))
                                 ):(
-                                question.options?.map((option,index)=>(
+                                currentQuestion.options?.map((option,index)=>(
                                     //handles the radio buttons
                                     //reference-homework 10
                                     <Form.Check
                                     key={index}
                                     type="radio"
-                                    id={`question-${question.id}-option-${index}`} //fixes error of only selecting first choice on text click
+                                    id={`question-${currentQuestion.id}-option-${index}`} //fixes error of only selecting first choice on text click
                                     label={option}
-                                    name={`question-${question.id}`}
+                                    name={`question-${currentQuestion.id}`}
                                     value={option}
-                                    checked={choice[question.id]===option}
-                                    onChange={()=>trackChoices(question.id,option)}
+                                    checked={choice[currentQuestion.id]===option}
+                                    onChange={()=>trackChoices(currentQuestion.id,option)}
                                     />
                                 )))}
                             </Form.Group>
-                        ))}
                     </Form>
+                    {currentIndex === detailedQuestions.length - 1 && (
                     <div className="d-flex justify-content-end mt-4">
                                     <Button className='submitButton' 
-                                        onClick={() => setShowModal(true)} 
-                                        disabled={Object.keys(choice).length !== detailedQuestions.length}
+                                        onClick={submitButton} 
+                                        disabled={!choice[currentQuestion.id]}
                                         >Submit
                                     </Button>
                                 </div>
+                    )}
                             </div>
                             </Container>
                     {/* </Container> */}

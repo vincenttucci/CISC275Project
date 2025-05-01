@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState}from 'react';
 import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
+import ReactConfetti from 'react-confetti';
 
 
 export interface QuizQuestion {
@@ -224,6 +225,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
 
         {/* Completed Modal*/}
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        {showModal && <ReactConfetti />}
         <Modal.Header closeButton>
             <Modal.Title>Quiz Completed!</Modal.Title>
         </Modal.Header>
