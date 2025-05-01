@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import ReactConfetti from 'react-confetti';
 import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
+import NightMode from './NightMode';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -40,15 +41,17 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
     { id: 20, body: 'Describe your ideal workday in a few sentences.', isOpenEnded: true },
 
-    { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)', isOpenEnded: true },
-    { id: 13, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not a chance'] },
-    { id: 14, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task']},
-    { id: 15, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
-    { id: 16, body: 'Where are you in your career now? Where do you see yourself as far in the future as you have imagined? (Open-ended)', isOpenEnded: true },
-    { id: 17, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
-    { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?', options: ['Work Life Balance', 'Career Growth', 'Unsure'] },
-    { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)', options: ['Managing other members', 'Completing tasks', 'Planning future tasks', 'Generating Ideas', 'Performing Quality Checks'], isSelectAll: true },
-    { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+
+    // { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)', isOpenEnded: true },
+    // { id: 13, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not a chance'] },
+    // { id: 14, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task']},
+    // { id: 15, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
+    // { id: 16, body: 'Where are you in your career now? Where do you see yourself as far in the future as you have imagined? (Open-ended)', isOpenEnded: true },
+    // { id: 17, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
+    // { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?', options: ['Work Life Balance', 'Career Growth', 'Unsure'] },
+    // { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)', options: ['Managing other members', 'Completing tasks', 'Planning future tasks', 'Generating Ideas', 'Performing Quality Checks'], isSelectAll: true },
+    // { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+
 
 ];
 
@@ -62,6 +65,9 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [showModal, setShowModal] = React.useState(false);
         let [currentIndex, setCurrentIndex] = React.useState(0);
         let currentQuestion = detailedQuestions[currentIndex];
+
+        const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
@@ -81,6 +87,12 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         const submitButton = () => {
             setShowModal(true);
         };
+        const nightModeButton = () => {
+            const newMode = !nightMode;
+            setNightMode(newMode);
+            localStorage.setItem("nightMode", String(newMode));
+          };
+
         //counting number of answered question for the select all and opened ended questions
         //done for progress bar to update correctly
         // let answerCount=detailedQuestions.filter((question)=>{
@@ -105,6 +117,17 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         
         return(
             <div 
+
+            // style={{
+            //     backgroundImage:'url("/BEACH.gif")',
+            //     backgroundSize: 'cover',
+            //     backgroundPosition: 'center',
+            //     backgroundRepeat: 'no-repeat',
+            //     minHeight: '100%',
+            //     width: '100%'
+            // }}>
+            >
+
             style={{
                 backgroundImage:'url("/pinkMine.gif")',
                 backgroundSize: 'cover',
@@ -113,7 +136,9 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 minHeight: '100%',
                 width: '100%'
             }}>
+
                 {/* navigation bar  */}
+                <NightMode page="detailedQuiz">
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
                     <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -124,6 +149,19 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
                         </Nav>
+                                <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                                          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                            <span style={{ fontSize: '1.2rem' }}>
+                                              {nightMode ? '🏹' : '☀️'}
+                                            </span>
+                                            <Form.Check
+                                              type="switch"
+                                              id="night-mode-switch"
+                                              checked={nightMode}
+                                              onChange={nightModeButton}
+                                            />
+                                          </div>
+                                          </div>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -227,6 +265,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     )}
                             </div>
                             </Container>
+                            
                     {/* </Container> */}
                     {/* <Button className='submitButton' onClick={submitHandler}>Submit</Button>
             // <h2>Detailed Quiz</h2>
@@ -248,7 +287,9 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             navigateTo("result")}}>View Results</Button>
                     </Modal.Footer>
                     </Modal>
+                    </NightMode>
                     </div>
+                    
            
         )
        

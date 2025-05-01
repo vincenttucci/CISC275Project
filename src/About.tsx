@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Navbar, Nav, Form } from 'react-bootstrap';
 import NightMode from './NightMode'; // use wrapper for more modularity
 
 interface AboutPageProps {
@@ -7,8 +7,14 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
+  const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+     const nightModeButton = () => {
+      const newMode = !nightMode;
+      setNightMode(newMode);
+      localStorage.setItem("nightMode", String(newMode));
+     }
   return (
-    <NightMode>
+    <NightMode page="about">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -19,6 +25,19 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
+            <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                                                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                                        <span style={{ fontSize: '1.2rem' }}>
+                                                          {nightMode ? '🏹' : '☀️'}
+                                                        </span>
+                                                        <Form.Check
+                                                          type="switch"
+                                                          id="night-mode-switch"
+                                                          checked={nightMode}
+                                                          onChange={nightModeButton}
+                                                        />
+                                                      </div>
+                                                      </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
