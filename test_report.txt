@@ -63,7 +63,7 @@
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (64 ms)
+  ✕ renders learn react link (61 ms)
 
   ● renders learn react link
 
@@ -77,7 +77,7 @@ FAIL src/App.test.tsx
         [36m>[39m
           [36m<div[39m
             [33mclass[39m=[32m"App-wrapper "[39m
-            [33mstyle[39m=[32m"background-image: url(/whiteBG1.jpeg); background-size: cover; background-repeat: no-repeat; min-height: 100vh;"[39m
+            [33mstyle[39m=[32m"background-image: url(/resort.gif); background-size: cover; background-repeat: no-repeat; min-height: 100vh;"[39m
           [36m>[39m
             [36m<div[39m
               [33mclass[39m=[32m"overlay"[39m
@@ -122,8 +122,10 @@ FAIL src/App.test.tsx
                     [36m</a>[39m
                     [36m<a[39m
                       [33mclass[39m=[32m"nav-link"[39m
-                      [33mdata-rr-ui-event-key[39m=[32m"mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question"[39m
-                      [33mhref[39m=[32m"mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question"[39m
+                      [33mdata-rr-ui-event-key[39m=[32m"#"[39m
+                      [33mhref[39m=[32m"#"[39m
+                      [33mrole[39m=[32m"button"[39m
+                      [33mtabindex[39m=[32m"0"[39m
                     [36m>[39m
                       [0mContact[0m
                     [36m</a>[39m
@@ -136,6 +138,29 @@ FAIL src/App.test.tsx
                     [36m>[39m
                       [0mAbout[0m
                     [36m</a>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"night-toggle"[39m
+                    [33mstyle[39m=[32m"display: flex; flex-direction: row; align-items: center; gap: 15px; text-align: right; font-size: 13px;"[39m
+                  [36m>[39m
+                    [36m<div[39m
+                      [33mstyle[39m=[32m"display: flex; align-items: center; gap: 5px;"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mstyle[39m=[32m"font-size: 1.2rem;"[39m
+                      [36m>[39m
+                        [0m☀️[0m
+                      [36m</span>[39m
+                      [36m<div[39m
+                        [33mclass[39m=[32m"form-switch"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mclass[39m=[32m"form-check-input"[39m
+                          [33mid[39m=[32m"night-mode-switch"[39m
+                          [33mtype[39m=[32m"checkbox"[39m
+                        [36m/>[39m
+                      [36m</div>[39m
+                    [36m</div>[39m
                   [36m</div>[39m
                 [36m</div>[39m
               [36m</div>[39m
@@ -232,37 +257,14 @@ FAIL src/App.test.tsx
                   [36m</button>[39m
                 [36m</div>[39m
               [36m</form>[39m
-              [36m<div[39m
-                [33mclass[39m=[32m"night-toggle"[39m
-                [33mstyle[39m=[32m"display: flex; flex-direction: row; align-items: center; gap: 15px; text-align: right; font-size: 13px;"[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"footer-text mt-2 mb-0"[39m
               [36m>[39m
-                [36m<div[39m
-                  [33mstyle[39m=[32m"display: flex; align-items: center; gap: 5px;"[39m
-                [36m>[39m
-                  [36m<span[39m
-                    [33mstyle[39m=[32m"font-size: 1.2rem;"[39m
-                  [36m>[39m
-                    [0m☀️[0m
-                  [36m</span>[39m
-                  [36m<div[39m
-                    [33mclass[39m=[32m"form-switch"[39m
-                  [36m>[39m
-                    [36m<input[39m
-                      [33mclass[39m=[32m"form-check-input"[39m
-                      [33mid[39m=[32m"night-mode-switch"[39m
-                      [33mtype[39m=[32m"checkbox"[39m
-                    [36m/>[39m
-                  [36m</div>[39m
-                [36m</div>[39m
-                [36m<p[39m
-                  [33mclass[39m=[32m"footer-text mt-2 mb-0"[39m
-                [36m>[39m
-                  [0mVincent Tucci, Brooklyn Harden,[0m
-                  [36m<br />[39m
-                  [0mTaylor Jenkins, Sam Mullaney[0m
-                  [36m<br />[39m
-                [36m</p>[39m
-              [36m</div>[39m
+                [0mVincent Tucci, Brooklyn Harden,[0m
+                [36m<br />[39m
+                [0mTaylor Jenkins, Sam Mullaney[0m
+                [36m<br />[39m
+              [36m</p>[39m
             [36m</footer>[39m
           [36m</div>[39m
         [36m</div>[39m
@@ -302,14 +304,14 @@ go away.[0m
 --------------------|---------|----------|---------|---------|--------------------------------
 File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s              
 --------------------|---------|----------|---------|---------|--------------------------------
-All files           |    12.4 |      7.5 |    7.89 |   13.06 |                                
- About.tsx          |    12.5 |      100 |       0 |      20 | 10-20                          
+All files           |   12.06 |     7.03 |     7.4 |   12.68 |                                
+ About.tsx          |    7.69 |        0 |       0 |      10 | 10-26                          
  App.tsx            |   31.25 |     8.33 |     100 |   31.25 | 22-38                          
- BasicQuestion.tsx  |    5.55 |        0 |       0 |    6.06 | 72-241                         
- Contact.tsx        |    12.5 |      100 |       0 |      20 | 9-19                           
- DetailedQuiz.tsx   |     5.4 |        0 |       0 |    6.06 | 60-248                         
- HomePage.tsx       |   26.41 |    27.27 |      10 |   27.45 | 15,26-36,41-53,58,62-64,75-133 
- NightMode.tsx      |   77.77 |       50 |      75 |      75 | 13-14                          
+ BasicQuestion.tsx  |    4.87 |        0 |       0 |    5.26 | 75-264                         
+ Contact.tsx        |    7.69 |        0 |       0 |      10 | 9-26                           
+ DetailedQuiz.tsx   |    4.76 |        0 |       0 |    5.26 | 63-286                         
+ HomePage.tsx       |   25.45 |    27.27 |    9.09 |   26.92 | 15,26-36,41-53,58,62-64,75-146 
+ NightMode.tsx      |   81.81 |       50 |      75 |      80 | 17-18                          
  Results.tsx        |    1.13 |        0 |       0 |     1.2 | 15-280                         
  index.tsx          |       0 |      100 |     100 |       0 | 7-19                           
  reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                           
@@ -317,5 +319,5 @@ All files           |    12.4 |      7.5 |    7.89 |   13.06 |
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        3.764 s
+Time:        3.755 s
 Ran all test suites.
