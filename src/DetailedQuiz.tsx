@@ -30,6 +30,7 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 9, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
     { id: 10, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
     { id: 11, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine', 'Variety', 'A balance of both'] },
+
     { id: 12, body: 'Describe a time you solved a difficult problem.', isOpenEnded: true },
     { id: 13, body: 'Would you rather work independently or as part of a team?', options: ['Independently', 'Part of a team', 'Depends on the project'] },
     { id: 14, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not comfortable at all'] },
@@ -40,6 +41,7 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
     { id: 20, body: 'Describe your ideal workday in a few sentences.', isOpenEnded: true },
 
+
     // { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)', isOpenEnded: true },
     // { id: 13, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not a chance'] },
     // { id: 14, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task']},
@@ -49,6 +51,7 @@ let detailedQuestions: QuizQuestion[]= [
     // { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?', options: ['Work Life Balance', 'Career Growth', 'Unsure'] },
     // { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)', options: ['Managing other members', 'Completing tasks', 'Planning future tasks', 'Generating Ideas', 'Performing Quality Checks'], isSelectAll: true },
     // { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+
 
 ];
 
@@ -62,7 +65,9 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [showModal, setShowModal] = React.useState(false);
         let [currentIndex, setCurrentIndex] = React.useState(0);
         let currentQuestion = detailedQuestions[currentIndex];
+
         const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
@@ -87,6 +92,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             setNightMode(newMode);
             localStorage.setItem("nightMode", String(newMode));
           };
+
         //counting number of answered question for the select all and opened ended questions
         //done for progress bar to update correctly
         // let answerCount=detailedQuestions.filter((question)=>{
@@ -111,6 +117,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         
         return(
             <div 
+
             // style={{
             //     backgroundImage:'url("/BEACH.gif")',
             //     backgroundSize: 'cover',
@@ -120,6 +127,16 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             //     width: '100%'
             // }}>
             >
+
+            style={{
+                backgroundImage:'url("/pinkMine.gif")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                minHeight: '100%',
+                width: '100%'
+            }}>
+
                 {/* navigation bar  */}
                 <NightMode page="detailedQuiz">
                 <Navbar className='backdrop-blur' expand="lg">
