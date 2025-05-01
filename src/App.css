@@ -245,51 +245,107 @@ html, body {
 
 
 .gif-bottom-right {
-  bottom: 500px;
+  top: 500px;
   right: 15px;
+  width: 150px;
 }
 
 .gif-weirdfish{
   bottom: 200px;
-  right:500px;
-  width: 100px;
+  right:300px;
+  width: 70px;
 }
 
 .gif-bubbles{
-  bottom: 60px;
-  width: 1400px;
+  bottom: 5px;
+  width: 500px;
 
 }
 
 .gif-bubbles2{
-  bottom: 60px;
-  left:5px;
-  width: 100px;
+  bottom: 5px;
+  left:360px;
+  width: 500px;
 }
 
 .gif-bubbles3{
-  bottom: 60px;
+  bottom: 5px;
   right:5px;
-  width: 100px;
+  width: 500px;
+}
+
+.gif-bubbles4{
+  bottom: 5px;
+  right:250px;
+  width: 500px;
 }
 
 .gif-fish{
   top: 15px;
-  left: 10px;
-  width: 200px;
+  /* left: 6px; */
+  width: 150px;
 }
 
 .gif-fish2{
-  top: 70px;
-  left: 40px;
+  top: 100px;
+  left: 30px;
   width: 250px;
 }
 
 .gif-fish3{
-  top: 90px;
+  top: 150px;
   left: 300px;
   width: 250px;
 }
+
+.gif-fish4{
+  top: 150px;
+  right: 6px;
+  width: 150px;
+}
+
+.gif-fish5{
+  top: 100px;
+  right:200px;
+  width: 200px;
+}
+
+.gif-fish6{
+  top: 100px;
+  right:400px;
+  width: 150px;
+}
+
+.gif-bigfish{
+  top: 150px;
+  right:550px;
+  width: 300px;
+}
+
+.clamshell{
+  left:70px;
+  bottom: 40px;
+  width: 100px;
+}
+
+.rainbowstars{
+  top:40px;
+  left:30px;
+  width:100px;
+}
+
+.rainbowstars2{
+  top:180px;
+  left:350px;
+  width:140px;
+}
+
+.rainbowstars3{
+  top:140px;
+  right:250px;
+  width:100px;
+}
+
 
 @keyframes float {
   0%   { transform: translateY(0px); }

@@ -129,9 +129,18 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
              <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
              <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
              <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
-             {/* <img src="/fish.gif" alt="fish" className="floating-gif gif-fish" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish2" /> */}
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish2" />
              <img src="/fish.gif" alt="fish" className="floating-gif gif-fish3" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish4" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish5" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish6" />
+             <img src="/bigfish.gif" alt="bigfishwithlittlefishes" className="floating-gif gif-bigfish" />
+             <img src="/clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
+             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
+             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
+             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
 
             {/* Navbar (copied from HomePage.tsx) */}
             <Navbar className='backdrop-blur' expand="lg">
