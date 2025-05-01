@@ -5,7 +5,11 @@
 
 import React, { useEffect, useState } from 'react';
 
-const NightModeWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface nightModePageTracker{
+  children: React.ReactNode;
+  page:string;
+}
+const NightModeWrapper: React.FC<nightModePageTracker> = ({ children, page }) => {
   const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
 
   useEffect(() => {
@@ -17,11 +21,19 @@ const NightModeWrapper: React.FC<{ children: React.ReactNode }> = ({ children })
     return () => clearInterval(interval);
   }, []);
 
+  let pageBackgrounds: Record<string, {beachMode: string, darkMode: string}>={
+    home:{beachMode:"/resort.gif" , darkMode:"/forest2.jpg"},
+    detailedQuiz: {beachMode:"/BEACH.gif", darkMode:"pinkMine.gif"},
+    contact:{beachMode:"/underwater3.jpg", darkMode:"/sunny.gif" },
+    about: {beachMode:"beachHouse.jpg", darkMode:"pinkMinecraft.gif"}
+  };
+
+  let pageBackground= pageBackgrounds[page]?.[nightMode? 'darkMode':'beachMode']
   return (
     <div
       className={`App-wrapper ${nightMode ? 'night-mode' : ''}`}
       style={{
-        backgroundImage: nightMode ? 'url("/forest2.jpg")' : 'url("/resort.gif")',
+        backgroundImage: `url(${pageBackground})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         minHeight: '100vh'

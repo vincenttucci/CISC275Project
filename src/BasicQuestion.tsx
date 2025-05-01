@@ -1,6 +1,7 @@
 import React, {useState}from 'react';
 import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
 import ReactConfetti from 'react-confetti';
+import NightMode from './NightMode';
 
 
 export interface QuizQuestion {
@@ -70,6 +71,12 @@ interface BasicQuizProps {
 
 let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
    let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
+   const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+      const nightModeButton = () => {
+       const newMode = !nightMode;
+       setNightMode(newMode);
+       localStorage.setItem("nightMode", String(newMode));
+     };
     /*
     Hey Sam, I(brooklyn) added this useState to show a popup modal that appears
     when the user clicks the Submit button, telling them they have Completion
@@ -111,6 +118,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         //     return typeof answer === 'string' && answer !== '';
         // }).length;
     return (
+        <NightMode page="basicQuiz">
         <div
         className="basic-quiz-page">
              {/* Floating GIFs */}
@@ -133,6 +141,19 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
                         </Nav>
+                        <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                                                                              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                                                                <span style={{ fontSize: '1.2rem' }}>
+                                                                                  {nightMode ? '🏹' : '☀️'}
+                                                                                </span>
+                                                                                <Form.Check
+                                                                                  type="switch"
+                                                                                  id="night-mode-switch"
+                                                                                  checked={nightMode}
+                                                                                  onChange={nightModeButton}
+                                                                                />
+                                                                              </div>
+                                                                              </div>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -241,6 +262,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         </Modal.Footer>
         </Modal>
         </div>
+        </NightMode>
     );
 };
 
