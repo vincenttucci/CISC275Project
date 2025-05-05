@@ -43,6 +43,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
       </Navbar>
 
       <Container className="py-4">
+      <div className={"about-box"}>
         <h2>About Career Helpi:</h2>
         <p>
           For some individuals, figuring out what type of career to pursue is a challenge. 
@@ -62,6 +63,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
           will allow you to proceed to the results page output, where Chat GPT will generate a report for you with
           careers that best fit your responses.
         </p>
+        </div>
       </Container>
     </NightMode>
   );
