@@ -387,7 +387,7 @@ h5 {
 /* ============ BasicQuestions Arrows  ============== */
 
 
-.starfish-btn{
+.arrow-btn{
   width:80px;
   height:auto;
   cursor: pointer;
@@ -395,15 +395,15 @@ h5 {
   transition: transform 0.3s ease;
 }
 
-.starfish-btn:hover {
+.arrow-btn:hover {
   transform: scale(1.1) rotate(5deg);
 }
 
-.starfish-button-container {
+.arrow-button-container {
   display: flex;
   flex-direction:row;
   align-items: center;
-  gap: 400px; /* space between starfish */
+  gap: 400px; /* space between arrows */
   margin-top: 20px;
 }
 
