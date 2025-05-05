@@ -237,20 +237,21 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
 </Form>
 
             {/* Navigation Buttons Customed to Star fishes */}
-            <div className="starfish-button-container">
+            <div className="arrow-button-container">
+            {currentIndex > 0 && (
             <img
-                src="/starfish4.PNG"
+                src="/previousArrow.PNG"
                 alt="PreviousButton"
-                className='starfish-btn'
+                className='arrow-btn'
                 onClick={previousButton}
                 // disabled={currentIndex === 0}
                 />
-               
+            )}
 
             <img
-                src="/starfish4.PNG"
+                src="/nextArrow.PNG"
                 alt="Next Button"
-                className="starfish-btn"
+                className="arrow-btn"
                 onClick={nextButton}
                 style={{
                      opacity: !choice[currentQuestion.id] ? 0.5 : 1,
