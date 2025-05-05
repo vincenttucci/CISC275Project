@@ -247,7 +247,18 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                 // disabled={currentIndex === 0}
                 />
             )}
-
+           
+              {/* Only shows SUBMIT BUTTON on the last question */}
+              {currentIndex === basicQuestions.length - 1 ? (
+            <div className="d-flex justify-content-end mt-4">
+                    <Button className='submitButton' 
+                        onClick={submitButton}
+                        disabled={!choice[currentQuestion.id]}
+                        > Submit
+                    </Button> 
+                    </div>
+            
+              ) : ( 
             <img
                 src="/nextArrow.PNG"
                 alt="Next Button"
@@ -257,20 +268,11 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                      opacity: !choice[currentQuestion.id] ? 0.5 : 1,
                      pointerEvents: !choice[currentQuestion.id] ? 'none' : 'auto' }}
                 />
-    
+         )}
             </div>
             </div>
 
-            {/* Only shows SUBMIT BUTTON on the last question */}
-                {currentIndex === basicQuestions.length - 1 && (
-            <div className="d-flex justify-content-end mt-4">
-                    <Button className='submitButton' 
-                        onClick={submitButton}
-                        disabled={!choice[currentQuestion.id]}
-                        > Submit
-                    </Button> 
-            </div>
-              )}
+         
         
     </Container>
         {/* Popup that shows when the quiz is finished */}
