@@ -1,5 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState}from 'react';
 import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
+import ReactConfetti from 'react-confetti';
+import NightMode from './NightMode';
+
+
 
 
 export interface QuizQuestion {
@@ -10,7 +14,7 @@ export interface QuizQuestion {
     isSelectAll?:boolean;
 }
 
-
+//These are the actual quiz questions shown to the user
 let basicQuestions: QuizQuestion[] = [
     { id: 1, body: 'Do you have or do you plan on pursuing a college degree?', options: ['Yes', 'No', 'Unsure'] },
     { id: 2, body: 'Do you like working with people?', options: ['Yes', 'I prefer to work alone', 'Occasionally'] },
@@ -62,13 +66,25 @@ let basicQuestions: QuizQuestion[] = [
 ];
 
 
-
+//This component accepts a function called navigateTo to move between pages
 interface BasicQuizProps {
     navigateTo: (page: string) => void;
 }
 
 let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
+    //Kepps track of users answers (per question Id)
    let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
+
+   //Handles night mode but wehre changing this is theme mode since we have minecraft and beach theme modes
+   const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+
+   //when the user toggles theme mode on/off
+      const nightModeButton = () => {
+       const newMode = !nightMode;
+       setNightMode(newMode);
+       localStorage.setItem("nightMode", String(newMode));
+     };
+
     /*
     Hey Sam, I(brooklyn) added this useState to show a popup modal that appears
     when the user clicks the Submit button, telling them they have Completion
@@ -78,49 +94,62 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     let[showModal....]
      */
     let [showModal, setShowModal] = React.useState(false);
+
+    //Tracks which question the user is on
     let [currentIndex, setCurrentIndex] = React.useState(0);
 
+    //Gets current question to display
     let currentQuestion = basicQuestions[currentIndex];
 
+     //Updates the users answers when they select a choice
     let trackChoices = (id: number, option: string|string[]) => {
         setChoice({ ...choice, [id]: option });
     };
 
+    //Goes to the next question
     const nextButton = () => {
         if(currentIndex < basicQuestions.length -1){
             setCurrentIndex(currentIndex + 1);
         }
     };
 
+    //Goes to the previous question
     const previousButton = () => {
         if(currentIndex > 0 ){
             setCurrentIndex(currentIndex - 1);
         }
     };
 
+    //When the user submits the quiz *shows confetti and modal
     const submitButton = () => {
         setShowModal(true);
     };
-//counting number of answered question for the select all and opened ended questions
-        //done for progress bar to update correctly
-        // let answerCount=basicQuestions.filter((question)=>{
-        //     let answer=choice[question.id];
-        //     if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-        //     return typeof answer === 'string' && answer !== '';
-        // }).length;
+
+    //LAYOUT & UI
     return (
+        <NightMode page="basicQuiz">
         <div
-        className="basic-quiz-page"
-        style={{
-            backgroundImage: 'url("/background.gif")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            minHeight: '100%',
-            width: '100%'
-        }}
-        >
+        className="basic-quiz-page">
+             {/* Floating GIFs */}
+             <img src="/colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
+             {/* <img src="/weirdfish.gif" alt="whitefish" className="floating-gif gif-weirdfish" /> */}
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
+             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish2" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish3" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish4" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish5" />
+             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish6" />
+             {/* <img src="/bigfish.gif" alt="bigfishwithlittlefishes" className="floating-gif gif-bigfish" /> */}
+             <img src="/clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
+             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
+             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
+             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
+            {/* <img src="/starfish4.png" alt="starfish" className="starfish4" /> */}
+
             {/* Navbar (copied from HomePage.tsx) */}
             <Navbar className='backdrop-blur' expand="lg">
                 <Container>
@@ -132,45 +161,42 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
                         </Nav>
+                        <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                            <span style={{ fontSize: '1.2rem' }}>
+                                {nightMode ? '🧱' : '🏖️'}
+                            </span>
+                            <Form.Check
+                                type="switch"
+                                id="night-mode-switch"
+                                checked={nightMode}
+                                onChange={nightModeButton}
+                            />
+                            </div>
+                            </div>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {/* Left Arrow */}
-        <div 
-            className='arrow left-Arrow'
-            onClick={currentIndex > 0 ? previousButton : undefined}
-            style = {{ opacity: currentIndex === 0 ? 0.4 : 1}}
-            >
-                 ←
-            </div>
 
-         {/* Right Arrow */}
-         <div 
-            className='arrow right-Arrow'
-            onClick={choice[currentQuestion.id] ? nextButton : undefined}
-            style = {{ opacity: currentIndex === basicQuestions.length - 1 || !choice[currentQuestion.id] ? 0.4 : 1}}
-            >
-                 →
-            </div>
 
             
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
 
-            
             <div className='quiz-card p-4 rounded shadow' style={{maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
-             {/* Quiz Content */}
+        {/* Quiz Content */}
              <ProgressBar animated now={(Object.keys(choice).length / basicQuestions.length) * 100} />
 
-            {/* <Container className='py-4'> */}
+        {/* Quiz form with either Checkboxes(select all) or Radio(select only one) buttons */}
                 <Form>
                 <Form.Group controlId={`question-${currentQuestion.id}`} className='basicquestion'>
-    <Form.Label>{currentQuestion.body}</Form.Label>
-    {currentQuestion.options && (
-        currentQuestion.isSelectAll ? (
-            currentQuestion.options.map((option, index) => (
+                <Form.Label>{currentQuestion.body}</Form.Label>
+                {currentQuestion.options && (
+                    currentQuestion.isSelectAll ? (
+                        //Checkbox: Multiple answers allowed
+                currentQuestion.options.map((option, index) => (
                 <Form.Check
                     key={index}
                     type='checkbox'
@@ -196,7 +222,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             currentQuestion.options.map((option, index) => (
                 <Form.Check
                     key={index}
-                    type='radio'
+                    type='radio'  //Radio: one ansswer only 
                     id={`question-${currentQuestion.id}-option-${index}`}
                     label={option}
                     name={`question-${currentQuestion.id}`}
@@ -208,8 +234,34 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         )
     )}
 </Form.Group>
-                </Form>
+</Form>
 
+            {/* Navigation Buttons Customed to Star fishes */}
+            <div className="arrow-button-container">
+            {currentIndex > 0 && (
+            <img
+                src="/previousArrow.PNG"
+                alt="PreviousButton"
+                className='arrow-btn'
+                onClick={previousButton}
+                // disabled={currentIndex === 0}
+                />
+            )}
+
+            <img
+                src="/nextArrow.PNG"
+                alt="Next Button"
+                className="arrow-btn"
+                onClick={nextButton}
+                style={{
+                     opacity: !choice[currentQuestion.id] ? 0.5 : 1,
+                     pointerEvents: !choice[currentQuestion.id] ? 'none' : 'auto' }}
+                />
+    
+            </div>
+            </div>
+
+            {/* Only shows SUBMIT BUTTON on the last question */}
                 {currentIndex === basicQuestions.length - 1 && (
             <div className="d-flex justify-content-end mt-4">
                     <Button className='submitButton' 
@@ -219,11 +271,13 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                     </Button> 
             </div>
               )}
-        </div>
+        
     </Container>
+        {/* Popup that shows when the quiz is finished */}
 
         {/* Completed Modal*/}
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        {showModal && <ReactConfetti />}
         <Modal.Header closeButton>
             <Modal.Title>Quiz Completed!</Modal.Title>
         </Modal.Header>
@@ -232,10 +286,16 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         </Modal.Body>
         <Modal.Footer>
             <Button variant='secondary' onClick={() => setShowModal(false)}>Close</Button>
-            <Button variant='primary' onClick={() => {localStorage.setItem("quizAnswers", JSON.stringify(choice)); navigateTo("result")}}>View Results</Button>
+            <Button variant='primary' onClick={() => {
+                localStorage.setItem("quizType", "basic"); // include this line to store which type of quiz the user took in order to prompt GPT with the correct questions.
+
+                //Stores quiz data in localStorge and go to results page
+                localStorage.setItem("quizAnswers", JSON.stringify(choice)); 
+                navigateTo("result")}}>View Results</Button>
         </Modal.Footer>
         </Modal>
         </div>
+        </NightMode>
     );
 };
 

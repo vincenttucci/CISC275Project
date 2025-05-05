@@ -65,7 +65,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
   };
 
   return (
-    <NightMode>
+    <NightMode page="home">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">Career Helpi</Navbar.Brand>
@@ -73,9 +73,22 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
-              <Nav.Link href="mailto:vincentt@udel.edu?subject=Career%20Helpi%20Support%20Question">Contact</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact");}}>Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
+            <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ fontSize: '1.2rem' }}>
+              {nightMode ? '🏹' : '☀️'}
+            </span>
+            <Form.Check
+              type="switch"
+              id="night-mode-switch"
+              checked={nightMode}
+              onChange={nightModeButton}
+            />
+          </div>
+          </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -182,10 +195,10 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           </div>
         </Form>
 
-        <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+        {/* <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <span style={{ fontSize: '1.2rem' }}>
-              {nightMode ? '🌙' : '☀️'}
+              {nightMode ? '🏹' : '☀️'}
             </span>
             <Form.Check
               type="switch"
@@ -193,12 +206,12 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
               checked={nightMode}
               onChange={nightModeButton}
             />
-          </div>
+          </div> */}
           <p className="footer-text mt-2 mb-0">
             Vincent Tucci, Brooklyn Harden,<br />
             Taylor Jenkins, Sam Mullaney<br />
           </p>
-        </div>
+        {/* </div> */}
       </footer>
     </NightMode>
   );
