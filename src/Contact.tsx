@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
-import { Container, Navbar, Nav, Form } from 'react-bootstrap';
+import { Container, Navbar, Nav, Form, Button, Modal } from 'react-bootstrap';
 import SwitchModeWrapper from './SwitchMode';
+import ReactConfetti from 'react-confetti';
 interface ContactPageProps {
   navigateTo: (page: string) => void;
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [showModal, setShowModal]=useState(false);
    const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
+   const handleSubmit= (e: React.FormEvent)=> {
+    e.preventDefault();
+    setShowModal(true);
+    setEmail('');
+    setMessage('');
+    setName('');
+   }
    const switchModeButton = () => {
     const newMode = !switchMode;
     setSwitchMode(newMode);
@@ -43,10 +55,50 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
       </Navbar>
 
       <Container className="py-4">
-        <h2>Name:</h2>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className='mb-3' controlId='userName'>
+            <Form.Label>Name:</Form.Label>
+            <Form.Control 
+            type='text' 
+            placeholder='Enter Your Name Here'
+            value={name}
+            onChange={(e)=>setName(e.target.value)} />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='userEmail'>
+          <Form.Label>Email Address:</Form.Label>
+          <Form.Control 
+          type='email' 
+          placeholder='Enter Your Email Here'
+          value={email}
+          onChange={(e)=> setEmail(e.target.value)} />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='userMessage'>
+          <Form.Label>Message:</Form.Label>
+          <Form.Control 
+          as='textarea' 
+          rows={5} 
+          placeholder='Enter Your Message Here' 
+          value={message}
+          onChange={(e)=>setMessage(e.target.value)}/>
+          </Form.Group>
+          <Button className='primary' type='submit'> Submit</Button>
+        {/* <h2>Name:</h2>
         <h2>Email:</h2>
-        <h2>Message:</h2>
+        <h2>Message:</h2> */}
+        </Form>
       </Container>
+       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                   {showModal && <ReactConfetti />}
+                          <Modal.Header closeButton>
+                              <Modal.Title>Message Sent!</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                                  Thank you for your feedback!
+                          </Modal.Body>
+                          <Modal.Footer>
+                              <Button variant='primary' onClick={() => setShowModal(false)}>Close</Button>
+                          </Modal.Footer>
+                          </Modal>
       </SwitchModeWrapper>
     </>
   );
