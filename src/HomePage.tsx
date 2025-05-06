@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Form, Button, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NightMode from './NightMode'; // New night mode code
+import SwitchModeWrapper from './SwitchMode'; // New night mode code
 
 type HomePageProps = {
   navigateTo: (page: string) => void;
@@ -17,7 +17,7 @@ if (prevKey !== null) {
 
 const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
   const [key, setKey] = useState<string>(keyData);
-  const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
   const [loading, setLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
@@ -58,14 +58,14 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
     setKey(event.target.value);
   };
 
-  const nightModeButton = () => {
-    const newMode = !nightMode;
-    setNightMode(newMode);
-    localStorage.setItem("nightMode", String(newMode));
+  const switchModeButton = () => {
+    const newMode = !switchMode;
+    setSwitchMode(newMode);
+    localStorage.setItem("switchMode", String(newMode));
   };
 
   return (
-    <NightMode page="home">
+    <SwitchModeWrapper page="home">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">Career Helpi</Navbar.Brand>
@@ -76,16 +76,16 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact");}}>Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
-            <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+            <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <span style={{ fontSize: '1.2rem' }}>
-              {nightMode ? '🏹' : '☀️'}
+              {switchMode ? '🏹' : '☀️'}
             </span>
             <Form.Check
               type="switch"
-              id="night-mode-switch"
-              checked={nightMode}
-              onChange={nightModeButton}
+              id="mode-switch"
+              checked={switchMode}
+              onChange={switchModeButton}
             />
           </div>
           </div>
@@ -213,7 +213,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           </p>
         {/* </div> */}
       </footer>
-    </NightMode>
+    </SwitchModeWrapper>
   );
 };
 

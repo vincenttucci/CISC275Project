@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import ReactConfetti from 'react-confetti';
 import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
-import NightMode from './NightMode';
+import SwitchModeWrapper from './SwitchMode';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -66,7 +66,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [currentIndex, setCurrentIndex] = React.useState(0);
         let currentQuestion = detailedQuestions[currentIndex];
 
-        const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+        const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
 
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
@@ -87,10 +87,10 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         const submitButton = () => {
             setShowModal(true);
         };
-        const nightModeButton = () => {
-            const newMode = !nightMode;
-            setNightMode(newMode);
-            localStorage.setItem("nightMode", String(newMode));
+        const switchModeButton = () => {
+            const newMode = !switchMode;
+            setSwitchMode(newMode);
+            localStorage.setItem("switchMode", String(newMode));
           };
 
         //counting number of answered question for the select all and opened ended questions
@@ -137,7 +137,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             }}>
 
                 {/* navigation bar  */}
-                <NightMode page="detailedQuiz">
+                <SwitchModeWrapper page="detailedQuiz">
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
                     <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -148,16 +148,16 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
                         </Nav>
-                                <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                                <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
                                           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <span style={{ fontSize: '1.2rem' }}>
-                                              {nightMode ? '🏹' : '☀️'}
+                                              {switchMode ? '🏹' : '☀️'}
                                             </span>
                                             <Form.Check
                                               type="switch"
-                                              id="night-mode-switch"
-                                              checked={nightMode}
-                                              onChange={nightModeButton}
+                                              id="mode-switch"
+                                              checked={switchMode}
+                                              onChange={switchModeButton}
                                             />
                                           </div>
                                           </div>
@@ -286,7 +286,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             navigateTo("result")}}>View Results</Button>
                     </Modal.Footer>
                     </Modal>
-                    </NightMode>
+                    </SwitchModeWrapper>
                     </div>
                     
            

@@ -132,53 +132,53 @@ html, body {
 /* ============ NIGHT MODE ============== */
 
 
-.night-mode{
+.switch-mode{
   background-color: #1f1f1f;
   font-family: "Pixelify Sans", sans-serif;
 }
 
-.night-mode .App-footer, 
-.night-mode .App-header{
+.switch-mode .App-footer, 
+.switch-mode .App-header{
   background-color: #282c34;
 }
 
 
-.night-mode .navbar,
-.night-mode .App-footer {
+.switch-mode .navbar,
+.switch-mode .App-footer {
   background-color:#5f95e5a5;
   /* backdrop-filter: blur(8px); */
   border-bottom: none;
   box-shadow: none;
 }
 
-.night-mode .navbar .nav-link,
-.night-mode .navbar-brand {
+.switch-mode .navbar .nav-link,
+.switch-mode .navbar-brand {
   color: #ffffff;
 }
 
-.night-mode .btn {
+.switch-mode .btn {
   background-color: #64432e;
   color: white;
   border: none;
 }
 
-.night-mode .quiz-box {
+.switch-mode .quiz-box {
   background-color: #f8f7f6;
   color: #1964b9;
 }
 
-.night-mode .footer-text {
+.switch-mode .footer-text {
   color: white;
   text-align: left;
   margin-left: 20px;
 }
 
-.night-toggle {
+.mode-toggle {
   margin-top: 10px;
   font-size: 14px;
 }
 
-.night-toggle .form-check-label {
+.mode-toggle .form-check-label {
   color: white; /* or black depending on mode */
 }
 /* ============ OPTIONAL: LOGO ANIMATION ============== */
