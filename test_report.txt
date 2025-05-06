@@ -63,7 +63,7 @@
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (76 ms)
+  ✕ renders learn react link (63 ms)
 
   ● renders learn react link
 
@@ -140,7 +140,7 @@ FAIL src/App.test.tsx
                     [36m</a>[39m
                   [36m</div>[39m
                   [36m<div[39m
-                    [33mclass[39m=[32m"night-toggle"[39m
+                    [33mclass[39m=[32m"mode-toggle"[39m
                     [33mstyle[39m=[32m"display: flex; flex-direction: row; align-items: center; gap: 15px; text-align: right; font-size: 13px;"[39m
                   [36m>[39m
                     [36m<div[39m
@@ -156,7 +156,7 @@ FAIL src/App.test.tsx
                       [36m>[39m
                         [36m<input[39m
                           [33mclass[39m=[32m"form-check-input"[39m
-                          [33mid[39m=[32m"night-mode-switch"[39m
+                          [33mid[39m=[32m"mode-switch"[39m
                           [33mtype[39m=[32m"checkbox"[39m
                         [36m/>[39m
                       [36m</div>[39m
@@ -311,13 +311,13 @@ All files           |   12.06 |     7.25 |     7.4 |   12.68 |
  Contact.tsx        |    7.69 |        0 |       0 |      10 | 9-26                           
  DetailedQuiz.tsx   |    4.76 |        0 |       0 |    5.26 | 63-286                         
  HomePage.tsx       |   25.45 |    27.27 |    9.09 |   26.92 | 15,26-36,41-53,58,62-64,75-146 
- NightMode.tsx      |   81.81 |       50 |      75 |      80 | 17-18                          
  Results.tsx        |    1.13 |        0 |       0 |     1.2 | 15-280                         
+ SwitchMode.tsx     |   81.81 |       50 |      75 |      80 | 17-18                          
  index.tsx          |       0 |      100 |     100 |       0 | 7-19                           
  reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                           
 --------------------|---------|----------|---------|---------|--------------------------------
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        4.232 s
+Time:        3.875 s
 Ran all test suites.
