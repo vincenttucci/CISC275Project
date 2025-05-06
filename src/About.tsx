@@ -7,13 +7,14 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
-  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");//to switch between beach and mc mode
      const switchModeButton = () => {
       const newMode = !switchMode;
       setSwitchMode(newMode);
       localStorage.setItem("switchMode", String(newMode));
      }
   return (
+    //connects page to other pages with navbar and connects page to switchmode with "page=about". Switchmode toggle and emojis included
     <SwitchModeWrapper page="about">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
@@ -28,7 +29,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
             <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
                                                       <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                                         <span style={{ fontSize: '1.2rem' }}>
-                                                          {switchMode ? '🏹' : '☀️'}
+                                                          {switchMode ? '🏹' : '🏖️'}
                                                         </span>
                                                         <Form.Check
                                                           type="switch"
