@@ -164,32 +164,20 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            <div 
-            className='arrow left-Arrow'
-            onClick={currentIndex > 0 ? previousButton : undefined}
-            style = {{ opacity: currentIndex === 0 ? 0.4 : 1}}
-            >
-                 ←
-            </div>
-
-         {/* Right Arrow */}
-         <div 
-            className='arrow right-Arrow'
-            onClick={choice[currentQuestion.id] ? nextButton : undefined}
-            style = {{ opacity: currentIndex === detailedQuestions.length - 1 || !choice[currentQuestion.id] ? 0.4 : 1}}
-            >
-                 →
-            </div>
-
+            
             
             {/* progress bar stays on screen while scrolling */}
            
              {/*Quiz Card*/}
                     <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
+                    
+
                         <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
                          <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
                          <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100}/>
                         {/* Quiz Content */}
+
+                        
                         
                 {/* updates bar */}
                 {/* added stripes and animations for razzle dazzle */}
@@ -253,7 +241,32 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                                 )))}
                             </Form.Group>
                     </Form>
-                    {currentIndex === detailedQuestions.length - 1 && (
+                    {/* Same buttons as basic question page */}
+                    <div className="arrow-button-container">
+            {currentIndex > 0 && (
+            <img
+                src="/previousArrow.PNG"
+                alt="PreviousButton"
+                className='arrow-btn'
+                onClick={previousButton}
+                // disabled={currentIndex === 0}
+                />
+            )}
+
+            <img
+                src="/nextArrow.PNG"
+                alt="Next Button"
+                className="arrow-btn"
+                onClick={nextButton}
+                style={{
+                     opacity: !choice[currentQuestion.id] ? 0.5 : 1,
+                     pointerEvents: !choice[currentQuestion.id] ? 'none' : 'auto' }}
+                />
+    
+            </div>
+
+            {/* Only shows SUBMIT BUTTON on the last question */}
+                {currentIndex === detailedQuestions.length - 1 && (
                     <div className="d-flex justify-content-end mt-4">
                                     <Button className='submitButton' 
                                         onClick={submitButton} 

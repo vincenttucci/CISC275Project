@@ -247,6 +247,7 @@ html, body {
   top: 500px;
   right: 15px;
   width: 150px;
+  z-index: 11;
 }
 
 .gif-weirdfish{
@@ -258,6 +259,7 @@ html, body {
 .gif-bubbles{
   bottom: 5px;
   width: 500px;
+  z-index: 1;
 
 }
 
@@ -265,36 +267,42 @@ html, body {
   bottom: 5px;
   left:360px;
   width: 500px;
+  z-index: 1;
 }
 
 .gif-bubbles3{
   bottom: 5px;
   right:5px;
   width: 500px;
+  z-index: 1;
 }
 
 .gif-bubbles4{
   bottom: 5px;
   right:250px;
   width: 500px;
+  z-index: 1;
 }
 
 .gif-fish{
   top: 15px;
   /* left: 6px; */
   width: 150px;
+  z-index: 11;
 }
 
 .gif-fish2{
   top: 100px;
   left: 30px;
   width: 250px;
+  z-index: 11;
 }
 
 .gif-fish3{
   top: 150px;
   left: 300px;
   width: 250px;
+  z-index: 11;
 }
 
 .gif-fish4{
@@ -365,6 +373,8 @@ html, body {
   background-color: rgb(239, 236, 232); 
   border-radius: 15px;
   font-weight: 500;
+  position: relative;
+  z-index: 10;
 
 }
 .quiz-card label,
