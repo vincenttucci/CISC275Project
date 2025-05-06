@@ -164,7 +164,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                         <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                             <span style={{ fontSize: '1.2rem' }}>
-                                {switchMode ? '🧱' : '🏖️'}
+                                {switchMode ? '🏹' : '🏖️'}
                             </span>
                             <Form.Check
                                 type="switch"

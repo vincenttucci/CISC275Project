@@ -7,19 +7,19 @@ interface ContactPageProps {
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [showModal, setShowModal]=useState(false);
-   const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
-   const handleSubmit= (e: React.FormEvent)=> {
+  const [name, setName] = useState(''); //keeps track of name entered
+  const [email, setEmail] = useState(''); //keeps track of email entered
+  const [message, setMessage] = useState(''); //keeps track of message entered
+  const [showModal, setShowModal]=useState(false);//for submission modal
+   const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");//to switch between beach and mc mode
+   const handleSubmit= (e: React.FormEvent)=> {//handles contact submission and updates feilds using state
     e.preventDefault();
     setShowModal(true);
     setEmail('');
     setMessage('');
     setName('');
    }
-   const switchModeButton = () => {
+   const switchModeButton = () => {//to switch between beach and mc mode
     const newMode = !switchMode;
     setSwitchMode(newMode);
     localStorage.setItem("switchMode", String(newMode));
@@ -40,7 +40,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
              <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
                                                       <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                                         <span style={{ fontSize: '1.2rem' }}>
-                                                          {switchMode ? '🏹' : '☀️'}
+                                                          {switchMode ? '🏹' : '🏖️'}
                                                         </span>
                                                         <Form.Check
                                                           type="switch"
@@ -55,8 +55,10 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
       </Navbar>
 
       <Container className="py-4">
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}> 
+        {/* handles contact submission and updates feilds using state  */}
           <Form.Group className='mb-3' controlId='userName'>
+            {/* controls name textbox */}
             <Form.Label>Name:</Form.Label>
             <Form.Control 
             type='text' 
@@ -64,6 +66,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
             value={name}
             onChange={(e)=>setName(e.target.value)} />
           </Form.Group>
+          {/* controls email textbox */}
           <Form.Group className='mb-3' controlId='userEmail'>
           <Form.Label>Email Address:</Form.Label>
           <Form.Control 
@@ -72,6 +75,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
           value={email}
           onChange={(e)=> setEmail(e.target.value)} />
           </Form.Group>
+          {/* controls message textbox and has more rows to provide more room */}
           <Form.Group className='mb-3' controlId='userMessage'>
           <Form.Label>Message:</Form.Label>
           <Form.Control 
@@ -82,9 +86,6 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
           onChange={(e)=>setMessage(e.target.value)}/>
           </Form.Group>
           <Button className='primary' type='submit'> Submit</Button>
-        {/* <h2>Name:</h2>
-        <h2>Email:</h2>
-        <h2>Message:</h2> */}
         </Form>
       </Container>
        <Modal show={showModal} onHide={() => setShowModal(false)} centered>

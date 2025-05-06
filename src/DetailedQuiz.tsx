@@ -17,7 +17,7 @@ export interface QuizQuestion {
     //for select all that apply questions
     isSelectAll?:boolean;
 }
-//used AI to generate some question answer choices
+//used AI ChatGPT 4.0 to generate some question answer choices
 let detailedQuestions: QuizQuestion[]= [ 
     { id: 1, body: 'Do you have or do you plan on pursuing a college degree?', options: ['Yes', 'No', 'Unsure'] },
     { id: 2, body: 'Do you like working with people?', options: ['Yes', 'I prefer to work alone', 'Occasionally'] },
@@ -41,18 +41,6 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
     { id: 20, body: 'Describe your ideal workday in a few sentences.', isOpenEnded: true },
 
-
-    // { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)', isOpenEnded: true },
-    // { id: 13, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not a chance'] },
-    // { id: 14, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task']},
-    // { id: 15, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
-    // { id: 16, body: 'Where are you in your career now? Where do you see yourself as far in the future as you have imagined? (Open-ended)', isOpenEnded: true },
-    // { id: 17, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
-    // { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?', options: ['Work Life Balance', 'Career Growth', 'Unsure'] },
-    // { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)', options: ['Managing other members', 'Completing tasks', 'Planning future tasks', 'Generating Ideas', 'Performing Quality Checks'], isSelectAll: true },
-    // { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
-
-
 ];
 
 interface DetailedQuizProps {
@@ -61,82 +49,41 @@ interface DetailedQuizProps {
 
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
-        // let [popup, setPopup]=useState(false);
-        let [showModal, setShowModal] = React.useState(false);
-        let [currentIndex, setCurrentIndex] = React.useState(0);
+        let [showModal, setShowModal] = React.useState(false); //For modual after submission
+        let [currentIndex, setCurrentIndex] = React.useState(0); //keeps track of question number 
         let currentQuestion = detailedQuestions[currentIndex];
 
-        const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
+        const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true"); //to switch between beach and mc mode
 
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
         }
+        //navigates to next question
         const nextButton = () => {
             if(currentIndex < detailedQuestions.length -1){
                 setCurrentIndex(currentIndex + 1);
             }
         };
-    
+    //navigates to previous question
         const previousButton = () => {
             if(currentIndex > 0 ){
                 setCurrentIndex(currentIndex - 1);
             }
         };
-    
+    //submits answers and triggers modal and confetti
         const submitButton = () => {
             setShowModal(true);
         };
+        //switched from beach to mc/ from mc to beach and shares the mode between pages
         const switchModeButton = () => {
             const newMode = !switchMode;
             setSwitchMode(newMode);
             localStorage.setItem("switchMode", String(newMode));
           };
-
-        //counting number of answered question for the select all and opened ended questions
-        //done for progress bar to update correctly
-        // let answerCount=detailedQuestions.filter((question)=>{
-        //     let answer=choice[question.id];
-        //     if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-        //     return typeof answer === 'string' && answer !== '';
-        // }).length;
-        // let submitHandler=()=> {
-        //     let answeredAll=detailedQuestions.every((question)=>{
-        //         let answer=choice[question.id];
-        //         if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-        //     return typeof answer === 'string' && answer !== '';
-        //     });
-        //     if (!answeredAll){
-        //         setPopup(true);
-        //     }else{
-        //         setPopup(false);
-        //         navigateTo('result')
-        //     }
         
         return(
-            <div 
-
-            // style={{
-            //     backgroundImage:'url("/BEACH.gif")',
-            //     backgroundSize: 'cover',
-            //     backgroundPosition: 'center',
-            //     backgroundRepeat: 'no-repeat',
-            //     minHeight: '100%',
-            //     width: '100%'
-            // }}>
-
-            style={{
-                backgroundImage:'url("/pinkMine.gif")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                minHeight: '100%',
-                width: '100%'
-            }}>
-
-                {/* navigation bar  */}
+            <div >
                 <SwitchModeWrapper page="detailedQuiz">
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
@@ -151,7 +98,8 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                                 <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
                                           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <span style={{ fontSize: '1.2rem' }}>
-                                              {switchMode ? '🏹' : '☀️'}
+                                                {/* switches emoji based on set mode */}
+                                              {switchMode ? '🏹' : '🏖️'}
                                             </span>
                                             <Form.Check
                                               type="switch"
@@ -166,37 +114,20 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             </Navbar>
             
             
-            {/* progress bar stays on screen while scrolling */}
-           
-             {/*Quiz Card*/}
                     <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
                     
 
                         <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
                          <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
                          <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100}/>
-                        {/* Quiz Content */}
-
+                        {/* updates and animates bar */}
                         
                         
-                {/* updates bar */}
-                {/* added stripes and animations for razzle dazzle */}
-                {/* <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/> */}
-                {/* why "py-4"? have to ask brooklyn */} 
-
-                {/* This is Brooklyn answering you, 'py-4' is Padding on the Y-axis (top&bottom) 
-                        p=padding
-                        y=vertical axis (top & bottom)
-                        4= spacing unit
-                py-4 adds breathing room vertically, making the layout more spaced out and polished,
-                like around the headers, and our other content stuff. You can use other 'py' types
-                like py-3 or py-2, but I just used py-4 to mess around you can always change it
-                 */}
-                 
-                {/* <Container className='py-4'> */}
+               
                     <Form>
                             <Form.Group controlId={`question-${currentQuestion.id}`} className='detailedquestion'>
                                 <Form.Label>{currentQuestion.body}</Form.Label>
+                                {/* controls open ended questions. Adds textbox and tracks answers using tackchoices function */}
                                 {currentQuestion.isOpenEnded ? (
                                     <Form.Control
                                     as="textarea"
@@ -205,6 +136,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                                     onChange={(e)=> trackChoices(currentQuestion.id,e.target.value)}
                                     placeholder='Answer Here'
                                     />
+                                    //controls select all questions. Adds checkboxes and tracks all answers using tackchoices function 
                                 ): currentQuestion.isSelectAll ?(
                                     currentQuestion.options?.map((option,index) => (
                                         <Form.Check
@@ -249,7 +181,6 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 alt="PreviousButton"
                 className='arrow-btn'
                 onClick={previousButton}
-                // disabled={currentIndex === 0}
                 />
             )}
 
@@ -278,11 +209,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             </div>
                             </Container>
                             
-                    {/* </Container> */}
-                    {/* <Button className='submitButton' onClick={submitHandler}>Submit</Button>
-            // <h2>Detailed Quiz</h2>
-            // <p>This is the detailed quiz</p> */}
-            {/* popup for when quiz is complete */}
+            {/* popup with confetti for when quiz is complete */}
              <Modal show={showModal} onHide={() => setShowModal(false)} centered>
              {showModal && <ReactConfetti />}
                     <Modal.Header closeButton>
