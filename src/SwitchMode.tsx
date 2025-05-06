@@ -10,7 +10,7 @@ interface switchModePageTracker{
   page:string;
 }
 const SwitchModeWrapper: React.FC<switchModePageTracker> = ({ children, page }) => {
-  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
+  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");//to switch between beach and mc mode
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,14 +20,14 @@ const SwitchModeWrapper: React.FC<switchModePageTracker> = ({ children, page }) 
 
     return () => clearInterval(interval);
   }, []);
-
+//holds the backgrounds for each page and each mode on the page. These variables are also present in the switchmodewrapper on the other pages to conect them and give unique backgrounds
   let pageBackgrounds: Record<string, {beachMode: string, MCMode: string}>={
     home:{beachMode:"/resort.gif" , MCMode:"/forest2.jpg"},
     detailedQuiz: {beachMode:"/BEACH.gif", MCMode:"pinkMine.gif"},
     contact:{beachMode:"/underwater3.jpg", MCMode:"/sunny.gif" },
     about: {beachMode:"beachHouse.jpg", MCMode:"pinkMinecraft.gif"}
   };
-
+//variable that is set as background image. Places correct background for correct mode
   let pageBackground= pageBackgrounds[page]?.[switchMode? 'MCMode':'beachMode']
   return (
     <div
