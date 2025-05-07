@@ -242,7 +242,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
       <div
         className="results-page"
         style={{
-          backgroundImage: 'url("/minecraft.jpeg")',
+          backgroundImage: 'url("/forest3.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

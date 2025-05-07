@@ -1,7 +1,7 @@
 import React, {useState}from 'react';
 import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
 import ReactConfetti from 'react-confetti';
-import NightMode from './NightMode';
+import SwitchModeWrapper from './SwitchMode';
 
 
 
@@ -76,13 +76,13 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
    let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
 
    //Handles night mode but wehre changing this is theme mode since we have minecraft and beach theme modes
-   const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+   const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
 
    //when the user toggles theme mode on/off
-      const nightModeButton = () => {
-       const newMode = !nightMode;
-       setNightMode(newMode);
-       localStorage.setItem("nightMode", String(newMode));
+      const switchModeButton = () => {
+       const newMode = !switchMode;
+       setSwitchMode(newMode);
+       localStorage.setItem("switchMode", String(newMode));
      };
 
     /*
@@ -127,7 +127,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
 
     //LAYOUT & UI
     return (
-        <NightMode page="basicQuiz">
+        <SwitchModeWrapper page="basicQuiz">
         <div
         className="basic-quiz-page">
              {/* Floating GIFs */}
@@ -161,16 +161,16 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
                         </Nav>
-                        <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                        <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                             <span style={{ fontSize: '1.2rem' }}>
-                                {nightMode ? '🧱' : '🏖️'}
+                                {switchMode ? '🏹' : '🏖️'}
                             </span>
                             <Form.Check
                                 type="switch"
-                                id="night-mode-switch"
-                                checked={nightMode}
-                                onChange={nightModeButton}
+                                id="mode-switch"
+                                checked={switchMode}
+                                onChange={switchModeButton}
                             />
                             </div>
                             </div>
@@ -237,20 +237,21 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
 </Form>
 
             {/* Navigation Buttons Customed to Star fishes */}
-            <div className="starfish-button-container">
+            <div className="arrow-button-container">
+            {currentIndex > 0 && (
             <img
-                src="/starfish4.PNG"
+                src="/previousArrow.PNG"
                 alt="PreviousButton"
-                className='starfish-btn'
+                className='arrow-btn'
                 onClick={previousButton}
                 // disabled={currentIndex === 0}
                 />
-               
+            )}
 
             <img
-                src="/starfish4.PNG"
+                src="/nextArrow.PNG"
                 alt="Next Button"
-                className="starfish-btn"
+                className="arrow-btn"
                 onClick={nextButton}
                 style={{
                      opacity: !choice[currentQuestion.id] ? 0.5 : 1,
@@ -294,7 +295,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         </Modal.Footer>
         </Modal>
         </div>
-        </NightMode>
+        </SwitchModeWrapper>
     );
 };
 

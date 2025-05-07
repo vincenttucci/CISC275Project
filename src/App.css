@@ -132,53 +132,53 @@ html, body {
 /* ============ NIGHT MODE ============== */
 
 
-.night-mode{
+.switch-mode{
   background-color: #1f1f1f;
   font-family: "Pixelify Sans", sans-serif;
 }
 
-.night-mode .App-footer, 
-.night-mode .App-header{
+.switch-mode .App-footer, 
+.switch-mode .App-header{
   background-color: #282c34;
 }
 
 
-.night-mode .navbar,
-.night-mode .App-footer {
+.switch-mode .navbar,
+.switch-mode .App-footer {
   background-color:#5f95e5a5;
   /* backdrop-filter: blur(8px); */
   border-bottom: none;
   box-shadow: none;
 }
 
-.night-mode .navbar .nav-link,
-.night-mode .navbar-brand {
+.switch-mode .navbar .nav-link,
+.switch-mode .navbar-brand {
   color: #ffffff;
 }
 
-.night-mode .btn {
+.switch-mode .btn {
   background-color: #64432e;
   color: white;
   border: none;
 }
 
-.night-mode .quiz-box {
+.switch-mode .quiz-box {
   background-color: #f8f7f6;
   color: #1964b9;
 }
 
-.night-mode .footer-text {
+.switch-mode .footer-text {
   color: white;
   text-align: left;
   margin-left: 20px;
 }
 
-.night-toggle {
+.mode-toggle {
   margin-top: 10px;
   font-size: 14px;
 }
 
-.night-toggle .form-check-label {
+.mode-toggle .form-check-label {
   color: white; /* or black depending on mode */
 }
 /* ============ OPTIONAL: LOGO ANIMATION ============== */
@@ -247,6 +247,7 @@ html, body {
   top: 500px;
   right: 15px;
   width: 150px;
+  z-index: 11;
 }
 
 .gif-weirdfish{
@@ -258,6 +259,7 @@ html, body {
 .gif-bubbles{
   bottom: 5px;
   width: 500px;
+  z-index: 1;
 
 }
 
@@ -265,36 +267,42 @@ html, body {
   bottom: 5px;
   left:360px;
   width: 500px;
+  z-index: 1;
 }
 
 .gif-bubbles3{
   bottom: 5px;
   right:5px;
   width: 500px;
+  z-index: 1;
 }
 
 .gif-bubbles4{
   bottom: 5px;
   right:250px;
   width: 500px;
+  z-index: 1;
 }
 
 .gif-fish{
   top: 15px;
   /* left: 6px; */
   width: 150px;
+  z-index: 11;
 }
 
 .gif-fish2{
   top: 100px;
   left: 30px;
   width: 250px;
+  z-index: 11;
 }
 
 .gif-fish3{
   top: 150px;
   left: 300px;
   width: 250px;
+  z-index: 11;
 }
 
 .gif-fish4{
@@ -365,6 +373,8 @@ html, body {
   background-color: rgb(239, 236, 232); 
   border-radius: 15px;
   font-weight: 500;
+  position: relative;
+  z-index: 10;
 
 }
 .quiz-card label,
@@ -387,7 +397,7 @@ h5 {
 /* ============ BasicQuestions Arrows  ============== */
 
 
-.starfish-btn{
+.arrow-btn{
   width:80px;
   height:auto;
   cursor: pointer;
@@ -395,17 +405,29 @@ h5 {
   transition: transform 0.3s ease;
 }
 
-.starfish-btn:hover {
+.arrow-btn:hover {
   transform: scale(1.1) rotate(5deg);
 }
 
-.starfish-button-container {
+.arrow-button-container {
   display: flex;
   flex-direction:row;
   align-items: center;
-  gap: 400px; /* space between starfish */
+  gap: 400px; /* space between arrows */
   margin-top: 20px;
 }
+
+/*=========About page==========*/
+
+.about-box {
+  background-color: #ffffffe0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-size: larger;
+}
+
+
 
 
 /*Dont need
