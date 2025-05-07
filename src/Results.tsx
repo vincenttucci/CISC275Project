@@ -99,6 +99,8 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
       Do not start out with an intro or and with a conclusion. Just give the list of careers and their explanations. 
 
+      If its a corporate job, you may list best companies to work for, salary expecations, and popular city locations for the job.
+
       IMPORTANT: NEVER UNDER ANY CIRCUMSTANCE use asteriks anywhere on the output, especially around the career choice titles.
       
       User Answers:
