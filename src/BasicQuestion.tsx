@@ -259,11 +259,9 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                 />
     
             </div>
-            </div>
-
             {/* Only shows SUBMIT BUTTON on the last question */}
-                {currentIndex === basicQuestions.length - 1 && (
-            <div className="d-flex justify-content-end mt-4">
+            {currentIndex === basicQuestions.length - 1 && (
+            <div className="d-flex justify-content-center mt-4">
                     <Button className='submitButton' 
                         onClick={submitButton}
                         disabled={!choice[currentQuestion.id]}
@@ -271,6 +269,9 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                     </Button> 
             </div>
               )}
+            </div>
+
+            
         
     </Container>
         {/* Popup that shows when the quiz is finished */}

@@ -198,7 +198,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
 
             {/* Only shows SUBMIT BUTTON on the last question */}
                 {currentIndex === detailedQuestions.length - 1 && (
-                    <div className="d-flex justify-content-end mt-4">
+                    <div className="d-flex justify-content-center mt-4">
                                     <Button className='submitButton' 
                                         onClick={submitButton} 
                                         disabled={!choice[currentQuestion.id]}
