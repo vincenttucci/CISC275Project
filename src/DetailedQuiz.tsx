@@ -1,7 +1,7 @@
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactConfetti from 'react-confetti';
-import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
+import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal, Alert} from 'react-bootstrap';
 import SwitchModeWrapper from './SwitchMode';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
@@ -50,8 +50,34 @@ interface DetailedQuizProps {
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
         let [showModal, setShowModal] = React.useState(false); //For modual after submission
+        //For encouragement message
+        let [showEncouragement, setShowEncouragement] = React.useState(false);
+        const [prevAnsweredCount, setPrevAnsweredCount] = useState(0); //to keep track of how many questions have been answered
+        let [hasEncouraged,setHasEncouraged]=useState(false); //to keep track of if encouragement has been shown
+
         let [currentIndex, setCurrentIndex] = React.useState(0); //keeps track of question number 
         let currentQuestion = detailedQuestions[currentIndex];
+
+        useEffect(() => {
+            const answeredCount = Object.keys(choice).length;
+            const halfway = Math.floor(detailedQuestions.length / 2);
+        
+            // Trigger only when crossing INTO halfway and not shown yet
+            if (
+                answeredCount >= halfway &&
+                prevAnsweredCount < halfway &&
+                !hasEncouraged
+            ) {
+                setShowEncouragement(true);
+                setHasEncouraged(true);
+        
+                setTimeout(() => {
+                    setShowEncouragement(false);
+                }, 3000);
+            }
+        
+            setPrevAnsweredCount(answeredCount); // update for next run
+        }, [choice]);
 
         const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true"); //to switch between beach and mc mode
 
@@ -112,7 +138,26 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            
+            {/* Encouragement message */}
+            {showEncouragement && (
+    <Alert
+        variant="info"
+        style={{
+            position: 'fixed',
+            top: '70px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1051,
+            width: '80%',
+            maxWidth: '500px',
+            textAlign: 'center',
+            fontSize: '16px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        }}
+    >
+        🎉 You're halfway there! Keep going!
+    </Alert>
+)}
             
                     <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
                     

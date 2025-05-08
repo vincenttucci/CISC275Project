@@ -1,5 +1,5 @@
-import React, {useState}from 'react';
-import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
+import React, {useState, useEffect}from 'react';
+import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal, Alert} from 'react-bootstrap';
 import ReactConfetti from 'react-confetti';
 import SwitchModeWrapper from './SwitchMode';
 
@@ -95,11 +95,40 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
      */
     let [showModal, setShowModal] = React.useState(false);
 
+    // This is the encouragement message that appears when the user is 50% done with quiz
+    let [showEncouragement, setShowEncouragement] = React.useState(false);
+    const [prevAnsweredCount, setPrevAnsweredCount] = useState(0);
+
+    //This is the encouragement message goes away after the first time
+    let [hasEncouraged, setHasEncouraged] = React.useState(false);
+
     //Tracks which question the user is on
     let [currentIndex, setCurrentIndex] = React.useState(0);
 
     //Gets current question to display
     let currentQuestion = basicQuestions[currentIndex];
+
+    //Encouragement effect
+    useEffect(() => {
+        const answeredCount = Object.keys(choice).length;
+        const halfway = Math.floor(basicQuestions.length / 2);
+    
+        // Trigger only when crossing INTO halfway and not shown yet
+        if (
+            answeredCount >= halfway &&
+            prevAnsweredCount < halfway &&
+            !hasEncouraged
+        ) {
+            setShowEncouragement(true);
+            setHasEncouraged(true);
+    
+            setTimeout(() => {
+                setShowEncouragement(false);
+            }, 3000);
+        }
+    
+        setPrevAnsweredCount(answeredCount); // update for next run
+    }, [choice]);
 
      //Updates the users answers when they select a choice
     let trackChoices = (id: number, option: string|string[]) => {
@@ -179,7 +208,26 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             </Navbar>
 
 
-            
+        {/*Encouragement message*/}
+        {showEncouragement && (
+    <Alert
+        variant="info"
+        style={{
+            position: 'fixed',
+            top: '70px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1051,
+            width: '80%',
+            maxWidth: '500px',
+            textAlign: 'center',
+            fontSize: '16px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        }}
+    >
+        🎉 You're halfway there! Keep going!
+    </Alert>
+)}    
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
 
