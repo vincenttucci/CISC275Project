@@ -276,7 +276,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         {/* Popup that shows when the quiz is finished */}
 
         {/* Completed Modal*/}
-        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName='themed-modal'>
         {showModal && <ReactConfetti />}
         <Modal.Header closeButton>
             <Modal.Title>Quiz Completed!</Modal.Title>

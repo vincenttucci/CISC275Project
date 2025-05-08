@@ -210,7 +210,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             </Container>
                             
             {/* popup with confetti for when quiz is complete */}
-             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+             <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName='themed-modal'>
              {showModal && <ReactConfetti />}
                     <Modal.Header closeButton>
                         <Modal.Title>Quiz Completed!</Modal.Title>
