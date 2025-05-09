@@ -106,9 +106,9 @@ html, body {
   font-size: 14px;
   /* min-height: 10vh; */
   display: flex;
-  flex-direction: row; /*originall column*/
+  flex-direction: row; /*original column*/
   align-items: center;
-  justify-content: space-between; /*originall was center*/
+  justify-content: space-between; /*original was center*/
   color: rgb(32, 29, 29);
   
 }
