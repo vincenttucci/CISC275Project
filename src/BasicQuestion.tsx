@@ -285,7 +285,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             <div className="arrow-button-container">
             {currentIndex > 0 && (
             <img
-                src="./previousArrow.PNG"
+                src="/previousArrow.PNG"
                 alt="PreviousButton"
                 className='arrow-btn'
                 onClick={previousButton}
@@ -294,7 +294,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             )}
 
             <img
-                src="./nextArrow.PNG"
+                src="/nextArrow.PNG"
                 alt="Next Button"
                 className="arrow-btn"
                 onClick={nextButton}
