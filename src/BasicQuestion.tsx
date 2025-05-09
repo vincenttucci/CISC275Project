@@ -167,7 +167,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish2" />
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish3" />
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish4" />
-             <img src="/.fish.gif" alt="fish" className="floating-gif gif-fish5" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish5" />
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish6" />
              {/* <img src="/bigfish.gif" alt="bigfishwithlittlefishes" className="floating-gif gif-bigfish" /> */}
              <img src="/clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
