@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-// import { Button, Form } from 'react-bootstrap';
 import HomePage from "./HomePage";
 import DetailedQuiz from './DetailedQuiz';
 import BasicQuestion from "./BasicQuestion";
@@ -8,34 +7,39 @@ import AboutPage from "./About";
 import ResultsPage from "./Results";
 import ContactPage from "./Contact";
 
-function App() {
-  const [currentPage, setCurrentPage] = useState<string>('home');
+/*
+* When the user refreshes on homepage, the app refreshes homepage as is.
+* Reloading quiz pages will reset the quiz progress.
+* Reloading the ressults page will generate new results.
+*/
 
-  // const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setKey(event.target.value);
-  // };
+function App() {
+  // Load page from local storage, and if not found, default to homepage
+  const [currentPage, setCurrentPage] = useState<string>(() => {
+    return localStorage.getItem('currentPage') || 'home';
+  });
+
+  // When user switches pages, change the indicator in local storage
+  const changePage = (page: string) => {
+    setCurrentPage(page);
+    localStorage.setItem('currentPage', page);
+  };
 
   const renderPage = () => {
     if (currentPage === 'home') {
-      return <HomePage navigateTo={setCurrentPage} />;
-
-    }else if (currentPage === 'detailedquiz') {
-      return <DetailedQuiz navigateTo={setCurrentPage}/>
-
+      return <HomePage navigateTo={changePage} />;
+    } else if (currentPage === 'detailedquiz') {
+      return <DetailedQuiz navigateTo={changePage} />;
     } else if (currentPage === 'basicQuestion') {
-      return <BasicQuestion navigateTo={setCurrentPage}/>;
-
-    }else if (currentPage === 'contact') {
-      return <ContactPage navigateTo={setCurrentPage}/>
-
+      return <BasicQuestion navigateTo={changePage} />;
+    } else if (currentPage === 'contact') {
+      return <ContactPage navigateTo={changePage} />;
     } else if (currentPage === 'about') {
-      return <AboutPage navigateTo={setCurrentPage}/>;
-
+      return <AboutPage navigateTo={changePage} />;
     } else if (currentPage === 'result') {
-      return <ResultsPage navigateTo={setCurrentPage} />;    
-
+      return <ResultsPage navigateTo={changePage} />;
     } else {
-      return <div>404 Page Not Found</div>;
+      return <div>404 Page Not Found</div>; 
     }
   };
 
@@ -44,7 +48,6 @@ function App() {
       {renderPage()}
     </div>
   );
-    
-};
+}
 
 export default App;
