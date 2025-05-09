@@ -3,9 +3,6 @@ import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-b
 import ReactConfetti from 'react-confetti';
 import SwitchModeWrapper from './SwitchMode';
 
-
-
-
 export interface QuizQuestion {
     id: number;
     body: string;
