@@ -165,7 +165,8 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
 
                         <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
                          <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
-                         <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100}/>
+                         {/*Progressbar logic, now containing check to ensure some question is selected, preventing bar from not going down if user deselects answer*/}
+                         <ProgressBar className='progress' animated now={(Object.entries(choice).filter(([_, value]) =>Array.isArray(value) ? value.length > 0 : Boolean(value)).length / detailedQuestions.length) * 100}/>
                         {/* updates and animates bar */}
                         
                         
