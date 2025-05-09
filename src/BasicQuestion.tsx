@@ -157,7 +157,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         <div
         className="basic-quiz-page">
              {/* Floating GIFs */}
-             <img src="/colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
+             <img src="./colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
              {/* <img src="/weirdfish.gif" alt="whitefish" className="floating-gif gif-weirdfish" /> */}
              <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
              <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
@@ -285,7 +285,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             <div className="arrow-button-container">
             {currentIndex > 0 && (
             <img
-                src="./previousArrow.PNG"
+                src="./previousArrow.png"
                 alt="PreviousButton"
                 className='arrow-btn'
                 onClick={previousButton}
@@ -294,7 +294,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             )}
 
             <img
-                src="./nextArrow.PNG"
+                src="./nextArrow.png"
                 alt="Next Button"
                 className="arrow-btn"
                 onClick={nextButton}
