@@ -159,10 +159,10 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
              {/* Floating GIFs */}
              <img src="/colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
              {/* <img src="/weirdfish.gif" alt="whitefish" className="floating-gif gif-weirdfish" /> */}
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish" />
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish2" />
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish3" />
@@ -170,10 +170,10 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish5" />
              <img src="./fish.gif" alt="fish" className="floating-gif gif-fish6" />
              {/* <img src="/bigfish.gif" alt="bigfishwithlittlefishes" className="floating-gif gif-bigfish" /> */}
-             <img src="/clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
+             <img src="./clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
             {/* <img src="/starfish4.png" alt="starfish" className="starfish4" /> */}
 
             {/* Navbar (copied from HomePage.tsx) */}
