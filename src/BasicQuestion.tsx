@@ -1,5 +1,5 @@
-import React, {useState, useEffect}from 'react';
-import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal, Alert} from 'react-bootstrap';
+import React, {useState}from 'react';
+import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
 import ReactConfetti from 'react-confetti';
 import SwitchModeWrapper from './SwitchMode';
 
