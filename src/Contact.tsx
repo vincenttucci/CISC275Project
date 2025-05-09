@@ -12,7 +12,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
   const [message, setMessage] = useState(''); //keeps track of message entered
   const [showModal, setShowModal]=useState(false);//for submission modal
    const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");//to switch between beach and mc mode
-   const handleSubmit= (e: React.FormEvent)=> {//handles contact submission and updates feilds using state
+   const handleSubmit= (e: React.FormEvent)=> {//handles contact submission and updates fields using state
     e.preventDefault();
 
     const contactFormData= new FormData();
