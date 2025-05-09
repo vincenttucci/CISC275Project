@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import ReactConfetti from 'react-confetti';
 import {Container,ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-bootstrap';
+import SwitchModeWrapper from './SwitchMode';
 //from question homework
 //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
 export interface QuizQuestion {
@@ -16,7 +17,7 @@ export interface QuizQuestion {
     //for select all that apply questions
     isSelectAll?:boolean;
 }
-//used AI to generate some question answer choices
+//used AI ChatGPT 4.0 to generate some question answer choices
 let detailedQuestions: QuizQuestion[]= [ 
     { id: 1, body: 'Do you have or do you plan on pursuing a college degree?', options: ['Yes', 'No', 'Unsure'] },
     { id: 2, body: 'Do you like working with people?', options: ['Yes', 'I prefer to work alone', 'Occasionally'] },
@@ -29,15 +30,17 @@ let detailedQuestions: QuizQuestion[]= [
     { id: 9, body: 'How do you feel about taking risks?', options: ['I enjoy taking risks', 'I prefer to play it safe', 'It depends on the situation'] },
     { id: 10, body: 'How do you usually approach a new project?', options: ['Plan everything before starting', 'Start with a rough draft of a plan and figure it out as I go on', 'Get input from others before deciding', 'Take it on step by step, one task at a time'] },
     { id: 11, body: 'Do you prefer routine tasks or variety in your work?', options: ['Routine', 'Variety', 'A balance of both'] },
-    { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)', isOpenEnded: true },
-    { id: 13, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not a chance'] },
-    { id: 14, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task']},
-    { id: 15, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
-    { id: 16, body: 'Where are you in your career now? Where do you see yourself as far in the future as you have imagined? (Open-ended)', isOpenEnded: true },
-    { id: 17, body: 'What is a skill you wish you could improve or develop? (Open-ended)', isOpenEnded: true },
-    { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?', options: ['Work Life Balance', 'Career Growth', 'Unsure'] },
-    { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)', options: ['Managing other members', 'Completing tasks', 'Planning future tasks', 'Generating Ideas', 'Performing Quality Checks'], isSelectAll: true },
-    { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)', isOpenEnded: true },
+
+    { id: 12, body: 'Describe a time you solved a difficult problem.', isOpenEnded: true },
+    { id: 13, body: 'Would you rather work independently or as part of a team?', options: ['Independently', 'Part of a team', 'Depends on the project'] },
+    { id: 14, body: 'How comfortable are you with public speaking?', options: ['Very comfortable', 'Somewhat comfortable', 'Not comfortable at all'] },
+    { id: 15, body: 'What type of work pace do you prefer?', options: ['Fast-paced and dynamic', 'Steady and predictable', 'A mix depending on the task'] },
+    { id: 16, body: 'Do you like working with technology and computers?', options: ['Yes, very much', 'Somewhat', 'Not really'] },
+    { id: 17, body: 'Which activities do you enjoy most? (Select all that apply)', options: ['Creating art or music', 'Fixing or building things', 'Organizing events', 'Helping people solve problems'], isSelectAll: true },
+    { id: 18, body: 'What is a skill you wish you could improve or develop?', isOpenEnded: true },
+    { id: 19, body: 'Would you rather work with data, people, or ideas?', options: ['Data', 'People', 'Ideas'] },
+    { id: 20, body: 'Describe your ideal workday in a few sentences.', isOpenEnded: true },
+
 ];
 
 interface DetailedQuizProps {
@@ -46,45 +49,69 @@ interface DetailedQuizProps {
 
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
-        // let [popup, setPopup]=useState(false);
-        let [showModal, setShowModal] = React.useState(false);
+        let [showModal, setShowModal] = React.useState(false); //For modual after submission
+        //For encouragement message
+        // let [showEncouragement, setShowEncouragement] = React.useState(false);
+        // const [prevAnsweredCount, setPrevAnsweredCount] = useState(0); //to keep track of how many questions have been answered
+        // let [hasEncouraged,setHasEncouraged]=useState(false); //to keep track of if encouragement has been shown
+
+        let [currentIndex, setCurrentIndex] = React.useState(0); //keeps track of question number 
+        let currentQuestion = detailedQuestions[currentIndex];
+
+        // useEffect(() => {
+            
+        //     const answeredCount = Object.keys(choice).length;
+        //     const halfway = Math.floor(detailedQuestions.length / 2);
+        
+        //     // Trigger only when crossing INTO halfway and not shown yet
+        //     if (
+        //         answeredCount >= halfway &&
+        //         prevAnsweredCount < halfway &&
+        //         !hasEncouraged
+        //     ) {
+        //         setShowEncouragement(true);
+        //         setHasEncouraged(true);
+        
+        //         setTimeout(() => {
+        //             setShowEncouragement(false);
+        //         }, 3000);
+        //     }
+        
+        //     setPrevAnsweredCount(answeredCount); // update for next run
+        // }, [choice]);
+
+        const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true"); //to switch between beach and mc mode
+
         //tracks answer chosen on specific question by question id number
         let trackChoices=(id:number,option:string|string[])=>{
             setChoice({...choice,[id]:option})
         }
-        //counting number of answered question for the select all and opened ended questions
-        //done for progress bar to update correctly
-        let answerCount=detailedQuestions.filter((question)=>{
-            let answer=choice[question.id];
-            if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-            if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-            return typeof answer === 'string' && answer !== '';
-        }).length;
-        // let submitHandler=()=> {
-        //     let answeredAll=detailedQuestions.every((question)=>{
-        //         let answer=choice[question.id];
-        //         if (question.isOpenEnded) return typeof answer === 'string' && answer.trim() !== '';
-        //     if (question.isSelectAll) return Array.isArray(answer) && answer.length > 0;
-        //     return typeof answer === 'string' && answer !== '';
-        //     });
-        //     if (!answeredAll){
-        //         setPopup(true);
-        //     }else{
-        //         setPopup(false);
-        //         navigateTo('result')
-        //     }
+        //navigates to next question
+        const nextButton = () => {
+            if(currentIndex < detailedQuestions.length -1){
+                setCurrentIndex(currentIndex + 1);
+            }
+        };
+    //navigates to previous question
+        const previousButton = () => {
+            if(currentIndex > 0 ){
+                setCurrentIndex(currentIndex - 1);
+            }
+        };
+    //submits answers and triggers modal and confetti
+        const submitButton = () => {
+            setShowModal(true);
+        };
+        //switched from beach to mc/ from mc to beach and shares the mode between pages
+        const switchModeButton = () => {
+            const newMode = !switchMode;
+            setSwitchMode(newMode);
+            localStorage.setItem("switchMode", String(newMode));
+          };
         
         return(
-            <div 
-            style={{
-                backgroundImage:'url("/pinkBG.jpeg")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                minHeight: '100%',
-                width: '100%'
-            }}>
-                {/* navigation bar  */}
+            <div >
+                <SwitchModeWrapper page="detailedQuiz">
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
                     <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -95,106 +122,141 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
                             <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
                         </Nav>
+                                <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                                          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                            <span style={{ fontSize: '1.2rem' }}>
+                                                {/* switches emoji based on set mode */}
+                                              {switchMode ? '🏹' : '🏖️'}
+                                            </span>
+                                            <Form.Check
+                                              type="switch"
+                                              id="mode-switch"
+                                              checked={switchMode}
+                                              onChange={switchModeButton}
+                                            />
+                                          </div>
+                                          </div>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {/* progress bar stays on screen while scrolling */}
-            <div style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 1000,
-            backgroundColor: 'white',
-            padding: '0.5rem 1rem'
-        }}>{/* updates bar */}
-                {/* added stripes and animations for razzle dazzle */}
-            <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/>
-            </div>
-             {/*Quiz Card*/}
-                    <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
-                        <div className='quiz-card p-4 rounded shadow bg-white' style={{ maxWidth: '600px', width: '100%' }}>
-                         <h5 className="mb-4">Quiz</h5>
+            {/* Encouragement message */}
+            {/* {showEncouragement && (
+    <Alert
+        variant="info"
+        style={{
+            position: 'fixed',
+            top: '70px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1051,
+            width: '80%',
+            maxWidth: '500px',
+            textAlign: 'center',
+            fontSize: '16px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        }}
+    >
+        🎉 You're halfway there! Keep going!
+    </Alert>
+)} */}
             
-                        {/* Quiz Content */}
-                        
-                {/* updates bar */}
-                {/* added stripes and animations for razzle dazzle */}
-                {/* <ProgressBar className='progress' animated now={(answerCount/detailedQuestions.length)*100} label={`${answerCount}/${detailedQuestions.length}`}/> */}
-                {/* why "py-4"? have to ask brooklyn */} 
+                    <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
+                    
 
-                {/* This is Brooklyn answering you, 'py-4' is Padding on the Y-axis (top&bottom) 
-                        p=padding
-                        y=vertical axis (top & bottom)
-                        4= spacing unit
-                py-4 adds breathing room vertically, making the layout more spaced out and polished,
-                like around the headers, and our other content stuff. You can use other 'py' types
-                like py-3 or py-2, but I just used py-4 to mess around you can always change it
-                 */}
-                 
-                {/* <Container className='py-4'> */}
+                        <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
+                         <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
+                         {/*Progressbar logic, now containing check to ensure some question is selected, preventing bar from not going down if user deselects answer*/}
+                         <ProgressBar className='progress' animated now={(Object.entries(choice).filter(([_, value]) =>Array.isArray(value) ? value.length > 0 : Boolean(value)).length / detailedQuestions.length) * 100}/>
+                        {/* updates and animates bar */}
+                        
+                        
+               
                     <Form>
-                        {detailedQuestions.map((question)=>(
-                            // sets up questions and options and keeps them oranized on the same page
-                            <Form.Group key={question.id} controlId={`question-${question.id}`} className='detailedquestion'>
-                                <Form.Label>{question.body}</Form.Label>
-                                {question.isOpenEnded ? (
+                            <Form.Group controlId={`question-${currentQuestion.id}`} className='detailedquestion'>
+                                <Form.Label>{currentQuestion.body}</Form.Label>
+                                {/* controls open ended questions. Adds textbox and tracks answers using tackchoices function */}
+                                {currentQuestion.isOpenEnded ? (
                                     <Form.Control
                                     as="textarea"
                                     rows={3}
-                                    value={choice[question.id] ||''}
-                                    onChange={(e)=> trackChoices(question.id,e.target.value)}
+                                    value={choice[currentQuestion.id] ||''}
+                                    onChange={(e)=> trackChoices(currentQuestion.id,e.target.value)}
                                     placeholder='Answer Here'
                                     />
-                                ): question.isSelectAll ?(
-                                    question.options?.map((option,index) => (
+                                    //controls select all questions. Adds checkboxes and tracks all answers using tackchoices function 
+                                ): currentQuestion.isSelectAll ?(
+                                    currentQuestion.options?.map((option,index) => (
                                         <Form.Check
                                         key={index}
                                         type='checkbox'
-                                        id={`question-${question.id}-option-${index}`}
+                                        id={`question-${currentQuestion.id}-option-${index}`}
                                         label={option}
-                                        name={`question-${question.id}`}
+                                        name={`question-${currentQuestion.id}`}
                                         value={option}
-                                        checked={(choice[question.id]||[]).includes(option)}
-                                        onChange={(e)=>{let currentChoice=choice[question.id]||[];
+                                        checked={(choice[currentQuestion.id]||[]).includes(option)}
+                                        onChange={(e)=>{let currentChoice=choice[currentQuestion.id]||[];
                                             if (e.target.checked) {
-                                                trackChoices(question.id,[...(currentChoice as string[]),option]);
+                                                trackChoices(currentQuestion.id,[...(currentChoice as string[]),option]);
                                             }else {
-                                                trackChoices(question.id,(currentChoice as string[]).filter((o:string)=> o!== option));
+                                                trackChoices(currentQuestion.id,(currentChoice as string[]).filter((o:string)=> o!== option));
                                             }
                                         }}
                                         />
                                     ))
                                 ):(
-                                question.options?.map((option,index)=>(
+                                currentQuestion.options?.map((option,index)=>(
                                     //handles the radio buttons
                                     //reference-homework 10
                                     <Form.Check
                                     key={index}
                                     type="radio"
-                                    id={`question-${question.id}-option-${index}`} //fixes error of only selecting first choice on text click
+                                    id={`question-${currentQuestion.id}-option-${index}`} //fixes error of only selecting first choice on text click
                                     label={option}
-                                    name={`question-${question.id}`}
+                                    name={`question-${currentQuestion.id}`}
                                     value={option}
-                                    checked={choice[question.id]===option}
-                                    onChange={()=>trackChoices(question.id,option)}
+                                    checked={choice[currentQuestion.id]===option}
+                                    onChange={()=>trackChoices(currentQuestion.id,option)}
                                     />
                                 )))}
                             </Form.Group>
-                        ))}
                     </Form>
-                    <div className="d-flex justify-content-end mt-4">
+                    {/* Same buttons as basic question page */}
+                    <div className="arrow-button-container">
+            {currentIndex > 0 && (
+            <img
+                src="/previousArrow.PNG"
+                alt="PreviousButton"
+                className='arrow-btn'
+                onClick={previousButton}
+                />
+            )}
+
+            <img
+                src="/nextArrow.PNG"
+                alt="Next Button"
+                className="arrow-btn"
+                onClick={nextButton}
+                style={{
+                     opacity: !choice[currentQuestion.id] ? 0.5 : 1,
+                     pointerEvents: !choice[currentQuestion.id] ? 'none' : 'auto' }}
+                />
+    
+            </div>
+
+            {/* Only shows SUBMIT BUTTON on the last question */}
+                {currentIndex === detailedQuestions.length - 1 && (
+                    <div className="d-flex justify-content-center mt-4">
                                     <Button className='submitButton' 
-                                        onClick={() => setShowModal(true)} 
-                                        disabled={Object.keys(choice).length !== detailedQuestions.length}
+                                        onClick={submitButton} 
+                                        disabled={!choice[currentQuestion.id]}
                                         >Submit
                                     </Button>
                                 </div>
+                    )}
                             </div>
                             </Container>
-                    {/* </Container> */}
-                    {/* <Button className='submitButton' onClick={submitHandler}>Submit</Button>
-            // <h2>Detailed Quiz</h2>
-            // <p>This is the detailed quiz</p> */}
-            {/* popup for when quiz is complete */}
+                            
+            {/* popup with confetti for when quiz is complete */}
              <Modal show={showModal} onHide={() => setShowModal(false)} centered>
              {showModal && <ReactConfetti />}
                     <Modal.Header closeButton>
@@ -211,7 +273,9 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             navigateTo("result")}}>View Results</Button>
                     </Modal.Footer>
                     </Modal>
+                    </SwitchModeWrapper>
                     </div>
+                    
            
         )
        

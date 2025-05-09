@@ -1,14 +1,21 @@
-import React from 'react';
-import { Container, Navbar, Nav } from 'react-bootstrap';
-import NightMode from './NightMode'; // use wrapper for more modularity
+import React, { useState } from 'react';
+import { Container, Navbar, Nav, Form } from 'react-bootstrap';
+import SwitchModeWrapper from './SwitchMode'; // use wrapper for more modularity
 
 interface AboutPageProps {
   navigateTo: (page: string) => void;
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
+  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");//to switch between beach and mc mode
+     const switchModeButton = () => {
+      const newMode = !switchMode;
+      setSwitchMode(newMode);
+      localStorage.setItem("switchMode", String(newMode));
+     }
   return (
-    <NightMode>
+    //connects page to other pages with navbar and connects page to switchmode with "page=about". Switchmode toggle and emojis included
+    <SwitchModeWrapper page="about">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">Career Finder</Navbar.Brand>
@@ -19,11 +26,25 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
+            <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+                                                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                                        <span style={{ fontSize: '1.2rem' }}>
+                                                          {switchMode ? '🏹' : '🏖️'}
+                                                        </span>
+                                                        <Form.Check
+                                                          type="switch"
+                                                          id="mode-switch"
+                                                          checked={switchMode}
+                                                          onChange={switchModeButton}
+                                                        />
+                                                      </div>
+                                                      </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
       <Container className="py-4">
+      <div className={"about-box"}>
         <h2>About Career Helpi:</h2>
         <p>
           For some individuals, figuring out what type of career to pursue is a challenge. 
@@ -43,8 +64,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
           will allow you to proceed to the results page output, where Chat GPT will generate a report for you with
           careers that best fit your responses.
         </p>
+        </div>
       </Container>
-    </NightMode>
+    </SwitchModeWrapper>
   );
 };
 
