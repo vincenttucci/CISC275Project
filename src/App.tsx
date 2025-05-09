@@ -14,15 +14,14 @@ import ContactPage from "./Contact";
 */
 
 function App() {
-  // Load page from local storage, and if not found, default to homepage
+  // use session storage new so that when the user returns to website, they will start on home, and refreshing will keep them on the same page.
   const [currentPage, setCurrentPage] = useState<string>(() => {
-    return localStorage.getItem('currentPage') || 'home';
+    return sessionStorage.getItem('currentPage') || 'home';
   });
 
-  // When user switches pages, change the indicator in local storage
   const changePage = (page: string) => {
     setCurrentPage(page);
-    localStorage.setItem('currentPage', page);
+    sessionStorage.setItem('currentPage', page);
   };
 
   const renderPage = () => {
