@@ -96,11 +96,11 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     let [showModal, setShowModal] = React.useState(false);
 
     // This is the encouragement message that appears when the user is 50% done with quiz
-    let [showEncouragement, setShowEncouragement] = React.useState(false);
-    const [prevAnsweredCount, setPrevAnsweredCount] = useState(0);
+    // let [showEncouragement, setShowEncouragement] = React.useState(false);
+    // const [prevAnsweredCount, setPrevAnsweredCount] = useState(0);
 
     //This is the encouragement message goes away after the first time
-    let [hasEncouraged, setHasEncouraged] = React.useState(false);
+    // let [hasEncouraged, setHasEncouraged] = React.useState(false);
 
     //Tracks which question the user is on
     let [currentIndex, setCurrentIndex] = React.useState(0);
@@ -109,26 +109,26 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     let currentQuestion = basicQuestions[currentIndex];
 
     //Encouragement effect
-    useEffect(() => {
-        const answeredCount = Object.keys(choice).length;
-        const halfway = Math.floor(basicQuestions.length / 2);
+    // useEffect(() => {
+    //     const answeredCount = Object.keys(choice).length;
+    //     const halfway = Math.floor(basicQuestions.length / 2);
     
         // Trigger only when crossing INTO halfway and not shown yet
-        if (
-            answeredCount >= halfway &&
-            prevAnsweredCount < halfway &&
-            !hasEncouraged
-        ) {
-            setShowEncouragement(true);
-            setHasEncouraged(true);
+        // if (
+        //     answeredCount >= halfway &&
+        //     prevAnsweredCount < halfway &&
+        //     !hasEncouraged
+        // ) {
+        //     setShowEncouragement(true);
+        //     setHasEncouraged(true);
     
-            setTimeout(() => {
-                setShowEncouragement(false);
-            }, 3000);
-        }
+        //     setTimeout(() => {
+        //         setShowEncouragement(false);
+        //     }, 3000);
+        // }
     
-        setPrevAnsweredCount(answeredCount); // update for next run
-    }, [choice]);
+    //     setPrevAnsweredCount(answeredCount); // update for next run
+    // }, [choice]);
 
      //Updates the users answers when they select a choice
     let trackChoices = (id: number, option: string|string[]) => {
@@ -209,7 +209,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
 
 
         {/*Encouragement message*/}
-        {showEncouragement && (
+        {/* {showEncouragement && (
     <Alert
         variant="info"
         style={{
@@ -227,7 +227,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     >
         🎉 You're halfway there! Keep going!
     </Alert>
-)}    
+)}     */}
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
 
