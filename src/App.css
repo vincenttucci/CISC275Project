@@ -106,9 +106,9 @@ html, body {
   font-size: 14px;
   /* min-height: 10vh; */
   display: flex;
-  flex-direction: row; /*originall column*/
+  flex-direction: row; /*original column*/
   align-items: center;
-  justify-content: space-between; /*originall was center*/
+  justify-content: space-between; /*original was center*/
   color: rgb(32, 29, 29);
   
 }
@@ -185,17 +185,6 @@ html, body {
 
 .mode-toggle .form-check-label {
   color: white; /* or black depending on mode */
-}
-/* ============ OPTIONAL: LOGO ANIMATION ============== */
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* ============ BUTTONS FOR QUIZ-HOMEPAGE ============== */
@@ -481,78 +470,26 @@ h5 {
   margin-bottom: 20px;
 }
 
-
-
-/*Dont need
-
-/* 
-.App-header {
-  background-color: #282c34;
-  /* min-height: 20vh; */
-
-/* }
-.Home-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 70px
-}
-.Home-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-} */ 
-
-
-/* .App-logo {
-  height: 40vmin;
-
-.App-logo {
-  height: 10vmin;
-
-  pointer-events: none;
-} */
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
-} */
-
-/* .basic-quiz-page label,
-.basic-quiz-page .form-check-label,
-.basic-quiz-page .navbar-brand,
-.basic-quiz-page .nav-link,
-.basic-quiz-page .progress-bar,
-.basic-quiz-page .submitButton {
-  color: white !important;
-} */
-/* 
-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2.5rem;
-  cursor: pointer;
-  color: rgb(145, 96, 40);
-  user-select: none;
-  z-index: 1000;
-  padding: 10px;
-  background-color:  rgba(197, 240, 208, 0.77);
-  border-radius: 50%;
-  transition: background-color 0.3s;
+/*======== Modal Theme ==========*/
+.themed-modal .modal-content {
+  background: #f0faff; /* light blue background */
+  border: 13px double #81d1cd;
+  border-radius: 20px;
+  font-family: 'Pixelify Sans';
+  color: #d58d1b;
 }
 
-
-.arrow:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+.themed-modal .modal-header {
+  background-color: #e0f7f7;
+  border-bottom: 2px dashed #d58d1b ;
 }
 
-.left-Arrow {
-  left: 20px;
+.themed-modal .modal-title {
+  font-size: 1.25rem;
+  color: #d58d1b;
 }
 
-.right-Arrow {
-  right: 20px;
-} */
+.themed-modal .modal-footer {
+  background-color: #e0f7f7;
+  border-top: 2px dashed #d58d1b;
+}

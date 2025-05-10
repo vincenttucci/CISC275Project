@@ -3,9 +3,6 @@ import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-b
 import ReactConfetti from 'react-confetti';
 import SwitchModeWrapper from './SwitchMode';
 
-
-
-
 export interface QuizQuestion {
     id: number;
     body: string;
@@ -160,23 +157,23 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         <div
         className="basic-quiz-page">
              {/* Floating GIFs */}
-             <img src="/colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
+             <img src="./colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
              {/* <img src="/weirdfish.gif" alt="whitefish" className="floating-gif gif-weirdfish" /> */}
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish2" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish3" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish4" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish5" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish6" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish2" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish3" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish4" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish5" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish6" />
              {/* <img src="/bigfish.gif" alt="bigfishwithlittlefishes" className="floating-gif gif-bigfish" /> */}
-             <img src="/clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
+             <img src="./clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
             {/* <img src="/starfish4.png" alt="starfish" className="starfish4" /> */}
 
             {/* Navbar (copied from HomePage.tsx) */}
@@ -234,8 +231,8 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             <div className='quiz-card p-4 rounded shadow' style={{maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
-        {/* Quiz Content */}
-             <ProgressBar animated now={(Object.keys(choice).length / basicQuestions.length) * 100} />
+        {/* Progressbar logic, now containing check to ensure some question is selected, preventing bar from not going down if user deselects answer */}
+             <ProgressBar animated now={(Object.entries(choice).filter(([id, value]) => Array.isArray(value) ? value.length > 0 : Boolean(value)).length / basicQuestions.length) * 100} />
 
         {/* Quiz form with either Checkboxes(select all) or Radio(select only one) buttons */}
                 <Form>
@@ -288,7 +285,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             <div className="arrow-button-container">
             {currentIndex > 0 && (
             <img
-                src="/previousArrow.PNG"
+                src="/previousArrow.png"
                 alt="PreviousButton"
                 className='arrow-btn'
                 onClick={previousButton}
@@ -297,7 +294,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             )}
 
             <img
-                src="/nextArrow.PNG"
+                src="/nextArrow.png"
                 alt="Next Button"
                 className="arrow-btn"
                 onClick={nextButton}
@@ -325,7 +322,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         {/* Popup that shows when the quiz is finished */}
 
         {/* Completed Modal*/}
-        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName='themed-modal'>
         {showModal && <ReactConfetti />}
         <Modal.Header closeButton>
             <Modal.Title>Quiz Completed!</Modal.Title>

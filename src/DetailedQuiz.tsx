@@ -165,7 +165,8 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
 
                         <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
                          <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
-                         <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100}/>
+                         {/*Progressbar logic, now containing check to ensure some question is selected, preventing bar from not going down if user deselects answer*/}
+                         <ProgressBar className='progress' animated now={(Object.entries(choice).filter(([_, value]) =>Array.isArray(value) ? value.length > 0 : Boolean(value)).length / detailedQuestions.length) * 100}/>
                         {/* updates and animates bar */}
                         
                         
@@ -223,7 +224,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     <div className="arrow-button-container">
             {currentIndex > 0 && (
             <img
-                src="/previousArrow.PNG"
+                src="./previousArrow.png"
                 alt="PreviousButton"
                 className='arrow-btn'
                 onClick={previousButton}
@@ -231,7 +232,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             )}
 
             <img
-                src="/nextArrow.PNG"
+                src="./nextArrow.png"
                 alt="Next Button"
                 className="arrow-btn"
                 onClick={nextButton}
@@ -256,7 +257,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             </Container>
                             
             {/* popup with confetti for when quiz is complete */}
-             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+             <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName='themed-modal'>
              {showModal && <ReactConfetti />}
                     <Modal.Header closeButton>
                         <Modal.Title>Quiz Completed!</Modal.Title>
