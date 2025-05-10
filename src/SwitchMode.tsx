@@ -24,7 +24,7 @@ const SwitchModeWrapper: React.FC<switchModePageTracker> = ({ children, page }) 
   let pageBackgrounds: Record<string, {beachMode: string, MCMode: string}>={
     home:{beachMode:"/resort.gif" , MCMode:"/forest2.jpg"},
     detailedQuiz: {beachMode:"/BEACH.gif", MCMode:"pinkMine.gif"},
-    contact:{beachMode:"/underwater3.jpg", MCMode:"/sunny.gif" },
+    contact:{beachMode:"/contactBeach.jpg", MCMode:"/sunny.gif" },
     about: {beachMode:"beachHouse.jpg", MCMode:"pinkMinecraft.gif"}
   };
 //variable that is set as background image. Places correct background for correct mode
