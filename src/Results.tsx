@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Navbar, Nav, Spinner, Card, Button } from 'react-bootstrap';
+import { Container, Navbar, Nav, Card, Button } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 
 interface ResultPageProps {
@@ -11,11 +11,19 @@ interface QuizQuestion {
   body: string;
 }
 
+interface JobDetail{
+  title: string;
+  description: string;
+  salary?: string;
+  education?: string;
+  training?: string;
+}
+
 const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
   const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: string | string[] }>({});
-  const [jobSuggestions, setJobSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+  const [jobSuggestions, setJobSuggestions] = useState<JobDetail[]>([]);
 
   useEffect(() => {
     //Step1: get the quiz answers stored in the local storage
@@ -101,7 +109,17 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
       IMPORTANT: NEVER UNDER ANY CIRCUMSTANCE use asteriks anywhere on the output, especially around the career choice titles.
       
-      User Answers:
+      Now based on the answers, return a JSON array of the 5 recommended jobs in the following format
+      [
+    {
+    "title": "Job Title",
+    "description": "Why it's a match",
+    "salary": "Average salary (optional)",
+    "education": "Education required (optional, but if the job does require a degre, list the best schools(5 schools) for that degree in bullet points)",
+    "training": "Best training or schools (optional)"
+    },
+       ...
+      ]
   
       ${Object.entries(parsedAnswers).map(([idStr, answer]) => {
       const question = questionsToUse.find(q => q.id === parseInt(idStr));
@@ -132,19 +150,30 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
         //get the response text from chat and store it
         .then(data => {
-          const text = data.choices?.[0]?.message?.content || "No response.";
-
-          //need a bit more researrch on '/\d+\.\s/' like why did that work and what initally is it?
-          const jobs = text.split(/\d+\.\s/).filter((entry: string) => entry.trim() !== ""); // FIXED: explicit type
-
-          setJobSuggestions(jobs); //save the job suggestions
+          const text = data.choices?.[0]?.message?.content || "[]";
+          try{
+            const jobs: JobDetail[] = JSON.parse(text);
+              setJobSuggestions(jobs);
+            } catch (err) {
+              console.error("Failed to parse job JSON:", text);
+              setJobSuggestions([
+                {
+                  title: "⚠️ Error",
+                  description: "There was a problem generating your results. Please try again later.",
+                },
+              ]);
+            }
           setLoading(false); //loading finished
         })
 
         //handle any errors if something goes wrong
         .catch(err => {
-          console.error("Error fetching jobs from OpenAI:", err);
-          setJobSuggestions(["There was a problem generating your results."]);
+          setJobSuggestions([
+            {
+              title: "⚠️ Error",
+              description: "There was a problem connecting to the server.",
+            },
+          ]);
           setLoading(false);
         });
     }
@@ -177,18 +206,17 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
     // Smaller font for suggestions to fit on one page
     doc.setFontSize(10);
   
-    const suggestionLines = jobSuggestions.flatMap((suggestion, index) => {
-      const text = `${index + 1}. ${suggestion.trim()}`;
-      return doc.splitTextToSize(text, 170);
-    });
-  
-    suggestionLines.forEach((line: string) => {
-      if (y > 270) {
-        doc.addPage();
-        y = 20;
-      }
-      doc.text(line, 20, y);
-      y += 6;
+    jobSuggestions.forEach((job, index) => {
+      const lines = doc.splitTextToSize(`${index + 1}. ${job.title}: ${job.description}`, 170);
+      lines.forEach((line: string | string[]) => {
+        if (y > 270) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.text(line, 20, y);
+        y += 6;
+      });
+      y += 4;
     });
   
     // Start answers on a new page
@@ -239,16 +267,16 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
     <>
       <div
         className="results-page"
-        style={{
-          backgroundImage: 'url("/forest3.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          minHeight: '100vh',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
+        // style={{
+        //   backgroundImage: 'url("/forest3.jpg")',
+        //   backgroundSize: 'cover',
+        //   backgroundPosition: 'center',
+        //   backgroundRepeat: 'no-repeat',
+        //   minHeight: '100vh',
+        //   width: '100%',
+        //   display: 'flex',
+        //   flexDirection: 'column'
+        // }}
       >
         <Navbar className='backdrop-blur' expand="lg">
           <Container>
@@ -268,24 +296,52 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
           <h1>Congratulations!</h1><br />
           <p>You finished the quiz, read below to see your Quiz Results.</p><br />
           {loading ? (
-            <div className="text-center mt-4">
-              <Spinner animation="border" />
+            <div className="loading-screen">
+            <img src="/bigfish.gif" alt="loading..." className='loading-gif'/>
+            {/* <Spinner animation="border" /> */}
               <p className="mt-2">Generating your results...</p>
             </div>
           ) : (
-            <Card className="p-4 shadow-lg mt-4">
-              <h4>Recommended Jobs:</h4>
-              <ul className='text-start'>
-                {jobSuggestions.map((job, index) => (
-                  <li key={index} className='mb-3'>{job.trim()}</li>
-                ))}
-              </ul>
-            </Card>
-          )}
+            <>
+
+            {jobSuggestions.map((job, index) => (
+             <Card key={index} className="my-4 p-3 pixel-card">
+               <h3 className="job-title">{job.title}</h3>
+
+               <div className="job-section">
+                 <strong>Description:</strong>
+                 <p>{job.description}</p>
+               </div>
+
+               {job.salary && (
+                 <div className="job-section">
+                   <strong>Average Salary:</strong>
+                   <p>{job.salary}</p>
+                 </div>
+               )}
+
+               {job.education && (
+                 <div className="job-section">
+                   <strong>Education Needed:</strong>
+                   <p>{job.education}</p>
+                 </div>
+               )}
+
+               {job.training && (
+                 <div className="job-section">
+                   <strong>Best Training/Schools:</strong>
+                   <p>{job.training}</p>
+                 </div>
+               )}
+             </Card>
+           ))}
+  
 
           <Button variant="primary" onClick={downloadPDF}>
             Download Results as PDF
           </Button>
+          </>
+          )}
         </Container>
       </div>
     </>
