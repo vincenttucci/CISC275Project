@@ -35,10 +35,11 @@ html, body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: #351e1e;
+
 }
 
 .page-header{
-  background-color: transparent;
+  background-color: white;
   backdrop-filter: blur(10px);
   padding: 30px 20px;
   text-align: center;
@@ -52,12 +53,12 @@ html, body {
 .page-header h2 {
   font-size: 28px;
   margin-bottom: 10px;
-  color: #0a1b20;;
+  color: #a6c5cf;;
 }
 
 .page-header p {
   font-size: 16px;
-  color: #0a1b20;
+  color: #56390d;
 }
 
 .navbar {
@@ -65,6 +66,10 @@ html, body {
   backdrop-filter: blur(6px); /* subtle blur behind text */
   border-bottom: none;
   box-shadow: none;
+}
+
+.navbar-brand{
+  font-family: 'Pixelify Sans';
 }
 
 .backdrop-blur {
@@ -101,9 +106,9 @@ html, body {
   font-size: 14px;
   /* min-height: 10vh; */
   display: flex;
-  flex-direction: row; /*originall column*/
+  flex-direction: row; /*original column*/
   align-items: center;
-  justify-content: space-between; /*originall was center*/
+  justify-content: space-between; /*original was center*/
   color: rgb(32, 29, 29);
   
 }
@@ -131,65 +136,55 @@ html, body {
 
 /* ============ NIGHT MODE ============== */
 
-.night-mode{
-  background-color: #1f1f1f;
 
+.switch-mode{
+  background-color: #1f1f1f;
+  font-family: "Pixelify Sans", sans-serif;
 }
 
-.night-mode .App-footer, 
-.night-mode .App-header{
+.switch-mode .App-footer, 
+.switch-mode .App-header{
   background-color: #282c34;
 }
 
 
-.night-mode .navbar,
-.night-mode .App-footer {
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
+.switch-mode .navbar,
+.switch-mode .App-footer {
+  background-color:#5f95e5a5;
+  /* backdrop-filter: blur(8px); */
   border-bottom: none;
   box-shadow: none;
 }
 
-.night-mode .navbar .nav-link,
-.night-mode .navbar-brand {
+.switch-mode .navbar .nav-link,
+.switch-mode .navbar-brand {
   color: #ffffff;
 }
 
-.night-mode .btn {
-  background-color: #4c4a4a;
+.switch-mode .btn {
+  background-color: #64432e;
   color: white;
   border: none;
 }
 
-.night-mode .quiz-box {
-  background-color: #2e2c2c95;
-  color: #e0e0e0;
+.switch-mode .quiz-box {
+  background-color: #f8f7f6;
+  color: #1964b9;
 }
 
-.night-mode .footer-text {
+.switch-mode .footer-text {
   color: white;
   text-align: left;
   margin-left: 20px;
 }
 
-.night-toggle {
+.mode-toggle {
   margin-top: 10px;
   font-size: 14px;
 }
 
-.night-toggle .form-check-label {
+.mode-toggle .form-check-label {
   color: white; /* or black depending on mode */
-}
-/* ============ OPTIONAL: LOGO ANIMATION ============== */
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* ============ BUTTONS FOR QUIZ-HOMEPAGE ============== */
@@ -218,41 +213,170 @@ html, body {
   text-align: center;
 }
 
-/* ============ BasicQuestions Text Color ============== */
+/* ============ BasicQuestions Text Color & Gifs ============== */
 
 
 .basic-quiz-page {
-  color: black;
+  color: rgb(213, 115, 53);
+  background-color: rgba(100, 200, 243, 0.812);
 }
-
 .basic-quiz-page .navbar-brand,
 .basic-quiz-page .nav-link{
   color: white !important;
 }
 
+.floating-gif {
+  position: absolute;
+  width: 8wv;
+  /* max-width: 100px; */
+  height: auto;
+  z-index: 10;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: float 5s ease-in-out infinite;
+}
+
+
+.gif-bottom-right {
+  top: 500px;
+  right: 15px;
+  width: 150px;
+  z-index: 11;
+}
+
+.gif-weirdfish{
+  bottom: 200px;
+  right:300px;
+  width: 70px;
+}
+
+.gif-bubbles{
+  bottom: 5px;
+  width: 500px;
+  z-index: 1;
+
+}
+
+.gif-bubbles2{
+  bottom: 5px;
+  left:360px;
+  width: 500px;
+  z-index: 1;
+}
+
+.gif-bubbles3{
+  bottom: 5px;
+  right:5px;
+  width: 500px;
+  z-index: 1;
+}
+
+.gif-bubbles4{
+  bottom: 5px;
+  right:250px;
+  width: 500px;
+  z-index: 1;
+}
+
+.gif-fish{
+  top: 15px;
+  /* left: 6px; */
+  width: 150px;
+  z-index: 11;
+}
+
+.gif-fish2{
+  top: 100px;
+  left: 30px;
+  width: 250px;
+  z-index: 11;
+}
+
+.gif-fish3{
+  top: 150px;
+  left: 300px;
+  width: 250px;
+  z-index: 11;
+}
+
+.gif-fish4{
+  top: 150px;
+  right: 6px;
+  width: 150px;
+}
+
+.gif-fish5{
+  top: 100px;
+  right:200px;
+  width: 200px;
+}
+
+.gif-fish6{
+  top: 100px;
+  right:400px;
+  width: 150px;
+}
+
+.gif-bigfish{
+  top: 150px;
+  right:550px;
+  width: 300px;
+}
+
+.clamshell{
+  left:70px;
+  bottom: 40px;
+  width: 100px;
+}
+
+.rainbowstars{
+  top:40px;
+  left:30px;
+  width:100px;
+}
+
+.rainbowstars2{
+  top:180px;
+  left:350px;
+  width:140px;
+}
+
+.rainbowstars3{
+  top:140px;
+  right:250px;
+  width:100px;
+}
+
+.starfish4{
+  width:40px;
+  bottom: 200px;
+  left: 5000px;
+}
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+
 
 /* ============ BasicQuestions QUIZ CARD  ============== */
 
+/* just making it blank for presentation*/
 .quiz-card{
-  background-color: rgba(197, 240, 208, 0.77);
+  background-color: rgb(239, 236, 232); 
   border-radius: 15px;
   font-weight: 500;
-
+  position: relative;
+  z-index: 10;
 
 }
 .quiz-card label,
-.quiz-card .form-check-label{
-  /* color:black !important; */
+.quiz-card .form-check-label {
   font-family: 'Pixelify Sans';
-  
 }
-
-h5{
+h5 {
   font-family: "Tiny5";
-
-}
-.submitButton{
-  color:white !important;
 }
 
 .quiz-card label {
@@ -266,80 +390,106 @@ h5{
 
 /* ============ BasicQuestions Arrows  ============== */
 
-/*WILL CHANGE COLORS AND SHAPE LATER */
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2.5rem;
+.arrow-btn{
+  width:80px;
+  height:auto;
   cursor: pointer;
-  color: rgb(187, 83, 187);
   user-select: none;
-  z-index: 1000;
-  padding: 10px;
-  background-color:  rgba(197, 240, 208, 0.77);
-  border-radius: 50%;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease;
 }
 
-
-.arrow:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+.arrow-btn:hover {
+  transform: scale(1.1) rotate(5deg);
 }
 
-.left-Arrow {
-  left: 20px;
-}
-
-.right-Arrow {
-  right: 20px;
-}
-
-
-
-/*Dont need
-
-/* 
-.App-header {
-  background-color: #282c34;
-  /* min-height: 20vh; */
-
-/* }
-.Home-buttons {
+.arrow-button-container {
   display: flex;
-  justify-content: center;
-  gap: 70px
+  flex-direction:row;
+  align-items: center;
+  gap: 400px; /* space between arrows */
+  margin-top: 20px;
 }
-.Home-button {
+
+/*=========About page==========*/
+
+.about-box {
+  background-color: #ffffffe0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-size: larger;
+}
+
+/*=========Results Page ==========*/
+
+.results-page{
+  background-color: rgb(134, 197, 134);
+}
+
+.results-page h1{
+  font-family: 'Pixelify Sans';
+  font-size: 2rem;
+  color: white; 
+}
+
+.results-page p{
+  font-family:'Pixelify Sans';
+}
+.pixel-card {
+  background-color: #fffbea;
+  border: 4px solid #000;
+  border-radius: 10px;
+  font-family: 'Pixelify Sans';
+  box-shadow: 4px 4px #222;
+}
+
+.job-title {
+  font-size: 1.4rem;
+  color: #007700;
+}
+
+.job-section {
+  margin-top: 10px;
+}
+
+/*========Loading Screen ==========*/
+.loading-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 70vh;
+  font-family: 'Press Start 2P', cursive;
+  color: #003366;
   text-align: center;
-} */ 
+}
 
+.loading-gif {
+  width: 250px;
+  margin-bottom: 20px;
+}
 
-/* .App-logo {
-  height: 40vmin;
+/*======== Modal Theme ==========*/
+.themed-modal .modal-content {
+  background: #f0faff; /* light blue background */
+  border: 13px double #81d1cd;
+  border-radius: 20px;
+  font-family: 'Pixelify Sans';
+  color: #d58d1b;
+}
 
-.App-logo {
-  height: 10vmin;
+.themed-modal .modal-header {
+  background-color: #e0f7f7;
+  border-bottom: 2px dashed #d58d1b ;
+}
 
-  pointer-events: none;
-} */
+.themed-modal .modal-title {
+  font-size: 1.25rem;
+  color: #d58d1b;
+}
 
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
-} */
-
-/* .basic-quiz-page label,
-.basic-quiz-page .form-check-label,
-.basic-quiz-page .navbar-brand,
-.basic-quiz-page .nav-link,
-.basic-quiz-page .progress-bar,
-.basic-quiz-page .submitButton {
-  color: white !important;
-} */
+.themed-modal .modal-footer {
+  background-color: #e0f7f7;
+  border-top: 2px dashed #d58d1b;
+}

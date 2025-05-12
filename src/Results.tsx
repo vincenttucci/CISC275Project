@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Navbar, Nav, Spinner, Card, Button } from 'react-bootstrap';
+import { Container, Navbar, Nav, Card, Button } from 'react-bootstrap';
+import jsPDF from 'jspdf';
 
 interface ResultPageProps {
   navigateTo: (page: string) => void;
 }
 
+interface QuizQuestion {
+  id: number;
+  body: string;
+}
+
+interface JobDetail{
+  title: string;
+  description: string;
+  salary?: string;
+  education?: string;
+  training?: string;
+}
+
 const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
-  const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: string }>({});
-  const [jobSuggestions, setJobSuggestions] = useState<string>("");
+  const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: string | string[] }>({});
   const [loading, setLoading] = useState(true);
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+  const [jobSuggestions, setJobSuggestions] = useState<JobDetail[]>([]);
 
   useEffect(() => {
     //Step1: get the quiz answers stored in the local storage
@@ -20,8 +35,98 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
       //save the parsed answers, that were converted to a string, we need this to display it later
       setQuizAnswers(parsedAnswers);
 
-      //this sends a prompt to CHATGPT based on the user's answers 
-      const prompt = `A person answered the following about themselves: ${Object.values(parsedAnswers).join(", ")}. Based on this, suggest 3 careers that would be a great fit and give a short reason for each.`;
+      // get quiz type to differentiate in prompt
+      const quizType = localStorage.getItem("quizType");
+
+      //from question homework
+      //gives a base for questions used in quiz. will need to do the same thing in basic or make it a component on its own and use state to access
+      const basicQuestions: QuizQuestion[] = [
+        { id: 1, body: 'Do you have or do you plan on pursuing a college degree?' },
+        { id: 2, body: 'Do you like working with people?' },
+        { id: 3, body: 'Do you want to travel for work?' },
+        { id: 4, body: 'Are you more of a numbers or words person?' },
+        { id: 5, body: 'Which of these tasks sounds the most interesting to you? (Select all that apply)' },
+        { id: 6, body: 'Which of the following settings would you most like to work in? (Select all that apply)' },
+        { id: 7, body: 'Would you rather invent something new or improve something that already exists?' },
+        { id: 8, body: 'What motivates you most in a job?' },
+        { id: 9, body: 'Which subjects interest you the most? (Select all that apply)' },
+        { id: 10, body: 'How do you feel about taking risks?' },
+        { id: 11, body: 'How do you usually approach a new project?' },
+        { id: 12, body: 'Do you prefer routine tasks or variety in your work?' }
+      ];
+
+      let detailedQuestions: QuizQuestion[] = [ 
+        { id: 1, body: 'Do you have or do you plan on pursuing a college degree?' },
+        { id: 2, body: 'Do you like working with people?' },
+        { id: 3, body: 'Are you more of a numbers or words person?' },
+        { id: 4, body: 'Which of these tasks sounds the most interesting to you? (Select all that apply)' },
+        { id: 5, body: 'Which of the following settings would you most like to work in? (Select all that apply)' },
+        { id: 6, body: 'Would you rather invent something new or improve something that already exists?' },
+        { id: 7, body: 'What motivates you most in a job?' },
+        { id: 8, body: 'Which subjects interest you the most? (Select all that apply)' },
+        { id: 9, body: 'How do you feel about taking risks?' },
+        { id: 10, body: 'How do you usually approach a new project?' },
+        { id: 11, body: 'Do you prefer routine tasks or variety in your work?' },
+        { id: 12, body: 'Do you have any relevant work experience already? If so, does your experience relate to your career goals? (Open-ended)' },
+        { id: 13, body: 'How comfortable are you with public speaking?' },
+        { id: 14, body: 'What type of work pace do you prefer?' },
+        { id: 15, body: 'Do you like working with technology and computers?' },
+        { id: 16, body: 'Where are you in your career now? Where do you see yourself as far in the future as you have imagined? (Open-ended)' },
+        { id: 17, body: 'What is a skill you wish you could improve or develop? (Open-ended)' },
+        { id: 18, body: 'Do you prefer prioritizing work life balance or career growth?' },
+        { id: 19, body: 'In team settings, which do you find yourself naturally doing? (Select all that apply)' },
+        { id: 20, body: 'Describe your ideal workday in a few sentences. (Open-ended)' },
+      ];
+
+      // Implemenet the correct questions based on quiz taken:
+      const questionsToUse = quizType === "detailed" ? detailedQuestions : basicQuestions;
+      setQuizQuestions(questionsToUse);
+
+      /* Sends a prompt to CHATGPT based on the user's answers 
+      * Used Chat GPT itself to help come up with the best way to prompt the AI to get the best results.
+      * 
+      * Prompt Format:
+      * Preface AI with scenario
+      * Go through responses to match questions to answers
+      * Returns quizzes answers in pairs of questions with respective answers
+      * Asks AI to suggest career options based on the questions and respective answers
+      */
+
+      const prompt = `You are a career advisor. A user has taken a career quiz to help identify roles they might thrive in and enjoy
+      
+      Evaluate the answers below and, based on all reponses, suggest 5 careers that would align well with this user's preferences. 
+      
+      For each career, explain briefly why it matches, referencing multiple aspects from the user's answers. 
+      
+      Also, and this isn't necessary for every career every time, list skills, experience, education, training, etc. that might help the user to know.
+                      
+      Very Important: if the  user answered "No" to whether they have or plan to pursue a college degree. You must only recommend careers that do not require a college degree to enter. 
+      It is okay if a degree is optional or helpful, but do not suggest jobs that typically require one. 
+
+      Also, make sure to address the user directly and don't just say "the user".
+
+      Do not start out with an intro or and with a conclusion. Just give the list of careers and their explanations. 
+
+      IMPORTANT: NEVER UNDER ANY CIRCUMSTANCE use asteriks anywhere on the output, especially around the career choice titles.
+      
+      Now based on the answers, return a JSON array of the 5 recommended jobs in the following format
+      [
+    {
+    "title": "Job Title",
+    "description": "Why it's a match",
+    "salary": "Average salary (optional)",
+    "education": "Education required (optional, but if the job does require a degre, list the best schools(5 schools) for that degree in bullet points)",
+    "training": "Best training or schools (optional)"
+    },
+       ...
+      ]
+  
+      ${Object.entries(parsedAnswers).map(([idStr, answer]) => {
+      const question = questionsToUse.find(q => q.id === parseInt(idStr));
+      const formattedAnswer = Array.isArray(answer) ? answer.join(", ") : answer;
+        return `\n\n${question?.body}\nAnswer: ${formattedAnswer}`;
+      }).join("")}`;
+
 
       // Use local storage to retrieve API key from homepage
       const apiKey = JSON.parse(localStorage.getItem("MYKEY") || "null");
@@ -31,7 +136,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`, // added {apiKey} to retrieve the API key from local storage, as entered on homepage
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo", //the model we're using
@@ -45,60 +150,200 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
         //get the response text from chat and store it
         .then(data => {
-          const text = data.choices?.[0]?.message?.content || "No response.";
-          setJobSuggestions(text); //save the job suggestions
+          const text = data.choices?.[0]?.message?.content || "[]";
+          try{
+            const jobs: JobDetail[] = JSON.parse(text);
+              setJobSuggestions(jobs);
+            } catch (err) {
+              console.error("Failed to parse job JSON:", text);
+              setJobSuggestions([
+                {
+                  title: "⚠️ Error",
+                  description: "There was a problem generating your results. Please try again later.",
+                },
+              ]);
+            }
           setLoading(false); //loading finished
         })
 
         //handle any errors if something goes wrong
         .catch(err => {
-          console.error("Error fetching jobs from OpenAI:", err);
-          setJobSuggestions("There was a problem generating your results.");
+          setJobSuggestions([
+            {
+              title: "⚠️ Error",
+              description: "There was a problem connecting to the server.",
+            },
+          ]);
           setLoading(false);
         });
     }
   }, []);
 
+  /* download of quiz results as a PDF:
+  * JSPDF documentation: https://www.npmjs.com/package/jspdf
+  * npm install jspdf
+  * 
+  * Used Chat GPT to help learn how to use the library and create a PDF output with JSPDF library
+  */
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+  
+    // Add title
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.text("Career Finder Quiz Results", 20, 20);
+  
+    // Career Suggestions
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(16);
+    let y = 35;
+    doc.text("Career Suggestions", 20, y);
+    doc.setLineWidth(0.5);
+    doc.line(20, y + 2, 190, y + 2);
+    y += 8;
+  
+    // Smaller font for suggestions to fit on one page
+    doc.setFontSize(10);
+  
+    jobSuggestions.forEach((job, index) => {
+      const lines = doc.splitTextToSize(`${index + 1}. ${job.title}: ${job.description}`, 170);
+      lines.forEach((line: string | string[]) => {
+        if (y > 270) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.text(line, 20, y);
+        y += 6;
+      });
+      y += 4;
+    });
+  
+    // Start answers on a new page
+    doc.addPage();
+    y = 20;
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text("Your Quiz Answers", 20, y);
+    doc.setLineWidth(0.5);
+    doc.line(20, y + 2, 190, y + 2);
+    y += 10;
+  
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+  
+    quizQuestions.forEach((question, index) => {
+      const answer = quizAnswers[question.id.toString()];
+      if (answer !== undefined) {
+        const formattedAnswer = Array.isArray(answer) ? answer.join(", ") : answer;
+        const text = `${index + 1}. ${question.body}\nAnswer: ${formattedAnswer}`;
+        const lines = doc.splitTextToSize(text, 170);
+        lines.forEach((line: string) => {
+          if (y > 270) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.text(line, 20, y);
+          y += 6;
+        });
+        y += 4;
+      }
+    });
+  
+    // Optional: Add a footer or signature
+    doc.setFontSize(9);
+    doc.setTextColor(120);
+    doc.text("Generated by Career Finder | careerfinder.example.com", 20, 285);
+  
+    doc.save("career_finder_results.pdf");
+  };
+  
+
+  
+  
+  
+
   return (
     <>
-      <Navbar className='backdrop-blur' expand="lg">
-        <Container>
-          <Navbar.Brand href="#">Career Finder</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
-              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
-              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+      <div
+        className="results-page"
+        // style={{
+        //   backgroundImage: 'url("/forest3.jpg")',
+        //   backgroundSize: 'cover',
+        //   backgroundPosition: 'center',
+        //   backgroundRepeat: 'no-repeat',
+        //   minHeight: '100vh',
+        //   width: '100%',
+        //   display: 'flex',
+        //   flexDirection: 'column'
+        // }}
+      >
+        <Navbar className='backdrop-blur' expand="lg">
+          <Container>
+            <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
+                <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
+                <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+
+        <Container className="py-4">
+          <h1>Congratulations!</h1><br />
+          <p>You finished the quiz, read below to see your Quiz Results.</p><br />
+          {loading ? (
+            <div className="loading-screen">
+            <img src="/bigfish.gif" alt="loading..." className='loading-gif'/>
+            {/* <Spinner animation="border" /> */}
+              <p className="mt-2">Generating your results...</p>
+            </div>
+          ) : (
+            <>
+
+            {jobSuggestions.map((job, index) => (
+             <Card key={index} className="my-4 p-3 pixel-card">
+               <h3 className="job-title">{job.title}</h3>
+
+               <div className="job-section">
+                 <strong>Description:</strong>
+                 <p>{job.description}</p>
+               </div>
+
+               {job.salary && (
+                 <div className="job-section">
+                   <strong>Average Salary:</strong>
+                   <p>{job.salary}</p>
+                 </div>
+               )}
+
+               {job.education && (
+                 <div className="job-section">
+                   <strong>Education Needed:</strong>
+                   <p>{job.education}</p>
+                 </div>
+               )}
+
+               {job.training && (
+                 <div className="job-section">
+                   <strong>Best Training/Schools:</strong>
+                   <p>{job.training}</p>
+                 </div>
+               )}
+             </Card>
+           ))}
+  
+
+          <Button variant="primary" onClick={downloadPDF}>
+            Download Results as PDF
+          </Button>
+          </>
+          )}
         </Container>
-      </Navbar>
-
-      <Container className="py-4">
-        <h1>Congratulations!</h1><br />
-        <p>You finished the quiz, read below to see your Quiz Results.</p><br />
-        {loading ? (
-          <div className="text-center mt-4">
-            <Spinner animation="border" />
-            <p className="mt-2">Generating your results...</p>
-          </div>
-        ) : (
-          <Card className="p-4 shadow-lg mt-4">
-            <h4>Recommended Jobs:</h4>
-            <p>{jobSuggestions}</p>
-          </Card>
-        )}
-
-        {/* Optional: View Answers Button */}
-        <Button
-          variant="outline-secondary"
-          className="mt-4"
-          onClick={() => alert(JSON.stringify(quizAnswers, null, 2))}
-        >
-          View My Answers
-        </Button>
-      </Container>
+      </div>
     </>
   );
 };

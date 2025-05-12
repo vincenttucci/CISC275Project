@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Form, Button, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NightMode from './NightMode'; // New night mode code
+import SwitchModeWrapper from './SwitchMode'; // New night mode code
 
 type HomePageProps = {
   navigateTo: (page: string) => void;
@@ -17,7 +17,7 @@ if (prevKey !== null) {
 
 const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
   const [key, setKey] = useState<string>(keyData);
-  const [nightMode, setNightMode] = useState<boolean>(localStorage.getItem("nightMode") === "true");
+  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
   const [loading, setLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
@@ -58,14 +58,14 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
     setKey(event.target.value);
   };
 
-  const nightModeButton = () => {
-    const newMode = !nightMode;
-    setNightMode(newMode);
-    localStorage.setItem("nightMode", String(newMode));
+  const switchModeButton = () => {
+    const newMode = !switchMode;
+    setSwitchMode(newMode);
+    localStorage.setItem("switchMode", String(newMode));
   };
 
   return (
-    <NightMode>
+    <SwitchModeWrapper page="home">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
           <Navbar.Brand href="#">Career Helpi</Navbar.Brand>
@@ -73,9 +73,22 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>Home</Nav.Link>
-              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Contact</Nav.Link>
+              <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("contact");}}>Contact</Nav.Link>
               <Nav.Link href="#" onClick={(e) => { e.preventDefault(); navigateTo("about"); }}>About</Nav.Link>
             </Nav>
+            <div className="mode-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ fontSize: '1.2rem' }}>
+              {switchMode ? '🏹' : '🏖️'}
+            </span>
+            <Form.Check
+              type="switch"
+              id="mode-switch"
+              checked={switchMode}
+              onChange={switchModeButton}
+            />
+          </div>
+          </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -93,13 +106,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // makes sure API key is valid before the user can start basic quiz, throws alert if not
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("basicQuestion");
                   }}
+                  
                 >
                   Basic Questions
                 </Button>
@@ -112,13 +132,20 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 <Button
                   variant="outline-dark"
                   className="mb-2"
-                  onClick={() => {
+                  // verifies API key for detailed quiz like basic question
+                  onClick={async () => {
                     if (!key) {
                       alert("Please enter your API key before starting the quiz.");
                       return;
                     }
+                    const isValid = await validateApiKey(key);
+                    if (!isValid) {
+                      alert("Invalid API key. Please enter a valid key before proceeding.");
+                      return;
+                    }
                     navigateTo("detailedquiz");
                   }}
+                  
                 >
                   Detailed Questions
                 </Button>
@@ -168,10 +195,10 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           </div>
         </Form>
 
-        <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
+        {/* <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <span style={{ fontSize: '1.2rem' }}>
-              {nightMode ? '🌙' : '☀️'}
+              {nightMode ? '🏹' : '☀️'}
             </span>
             <Form.Check
               type="switch"
@@ -179,14 +206,14 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
               checked={nightMode}
               onChange={nightModeButton}
             />
-          </div>
+          </div> */}
           <p className="footer-text mt-2 mb-0">
             Vincent Tucci, Brooklyn Harden,<br />
             Taylor Jenkins, Sam Mullaney<br />
           </p>
-        </div>
+        {/* </div> */}
       </footer>
-    </NightMode>
+    </SwitchModeWrapper>
   );
 };
 
