@@ -218,7 +218,7 @@ html, body {
 
 .basic-quiz-page {
   color: rgb(213, 115, 53);
-  background-color: rgba(100, 200, 243, 0.812);
+  /* background-color: rgba(100, 200, 243, 0.812); */
 }
 .basic-quiz-page .navbar-brand,
 .basic-quiz-page .nav-link{
@@ -352,13 +352,12 @@ html, body {
   bottom: 200px;
   left: 5000px;
 }
+
 @keyframes float {
   0%   { transform: translateY(0px); }
   50%  { transform: translateY(-8px); }
   100% { transform: translateY(0px); }
 }
-
-
 
 /* ============ BasicQuestions QUIZ CARD  ============== */
 
