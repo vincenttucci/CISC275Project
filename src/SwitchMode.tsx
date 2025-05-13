@@ -25,7 +25,8 @@ const SwitchModeWrapper: React.FC<switchModePageTracker> = ({ children, page }) 
     home: {beachMode: "./resort.gif", MCMode: "./forest2.jpg"},
   detailedQuiz: {beachMode: "./BEACH.gif", MCMode: "./pinkMine.gif"},
   contact: {beachMode: "./contactBeach.jpg", MCMode: "./sunny.gif"},
-  about: {beachMode: "./beachHouse.jpg", MCMode: "./pinkMinecraft.gif"}
+  about: {beachMode: "./beachHouse.jpg", MCMode: "./pinkMinecraft.gif"},
+  basicQuiz: { beachMode: "./underw5.jpeg", MCMode: "./minec.gif" }
   };
 //variable that is set as background image. Places correct background for correct mode
   let pageBackground= pageBackgrounds[page]?.[switchMode? 'MCMode':'beachMode']
@@ -39,9 +40,10 @@ const SwitchModeWrapper: React.FC<switchModePageTracker> = ({ children, page }) 
         minHeight: '100vh'
       }}
     >
-      <div className="overlay"></div>
-      {children}
-    </div>
+    
+       <div className="overlay"></div>
+       {children}
+     </div> 
   );
 };
 
