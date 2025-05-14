@@ -68,7 +68,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
     <SwitchModeWrapper page="home">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
-          <Navbar.Brand href="#">Career Helpi</Navbar.Brand>
+          <Navbar.Brand href="#">The Career Lagoon</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -93,8 +93,9 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
         </Container>
       </Navbar>
 
+      {/* Main page header*/}
       <header className="page-header text-center p-4">
-        <h2>Welcome to Career Helpi!</h2>
+        <h2>Welcome to The Career Lagoon!</h2>
         <p>Your journey to discovering your future starts here.</p>
       </header>
 
