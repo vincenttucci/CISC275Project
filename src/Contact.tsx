@@ -43,7 +43,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
     <SwitchModeWrapper page="contact">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
-          <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+          <Navbar.Brand href="#">The Career Lagoon</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
