@@ -63,7 +63,7 @@
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (69 ms)
+  ✕ renders learn react link (62 ms)
 
   ● renders learn react link
 
@@ -241,7 +241,7 @@ FAIL src/App.test.tsx
                   [36m<input[39m
                     [33mclass[39m=[32m"form-control"[39m
                     [33mplaceholder[39m=[32m"Insert API Key Here"[39m
-                    [33mtype[39m=[32m"text"[39m
+                    [33mtype[39m=[32m"password"[39m
                     [33mvalue[39m=[32m""[39m
                   [36m/>[39m
                   [36m<button[39m
@@ -319,5 +319,5 @@ All files           |   11.63 |     8.08 |     7.6 |   12.12 |
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        3.781 s
+Time:        3.763 s
 Ran all test suites.
