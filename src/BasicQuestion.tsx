@@ -178,7 +178,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             {/* Navbar (copied from HomePage.tsx) */}
             <Navbar className='backdrop-blur' expand="lg">
                 <Container>
-                    <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+                    <Navbar.Brand href="#">The Career Lagoon</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
