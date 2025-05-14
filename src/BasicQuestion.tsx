@@ -293,7 +293,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             )}
 
             <img
-                src="/nextArrow.jpg"
+                src="./starfish4.PNG"
                 alt="Next Button"
                 className="arrow-btn"
                 onClick={nextButton}
