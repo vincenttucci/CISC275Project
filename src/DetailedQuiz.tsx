@@ -114,7 +114,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 <SwitchModeWrapper page="detailedQuiz">
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
-                    <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+                    <Navbar.Brand href="#">Career Lagoon</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
