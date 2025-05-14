@@ -18,7 +18,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
     <SwitchModeWrapper page="about">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
-          <Navbar.Brand href="#">Career Helpi</Navbar.Brand>
+          <Navbar.Brand href="#">The Career Lagoon</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -45,16 +45,16 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
 
       <Container className="py-4">
       <div className={"about-box"}>
-        <h2>About Career Helpi:</h2>
+        <h2>About Career Lagoon:</h2>
         <p>
           For some individuals, figuring out what type of career to pursue is a challenge. 
-          The Career Helpi is dedicated to helping individuals of all ages gain insight into what career best fits them.
+          The Career Lagoon is dedicated to helping individuals of all ages gain insight into what career best fits them.
           Our goal is to help you make more informed decisions about where to take your career based on your skills and interests.
         </p>
 
         <h3>About Us</h3>
         <p>
-          The Career Helpi was founded in 2025 by a team of students at the University of Delaware who recognized the need
+          The Career Lagoon was founded in 2025 by a team of students at the University of Delaware who recognized the need
           for more personalized career planning services.
         </p>
 
