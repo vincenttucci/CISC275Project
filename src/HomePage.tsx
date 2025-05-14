@@ -161,7 +161,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <Form.Label style={{ fontSize: "small" }}>API Key:</Form.Label>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center', position: 'relative' }}>
             <Form.Control
-              type="text"
+              type="password"
               placeholder="Insert API Key Here"
               value={key}
               onChange={changeKey}
