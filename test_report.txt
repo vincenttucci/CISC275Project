@@ -63,7 +63,7 @@
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (71 ms)
+  ✕ renders learn react link (70 ms)
 
   ● renders learn react link
 
@@ -92,7 +92,7 @@ FAIL src/App.test.tsx
                   [33mclass[39m=[32m"navbar-brand"[39m
                   [33mhref[39m=[32m"#"[39m
                 [36m>[39m
-                  [0mCareer Helpi[0m
+                  [0mThe Career Lagoon[0m
                 [36m</a>[39m
                 [36m<button[39m
                   [33maria-controls[39m=[32m"basic-navbar-nav"[39m
@@ -169,7 +169,7 @@ FAIL src/App.test.tsx
               [33mclass[39m=[32m"page-header text-center p-4"[39m
             [36m>[39m
               [36m<h2>[39m
-                [0mWelcome to Career Helpi![0m
+                [0mWelcome to The Career Lagoon![0m
               [36m</h2>[39m
               [36m<p>[39m
                 [0mYour journey to discovering your future starts here.[0m
@@ -310,7 +310,7 @@ All files           |   11.63 |     8.08 |     7.6 |   12.12 |
  BasicQuestion.tsx  |    4.76 |        0 |       0 |    5.12 | 73-339                         
  Contact.tsx        |    2.94 |        0 |       0 |    3.22 | 10-114                         
  DetailedQuiz.tsx   |    4.65 |        0 |       0 |    5.12 | 51-273                         
- HomePage.tsx       |   25.45 |    27.27 |    9.09 |   26.92 | 15,26-36,41-53,58,62-64,75-146 
+ HomePage.tsx       |   25.45 |    27.27 |    9.09 |   26.92 | 15,26-36,41-53,58,62-64,75-147 
  Results.tsx        |    1.12 |        0 |       0 |    1.17 | 23-308                         
  SwitchMode.tsx     |   81.81 |       50 |      75 |      80 | 17-18                          
  index.tsx          |       0 |      100 |     100 |       0 | 7-19                           
@@ -319,5 +319,5 @@ All files           |   11.63 |     8.08 |     7.6 |   12.12 |
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        4.051 s
+Time:        3.988 s
 Ran all test suites.
