@@ -107,6 +107,8 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
 
       Do not start out with an intro or and with a conclusion. Just give the list of careers and their explanations. 
 
+      If its a corporate job, you may list best companies to work for, salary expecations, and popular city locations for the job.
+
       IMPORTANT: NEVER UNDER ANY CIRCUMSTANCE use asteriks anywhere on the output, especially around the career choice titles.
       
       Now based on the answers, return a JSON array of the 5 recommended jobs in the following format
@@ -139,7 +141,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "gpt-3.5-turbo", //the model we're using
+          model: "gpt-4", //the model we're using
           messages: [{ role: "user", content: prompt }], //the user message we're sending 
           temperature: 0.7, //how creative the answer should be (0 = focused, 1 = creative)
         }),
