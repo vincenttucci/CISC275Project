@@ -3,9 +3,6 @@ import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-b
 import ReactConfetti from 'react-confetti';
 import SwitchModeWrapper from './SwitchMode';
 
-
-
-
 export interface QuizQuestion {
     id: number;
     body: string;
@@ -78,7 +75,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
    //Handles night mode but wehre changing this is theme mode since we have minecraft and beach theme modes
    const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
 
-   //when the user toggles theme mode on/off
+   //when the user toggles theme mode on/off (beach mode/minecraft mode)
       const switchModeButton = () => {
        const newMode = !switchMode;
        setSwitchMode(newMode);
@@ -86,20 +83,48 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
      };
 
     /*
-    Hey Sam, I(brooklyn) added this useState to show a popup modal that appears
+    added this useState to show a popup modal that appears
     when the user clicks the Submit button, telling them they have Completion
     the quiz and can now move on to the results page to see their results
 
-    You can take this out or change anything but yeah, its the code below
-    let[showModal....]
+   
      */
     let [showModal, setShowModal] = React.useState(false);
+
+    // This is the encouragement message that appears when the user is 50% done with quiz
+    // let [showEncouragement, setShowEncouragement] = React.useState(false);
+    // const [prevAnsweredCount, setPrevAnsweredCount] = useState(0);
+
+    //This is the encouragement message goes away after the first time
+    // let [hasEncouraged, setHasEncouraged] = React.useState(false);
 
     //Tracks which question the user is on
     let [currentIndex, setCurrentIndex] = React.useState(0);
 
     //Gets current question to display
     let currentQuestion = basicQuestions[currentIndex];
+
+    //Encouragement effect
+    // useEffect(() => {
+    //     const answeredCount = Object.keys(choice).length;
+    //     const halfway = Math.floor(basicQuestions.length / 2);
+    
+        // Trigger only when crossing INTO halfway and not shown yet
+        // if (
+        //     answeredCount >= halfway &&
+        //     prevAnsweredCount < halfway &&
+        //     !hasEncouraged
+        // ) {
+        //     setShowEncouragement(true);
+        //     setHasEncouraged(true);
+    
+        //     setTimeout(() => {
+        //         setShowEncouragement(false);
+        //     }, 3000);
+        // }
+    
+    //     setPrevAnsweredCount(answeredCount); // update for next run
+    // }, [choice]);
 
      //Updates the users answers when they select a choice
     let trackChoices = (id: number, option: string|string[]) => {
@@ -128,32 +153,32 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     //LAYOUT & UI
     return (
         <SwitchModeWrapper page="basicQuiz">
-        <div
-        className="basic-quiz-page">
+            <div className="basic-quiz-page">
+                {!switchMode && (
+            <>
              {/* Floating GIFs */}
-             <img src="/colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
-             {/* <img src="/weirdfish.gif" alt="whitefish" className="floating-gif gif-weirdfish" /> */}
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
-             <img src="/bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish2" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish3" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish4" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish5" />
-             <img src="/fish.gif" alt="fish" className="floating-gif gif-fish6" />
-             {/* <img src="/bigfish.gif" alt="bigfishwithlittlefishes" className="floating-gif gif-bigfish" /> */}
-             <img src="/clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
-             <img src="/rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
-            {/* <img src="/starfish4.png" alt="starfish" className="starfish4" /> */}
+             <img src="./colorful.gif" alt="axolotl" className="floating-gif gif-bottom-right" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles2" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles3" />
+             <img src="./bubbles.gif" alt="bubbles" className="floating-gif gif-bubbles4" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish2" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish3" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish4" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish5" />
+             <img src="./fish.gif" alt="fish" className="floating-gif gif-fish6" />
+             <img src="./clamshell.gif" alt="clamshell" className="floating-gif clamshell" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars2" />
+             <img src="./rainbowstars.gif" alt="rainbowstars" className="floating-gif rainbowstars3" />
+            </>
+                )}
 
             {/* Navbar (copied from HomePage.tsx) */}
             <Navbar className='backdrop-blur' expand="lg">
                 <Container>
-                    <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+                    <Navbar.Brand href="#">The Career Lagoon</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -179,15 +204,34 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             </Navbar>
 
 
-            
+        {/*Encouragement message*/}
+        {/* {showEncouragement && (
+    <Alert
+        variant="info"
+        style={{
+            position: 'fixed',
+            top: '70px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1051,
+            width: '80%',
+            maxWidth: '500px',
+            textAlign: 'center',
+            fontSize: '16px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        }}
+    >
+        🎉 You're halfway there! Keep going!
+    </Alert>
+)}     */}
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
 
             <div className='quiz-card p-4 rounded shadow' style={{maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
-        {/* Quiz Content */}
-             <ProgressBar animated now={(Object.keys(choice).length / basicQuestions.length) * 100} />
+        {/* Progressbar logic, now containing check to ensure some question is selected, preventing bar from not going down if user deselects answer */}
+             <ProgressBar animated now={(Object.entries(choice).filter(([id, value]) => Array.isArray(value) ? value.length > 0 : Boolean(value)).length / basicQuestions.length) * 100} />
 
         {/* Quiz form with either Checkboxes(select all) or Radio(select only one) buttons */}
                 <Form>
@@ -240,7 +284,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             <div className="arrow-button-container">
             {currentIndex > 0 && (
             <img
-                src="/previousArrow.PNG"
+                src="./starfish4.PNG"
                 alt="PreviousButton"
                 className='arrow-btn'
                 onClick={previousButton}
@@ -249,7 +293,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
             )}
 
             <img
-                src="/nextArrow.PNG"
+                src="./starfish4.PNG"
                 alt="Next Button"
                 className="arrow-btn"
                 onClick={nextButton}
@@ -259,11 +303,9 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                 />
     
             </div>
-            </div>
-
             {/* Only shows SUBMIT BUTTON on the last question */}
-                {currentIndex === basicQuestions.length - 1 && (
-            <div className="d-flex justify-content-end mt-4">
+            {currentIndex === basicQuestions.length - 1 && (
+            <div className="d-flex justify-content-center mt-4">
                     <Button className='submitButton' 
                         onClick={submitButton}
                         disabled={!choice[currentQuestion.id]}
@@ -271,12 +313,15 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                     </Button> 
             </div>
               )}
+            </div>
+
+            
         
     </Container>
         {/* Popup that shows when the quiz is finished */}
 
         {/* Completed Modal*/}
-        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName='themed-modal'>
         {showModal && <ReactConfetti />}
         <Modal.Header closeButton>
             <Modal.Title>Quiz Completed!</Modal.Title>

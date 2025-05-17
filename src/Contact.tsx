@@ -12,13 +12,27 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
   const [message, setMessage] = useState(''); //keeps track of message entered
   const [showModal, setShowModal]=useState(false);//for submission modal
    const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");//to switch between beach and mc mode
-   const handleSubmit= (e: React.FormEvent)=> {//handles contact submission and updates feilds using state
+   const handleSubmit= (e: React.FormEvent)=> {//handles contact submission and updates fields using state
     e.preventDefault();
+
+    const contactFormData= new FormData();
+    contactFormData.append("entry.2032660616", name);
+    contactFormData.append("entry.1328533756", email);
+    contactFormData.append("entry.1101419626", message);
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSdVNLSw4MAY9U4YcijqqzQ3Gic_Z9nx-rLTzMG9VRoKhF1awg/formResponse", {
+      method: "POST",
+      mode: "no-cors", // required to avoid CORS errors with Google Forms
+      body: contactFormData,
+    }).then(() => {
+    //https://docs.google.com/forms/d/e/1FAIpQLSdVNLSw4MAY9U4YcijqqzQ3Gic_Z9nx-rLTzMG9VRoKhF1awg/viewform?usp=pp_url&entry.2032660616=Name&entry.1328533756=Email&entry.1101419626=Message
     setShowModal(true);
     setEmail('');
     setMessage('');
     setName('');
-   }
+   }).catch((error)=> {
+    console.error("google submission failed", error);
+   });
+   };
    const switchModeButton = () => {//to switch between beach and mc mode
     const newMode = !switchMode;
     setSwitchMode(newMode);
@@ -29,7 +43,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ navigateTo }) => {
     <SwitchModeWrapper page="contact">
       <Navbar className='backdrop-blur' expand="lg">
         <Container>
-          <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+          <Navbar.Brand href="#">The Career Lagoon</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">

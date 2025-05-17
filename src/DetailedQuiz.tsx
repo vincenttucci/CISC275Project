@@ -50,8 +50,35 @@ interface DetailedQuizProps {
 let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
         let [choice,setChoice]=useState<{ [key:number]:string | string[]}>({});
         let [showModal, setShowModal] = React.useState(false); //For modual after submission
+        //For encouragement message
+        // let [showEncouragement, setShowEncouragement] = React.useState(false);
+        // const [prevAnsweredCount, setPrevAnsweredCount] = useState(0); //to keep track of how many questions have been answered
+        // let [hasEncouraged,setHasEncouraged]=useState(false); //to keep track of if encouragement has been shown
+
         let [currentIndex, setCurrentIndex] = React.useState(0); //keeps track of question number 
         let currentQuestion = detailedQuestions[currentIndex];
+
+        // useEffect(() => {
+            
+        //     const answeredCount = Object.keys(choice).length;
+        //     const halfway = Math.floor(detailedQuestions.length / 2);
+        
+        //     // Trigger only when crossing INTO halfway and not shown yet
+        //     if (
+        //         answeredCount >= halfway &&
+        //         prevAnsweredCount < halfway &&
+        //         !hasEncouraged
+        //     ) {
+        //         setShowEncouragement(true);
+        //         setHasEncouraged(true);
+        
+        //         setTimeout(() => {
+        //             setShowEncouragement(false);
+        //         }, 3000);
+        //     }
+        
+        //     setPrevAnsweredCount(answeredCount); // update for next run
+        // }, [choice]);
 
         const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true"); //to switch between beach and mc mode
 
@@ -87,7 +114,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                 <SwitchModeWrapper page="detailedQuiz">
                 <Navbar className='backdrop-blur' expand="lg">
                 <Container>
-                    <Navbar.Brand href="#">Career Finder</Navbar.Brand>
+                    <Navbar.Brand href="#">Career Lagoon</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -112,14 +139,34 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            
+            {/* Encouragement message */}
+            {/* {showEncouragement && (
+    <Alert
+        variant="info"
+        style={{
+            position: 'fixed',
+            top: '70px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1051,
+            width: '80%',
+            maxWidth: '500px',
+            textAlign: 'center',
+            fontSize: '16px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        }}
+    >
+        🎉 You're halfway there! Keep going!
+    </Alert>
+)} */}
             
                     <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
                     
 
                         <div className='quiz-card p-4 rounded shadow' style={{ maxWidth: '600px', width: '100%' }}>
                          <h5 className="mb-4">Question {currentIndex + 1} of {detailedQuestions.length}</h5>
-                         <ProgressBar className='progress' animated now={(Object.keys(choice).length/detailedQuestions.length)*100}/>
+                         {/*Progressbar logic, now containing check to ensure some question is selected, preventing bar from not going down if user deselects answer*/}
+                         <ProgressBar className='progress' animated now={(Object.entries(choice).filter(([_, value]) =>Array.isArray(value) ? value.length > 0 : Boolean(value)).length / detailedQuestions.length) * 100}/>
                         {/* updates and animates bar */}
                         
                         
@@ -177,7 +224,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                     <div className="arrow-button-container">
             {currentIndex > 0 && (
             <img
-                src="/previousArrow.PNG"
+                src="./starfish4.PNG"
                 alt="PreviousButton"
                 className='arrow-btn'
                 onClick={previousButton}
@@ -185,7 +232,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
             )}
 
             <img
-                src="/nextArrow.PNG"
+                src="./starfish4.PNG"
                 alt="Next Button"
                 className="arrow-btn"
                 onClick={nextButton}
@@ -198,7 +245,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
 
             {/* Only shows SUBMIT BUTTON on the last question */}
                 {currentIndex === detailedQuestions.length - 1 && (
-                    <div className="d-flex justify-content-end mt-4">
+                    <div className="d-flex justify-content-center mt-4">
                                     <Button className='submitButton' 
                                         onClick={submitButton} 
                                         disabled={!choice[currentQuestion.id]}
@@ -210,7 +257,7 @@ let DetailedQuiz: React.FC<DetailedQuizProps> = ({ navigateTo }) => {
                             </Container>
                             
             {/* popup with confetti for when quiz is complete */}
-             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+             <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName='themed-modal'>
              {showModal && <ReactConfetti />}
                     <Modal.Header closeButton>
                         <Modal.Title>Quiz Completed!</Modal.Title>
