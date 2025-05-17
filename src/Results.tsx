@@ -141,7 +141,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "gpt-3.5-turbo", //the model we're using
+          model: "gpt-4", //the model we're using
           messages: [{ role: "user", content: prompt }], //the user message we're sending 
           temperature: 0.7, //how creative the answer should be (0 = focused, 1 = creative)
         }),
