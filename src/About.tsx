@@ -62,7 +62,8 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
         <p>
           Once you enter your Chat GPT API key, you can proceed to the quizzes. Completing all of the Questions
           will allow you to proceed to the results page output, where Chat GPT will generate a report for you with
-          careers that best fit your responses.
+          careers that best fit your responses. Clicking on the starfish buttons allows you to proceed to the next
+          question and return to the previous question.
         </p>
         </div>
       </Container>
