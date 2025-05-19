@@ -3,6 +3,8 @@ import { Container, ProgressBar, Form, Navbar, Nav, Button, Modal} from 'react-b
 import ReactConfetti from 'react-confetti';
 import SwitchModeWrapper from './SwitchMode';
 
+//Interface thats define the structure of quiz question
+//Each question has an id, body, optional answer choises, and optional 'select all' flag
 export interface QuizQuestion {
     id: number;
     body: string;
@@ -86,47 +88,18 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
     added this useState to show a popup modal that appears
     when the user clicks the Submit button, telling them they have Completion
     the quiz and can now move on to the results page to see their results
-
-   
      */
     let [showModal, setShowModal] = React.useState(false);
 
-    // This is the encouragement message that appears when the user is 50% done with quiz
-    // let [showEncouragement, setShowEncouragement] = React.useState(false);
-    // const [prevAnsweredCount, setPrevAnsweredCount] = useState(0);
-
-    //This is the encouragement message goes away after the first time
-    // let [hasEncouraged, setHasEncouraged] = React.useState(false);
-
+  
     //Tracks which question the user is on
     let [currentIndex, setCurrentIndex] = React.useState(0);
 
     //Gets current question to display
     let currentQuestion = basicQuestions[currentIndex];
 
-    //Encouragement effect
-    // useEffect(() => {
-    //     const answeredCount = Object.keys(choice).length;
-    //     const halfway = Math.floor(basicQuestions.length / 2);
-    
-        // Trigger only when crossing INTO halfway and not shown yet
-        // if (
-        //     answeredCount >= halfway &&
-        //     prevAnsweredCount < halfway &&
-        //     !hasEncouraged
-        // ) {
-        //     setShowEncouragement(true);
-        //     setHasEncouraged(true);
-    
-        //     setTimeout(() => {
-        //         setShowEncouragement(false);
-        //     }, 3000);
-        // }
-    
-    //     setPrevAnsweredCount(answeredCount); // update for next run
-    // }, [choice]);
-
      //Updates the users answers when they select a choice
+     //Handles both radio and checkbox logic
     let trackChoices = (id: number, option: string|string[]) => {
         setChoice({ ...choice, [id]: option });
     };
@@ -150,7 +123,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         setShowModal(true);
     };
 
-    //LAYOUT & UI
+    // ======  LAYOUT & UI  ===== //
     return (
         <SwitchModeWrapper page="basicQuiz">
             <div className="basic-quiz-page">
@@ -203,34 +176,15 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                 </Container>
             </Navbar>
 
-
-        {/*Encouragement message*/}
-        {/* {showEncouragement && (
-    <Alert
-        variant="info"
-        style={{
-            position: 'fixed',
-            top: '70px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1051,
-            width: '80%',
-            maxWidth: '500px',
-            textAlign: 'center',
-            fontSize: '16px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-        }}
-    >
-        🎉 You're halfway there! Keep going!
-    </Alert>
-)}     */}
         {/*Quiz Card*/}
         <Container className='d-flex justify-content-center align-items-center'style={{minHeight: '100vh'}}>
 
             <div className='quiz-card p-4 rounded shadow' style={{maxWidth: '600px', width: '100%' }}>
              <h5 className="mb-4">Question {currentIndex + 1} of {basicQuestions.length}</h5>
 
-        {/* Progressbar logic, now containing check to ensure some question is selected, preventing bar from not going down if user deselects answer */}
+        {/* Progressbar logic, now containing check to ensure some question is selected, preventing bar from 
+            not going down if user deselects answer. Uses Boolean or rarray length check depending on answer type */}
+    
              <ProgressBar animated now={(Object.entries(choice).filter(([id, value]) => Array.isArray(value) ? value.length > 0 : Boolean(value)).length / basicQuestions.length) * 100} />
 
         {/* Quiz form with either Checkboxes(select all) or Radio(select only one) buttons */}
@@ -263,6 +217,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
                 />
             ))
         ) : (
+            //Single answer only (radio buttons)
             currentQuestion.options.map((option, index) => (
                 <Form.Check
                     key={index}
@@ -321,6 +276,7 @@ let BasicQuiz: React.FC<BasicQuizProps> = ({ navigateTo }) => {
         {/* Popup that shows when the quiz is finished */}
 
         {/* Completed Modal*/}
+        {/* Modal congratulates user and stores answers in localStorage for result generation */}
         <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName='themed-modal'>
         {showModal && <ReactConfetti />}
         <Modal.Header closeButton>

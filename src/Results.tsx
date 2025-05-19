@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Navbar, Nav, Card, Button } from 'react-bootstrap';
-import jsPDF from 'jspdf';
+import jsPDF from 'jspdf'; //library used to generate PDFs
 
 interface ResultPageProps {
   navigateTo: (page: string) => void;
 }
 
+//Shape for each quiz question
 interface QuizQuestion {
   id: number;
   body: string;
 }
 
+//Structure for each job suggestion from ChatGPT
 interface JobDetail{
   title: string;
   description: string;
@@ -20,16 +22,23 @@ interface JobDetail{
 }
 
 const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
+  //Stores user's answers retrieved from localStorage
   const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: string | string[] }>({});
+
+  //Whether data is still loading (waiting for API)
   const [loading, setLoading] = useState(true);
+
+  //Stores questions that match the quiz the user took
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+
+  //Stores job recommendation returned from ChatGPT
   const [jobSuggestions, setJobSuggestions] = useState<JobDetail[]>([]);
 
   useEffect(() => {
     //Step1: get the quiz answers stored in the local storage
     const stored = localStorage.getItem("quizAnswers");
 
-    //Step2: if the answers are found
+    //Step2: if the answers are found, parse them
     if (stored) {
       const parsedAnswers = JSON.parse(stored);
       //save the parsed answers, that were converted to a string, we need this to display it later
@@ -92,6 +101,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
       * Asks AI to suggest career options based on the questions and respective answers
       */
 
+      //Step 3: Generate GPT prompt from users answers
       const prompt = `You are a career advisor. A user has taken a career quiz to help identify roles they might thrive in and enjoy
       
       Evaluate the answers below and, based on all reponses, suggest 5 careers that would align well with this user's preferences. 
@@ -154,9 +164,13 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
         .then(data => {
           const text = data.choices?.[0]?.message?.content || "[]";
           try{
+
+            //Try to parse the GPT response as JSON
             const jobs: JobDetail[] = JSON.parse(text);
               setJobSuggestions(jobs);
             } catch (err) {
+
+              //If JSON parsing fails, show error message 
               console.error("Failed to parse job JSON:", text);
               setJobSuggestions([
                 {
@@ -191,7 +205,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
   const downloadPDF = () => {
     const doc = new jsPDF();
   
-    // Add title
+    // Add header/titlie
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(22);
     doc.text("The Career Lagoon Quiz Results", 20, 20);
@@ -208,6 +222,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
     // Smaller font for suggestions to fit on one page
     doc.setFontSize(10);
   
+    //Add each suggeestion line-by-line
     jobSuggestions.forEach((job, index) => {
       const lines = doc.splitTextToSize(`${index + 1}. ${job.title}: ${job.description}`, 170);
       lines.forEach((line: string | string[]) => {
@@ -269,16 +284,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
     <>
       <div
         className="results-page"
-        // style={{
-        //   backgroundImage: 'url("/forest3.jpg")',
-        //   backgroundSize: 'cover',
-        //   backgroundPosition: 'center',
-        //   backgroundRepeat: 'no-repeat',
-        //   minHeight: '100vh',
-        //   width: '100%',
-        //   display: 'flex',
-        //   flexDirection: 'column'
-        // }}
+     
       >
         <Navbar className='backdrop-blur' expand="lg">
           <Container>
@@ -299,7 +305,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
           <p>You finished the quiz, read below to see your Quiz Results.</p><br />
           {loading ? (
             <div className="loading-screen">
-            <img src="/bigfish.gif" alt="loading..." className='loading-gif'/>
+            <img src="./bigfish.gif" alt="loading..." className='loading-gif'/>
             {/* <Spinner animation="border" /> */}
               <p className="mt-2">Generating your results...</p>
             </div>

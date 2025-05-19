@@ -1,27 +1,32 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Form, Button, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SwitchModeWrapper from './SwitchMode'; // New night mode code
+import SwitchModeWrapper from './SwitchMode';
 
+
+//Props: Function that lets us switch pages (like going to the quiz)
 type HomePageProps = {
   navigateTo: (page: string) => void;
 };
 
+//Key used to store API key in local Storage
 const saveKeyData = "MYKEY";
 let keyData = "";
 
+//If a key is already saved in localStorage, use it to prefill th field 
 const prevKey = localStorage.getItem(saveKeyData);
 if (prevKey !== null) {
   keyData = JSON.parse(prevKey);
 }
 
 const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
-  const [key, setKey] = useState<string>(keyData);
-  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [successMessage, setSuccessMessage] = useState<boolean>(false);
+  const [key, setKey] = useState<string>(keyData); //Tracks API key input
+  const [switchMode, setSwitchMode] = useState<boolean>(localStorage.getItem("switchMode") === "true"); //Minecraft or Beach mode switch
+  const [loading, setLoading] = useState<boolean>(false); //Shows spinner while checking API key 
+  const [successMessage, setSuccessMessage] = useState<boolean>(false); //Shows sucess banner 
 
   // reference: https://platform.openai.com/docs/api-reference/authentication
+  //Checks if entered API key is valid by calling OPENAI's model endpoint 
   const validateApiKey = async (apiKey: string): Promise<boolean> => {
     try {
       const response = await fetch("https://api.openai.com/v1/models", {
@@ -37,27 +42,30 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
     }
   };
 
+  //When use clicks 'Submit' to save their API key
   const handleSubmit = async () => {
     setLoading(true);
     const isValid = await validateApiKey(key);
     setLoading(false);
 
     if (isValid) {
-      localStorage.setItem(saveKeyData, JSON.stringify(key));
+      localStorage.setItem(saveKeyData, JSON.stringify(key)); //Save to browser memory
       setSuccessMessage(true);
 
       setTimeout(() => {
         setSuccessMessage(false);
-      }, 3000);
+      }, 3000); //Hide message after 3 seconds
     } else {
       alert("Invalid API Key. Please enter a valid key.");
     }
   };
 
+  //Updates local state as user types their API key
   const changeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKey(event.target.value);
   };
 
+  //Toggles between beach and minecraft mode 
   const switchModeButton = () => {
     const newMode = !switchMode;
     setSwitchMode(newMode);
@@ -195,19 +203,6 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
             )}
           </div>
         </Form>
-
-        {/* <div className="night-toggle" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px', textAlign: "right", fontSize: "13px" }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span style={{ fontSize: '1.2rem' }}>
-              {nightMode ? '🏹' : '☀️'}
-            </span>
-            <Form.Check
-              type="switch"
-              id="night-mode-switch"
-              checked={nightMode}
-              onChange={nightModeButton}
-            />
-          </div> */}
           <p className="footer-text mt-2 mb-0">
             Vincent Tucci, Brooklyn Harden,<br />
             Taylor Jenkins, Sam Mullaney<br />
