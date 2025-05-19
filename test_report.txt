@@ -63,7 +63,7 @@
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (64 ms)
+  ✕ renders learn react link (68 ms)
 
   ● renders learn react link
 
@@ -197,7 +197,7 @@ FAIL src/App.test.tsx
                         [0mBasic Questions[0m
                       [36m</button>[39m
                       [36m<p>[39m
-                        [0mAn easier quiz for students with less time that contains only multiple choice questions.[0m
+                        [0mAn easier quiz for students with less time that contains only multiple choice questions. Consists of only 12 select multiple choice questions.[0m
                       [36m</p>[39m
                     [36m</div>[39m
                   [36m</div>[39m
@@ -214,7 +214,7 @@ FAIL src/App.test.tsx
                         [0mDetailed Questions[0m
                       [36m</button>[39m
                       [36m<p>[39m
-                        [0mA longer, more comprehensive quiz for students who want a more detailed response.[0m
+                        [0mA longer, more comprehensive quiz for students who want a more detailed response. Consists of 20 multiple choice and open ended questions.[0m
                       [36m</p>[39m
                     [36m</div>[39m
                   [36m</div>[39m
@@ -319,5 +319,5 @@ All files           |   11.52 |     8.08 |    7.52 |      12 |
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        3.865 s
+Time:        3.916 s
 Ran all test suites.
