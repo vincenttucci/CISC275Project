@@ -41,7 +41,7 @@
 
       1 | import React, { useEffect, useState } from 'react';
       2 | import { Container, Navbar, Nav, Card, Button } from 'react-bootstrap';
-    > 3 | import jsPDF from 'jspdf';
+    > 3 | import jsPDF from 'jspdf'; //library used to generate PDFs
         | ^
       4 |
       5 | interface ResultPageProps {
@@ -63,7 +63,7 @@
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
 FAIL src/App.test.tsx
-  ✕ renders learn react link (62 ms)
+  ✕ renders learn react link (68 ms)
 
   ● renders learn react link
 
@@ -307,11 +307,11 @@ File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 All files           |   11.63 |     8.08 |     7.6 |   12.12 |                                
  About.tsx          |    7.69 |        0 |       0 |      10 | 10-27                          
  App.tsx            |      35 |    21.42 |      75 |      35 | 23-24,30-41                    
- BasicQuestion.tsx  |    4.76 |        0 |       0 |    5.12 | 73-339                         
+ BasicQuestion.tsx  |    4.76 |        0 |       0 |    5.12 | 75-295                         
  Contact.tsx        |    2.94 |        0 |       0 |    3.22 | 10-114                         
  DetailedQuiz.tsx   |    4.65 |        0 |       0 |    5.12 | 51-273                         
- HomePage.tsx       |   25.45 |    27.27 |    9.09 |   26.92 | 15,26-36,41-53,58,62-64,75-147 
- Results.tsx        |    1.12 |        0 |       0 |    1.17 | 23-310                         
+ HomePage.tsx       |   25.45 |    27.27 |    9.09 |   26.92 | 19,31-41,47-59,65,70-72,83-155 
+ Results.tsx        |    1.12 |        0 |       0 |    1.17 | 26-316                         
  SwitchMode.tsx     |   81.81 |       50 |      75 |      80 | 17-18                          
  index.tsx          |       0 |      100 |     100 |       0 | 7-19                           
  reportWebVitals.ts |       0 |        0 |       0 |       0 | 3-10                           
@@ -319,5 +319,5 @@ All files           |   11.63 |     8.08 |     7.6 |   12.12 |
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        3.862 s
+Time:        3.869 s
 Ran all test suites.
