@@ -199,13 +199,14 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
   * JSPDF documentation: https://www.npmjs.com/package/jspdf
   * npm install jspdf
   * 
-  * Used Chat GPT to help learn how to use the library and create a PDF output with JSPDF library
+  * Used Chat GPT to help learn how to use the library and set up a PDF output with JSPDF library
   */
+
 
   const downloadPDF = () => {
     const doc = new jsPDF();
   
-    // Add header/titlie
+    // Add header/title
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(22);
     doc.text("The Career Lagoon Quiz Results", 20, 20);
@@ -224,46 +225,65 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
   
     //Add each suggeestion line-by-line
     jobSuggestions.forEach((job, index) => {
-      const lines = doc.splitTextToSize(`${index + 1}. ${job.title}: ${job.description}`, 170);
-      lines.forEach((line: string | string[]) => {
-        if (y > 270) {
-          doc.addPage();
-          y = 20;
-        }
-        doc.text(line, 20, y);
-        y += 6;
-      });
-      y += 4;
+    const sections = [
+    `${index + 1}. ${job.title}`,
+    `Description: ${job.description}`,
+    `Average Salary: ${job.salary}`,
+    `Education Needed: ${job.education}`,
+    `Best Training/Schools: ${job.training}`
+    ];
+
+    // Section different parts of output separately
+    sections.forEach(section => {
+    const lines = doc.splitTextToSize(section, 170); // lines that are too long get split onto next line
+    (lines as string[]).forEach((line: string) => {
+    if (y > 270) {
+      doc.addPage();
+      y = 20;
+    }
+    doc.text(line, 20, y);
+    y += 6; // add line spacing between lines
     });
+  y += 4;
+  });
+  y += 6; // Add extra spacing between jobs to separate them
+});
+
   
     // Start answers on a new page
     doc.addPage();
     y = 20;
     doc.setFontSize(14);
+    // header
     doc.setFont('helvetica', 'bold');
     doc.text("Your Quiz Answers", 20, y);
     doc.setLineWidth(0.5);
     doc.line(20, y + 2, 190, y + 2);
     y += 10;
   
+    // font for page content
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
   
+    // go throguh quiz answers and add them to the PDF
     quizQuestions.forEach((question, index) => {
       const answer = quizAnswers[question.id.toString()];
       if (answer !== undefined) {
+        // convert answers to strings
         const formattedAnswer = Array.isArray(answer) ? answer.join(", ") : answer;
         const text = `${index + 1}. ${question.body}\nAnswer: ${formattedAnswer}`;
         const lines = doc.splitTextToSize(text, 170);
+
+        // add each line to the PDF
         lines.forEach((line: string) => {
           if (y > 270) {
             doc.addPage();
             y = 20;
           }
           doc.text(line, 20, y);
-          y += 6;
+          y += 6; // add line spacing between lines
         });
-        y += 4;
+        y += 4; // spacing between questions
       }
     });
   
@@ -275,11 +295,6 @@ const ResultPage: React.FC<ResultPageProps> = ({ navigateTo }) => {
     doc.save("career_lagoon_results.pdf");
   };
   
-
-  
-  
-  
-
   return (
     <>
       <div
