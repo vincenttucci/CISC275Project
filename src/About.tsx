@@ -55,14 +55,16 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
         <h3>About Us</h3>
         <p>
           The Career Lagoon was founded in 2025 by a team of students at the University of Delaware who recognized the need
-          for more personalized career planning services.
+          for more personalized career planning services. The website is designed to provide users of all brackgrounds with
+          a fun and engaging way to explore potential career paths.
         </p>
 
         <h3>How to Use our Website:</h3>
         <p>
           Once you enter your Chat GPT API key, you can proceed to the quizzes. Completing all of the Questions
           will allow you to proceed to the results page output, where Chat GPT will generate a report for you with
-          careers that best fit your responses.
+          careers that best fit your responses. Clicking on the starfish buttons allows you to proceed to the next
+          question and return to the previous question.
         </p>
         </div>
       </Container>
