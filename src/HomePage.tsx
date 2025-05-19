@@ -132,7 +132,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 >
                   Basic Questions
                 </Button>
-                <p>An easier quiz for students with less time that contains only multiple choice questions.</p>
+                <p>An easier quiz for students with less time that contains only multiple choice questions. Consists of only 12 select multiple choice questions.</p>
               </div>
             </Col>
 
@@ -158,7 +158,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 >
                   Detailed Questions
                 </Button>
-                <p>A longer, more comprehensive quiz for students who want a more detailed response.</p>
+                <p>A longer, more comprehensive quiz for students who want a more detailed response. Consists of 20 multiple choice and open ended questions.</p>
               </div>
             </Col>
           </Row>
