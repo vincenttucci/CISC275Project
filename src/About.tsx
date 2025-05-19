@@ -55,7 +55,8 @@ const AboutPage: React.FC<AboutPageProps> = ({ navigateTo }) => {
         <h3>About Us</h3>
         <p>
           The Career Lagoon was founded in 2025 by a team of students at the University of Delaware who recognized the need
-          for more personalized career planning services.
+          for more personalized career planning services. The website is designed to provide users of all brackgrounds with
+          a fun and engaging way to explore potential career paths.
         </p>
 
         <h3>How to Use our Website:</h3>
